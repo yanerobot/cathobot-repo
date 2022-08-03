@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sounds/Weapons/fake automatic lazer - Isolated.mp3.meta
+guid: 6dd80ef7332c4c84381c3cfeeb647aec
+=======
+guid: 28afd6ea24fd3b14d8bdb4cf5e7ca51a
+>>>>>>> f4667ec7c58954a6bb0c3d71d77ed3b9c65359b3:Assets/Weapons/fake automatic lazer - Isolated.mp3.meta
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

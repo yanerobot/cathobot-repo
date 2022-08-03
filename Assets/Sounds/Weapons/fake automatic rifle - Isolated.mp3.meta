@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sounds/Weapons/fake automatic rifle - Isolated.mp3.meta
+guid: 56c0bab6423a0c34b99db70285b083a5
+=======
+guid: 43ab1a0e71fc5684e9e1fed3a09e5b6e
+>>>>>>> f4667ec7c58954a6bb0c3d71d77ed3b9c65359b3:Assets/Weapons/fake automatic rifle - Isolated.mp3.meta
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

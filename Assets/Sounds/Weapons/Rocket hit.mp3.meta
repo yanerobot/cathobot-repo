@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sounds/Weapons/Rocket hit.mp3.meta
+guid: 75db2ca3eb1f5fb47adbb805d3c082b3
+=======
+guid: 44ca7eef9909372478d30d586470b3d1
+>>>>>>> f4667ec7c58954a6bb0c3d71d77ed3b9c65359b3:Assets/Weapons/Rocket hit.mp3.meta
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
