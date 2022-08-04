@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class MouseCameraFollow : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MouseCameraFollow : MonoBehaviour
     [SerializeField] float threshholdInner;
     [SerializeField] float actualPositionModifier;
     [SerializeField] Transform player;
+    [SerializeField] CinemachineVirtualCamera cmVcam;
     Camera cam;
 
     Vector2 mousePos;
@@ -15,7 +17,17 @@ public class MouseCameraFollow : MonoBehaviour
 
     void Start()
     {
+        cmVcam.Follow = player;
+
         cam = Camera.main;
+
+        SafeZone.OnSafeZoneOut.AddListener(StartCameraFollow);
+    }
+
+    void StartCameraFollow()
+    {
+        cmVcam.Follow = transform;
+        SafeZone.OnSafeZoneOut.RemoveListener(StartCameraFollow);
     }
 
     void Update()
