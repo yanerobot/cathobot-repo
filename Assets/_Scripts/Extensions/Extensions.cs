@@ -57,12 +57,15 @@ public static class Extensions
         return vector;
     }
 
-    public static Vector2 Direction(this Transform t, Vector2 pos)
+    public static Vector2 Direction(this Vector2 from, Vector2 to)
     {
-        var heading = pos - (Vector2)t.position;
-        var distance = heading.magnitude;
-        var direction = heading / distance;
-        return direction;
+        var heading = to - from;
+        return heading.normalized;
+    }    
+    public static Vector3 Direction(this Vector3 from, Vector3 to)
+    {
+        var heading = to - from;
+        return heading.normalized;
     }
 
     #region Coroutine

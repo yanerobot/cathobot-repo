@@ -94,7 +94,7 @@ public class EnemyAI : StateMachine
 
     public bool IsPlayerVisible()
     {
-        var ray = Physics2D.Raycast(transform.position, transform.Direction(target.position), combatDistance, visibleLayers);
+        var ray = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), combatDistance, visibleLayers);
 
         if (ray.collider != null && ray.collider.transform == target)
             return true;

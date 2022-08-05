@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2720864799523658800, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: pickNextWaypointDist
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2720864799523658802, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: m_Name

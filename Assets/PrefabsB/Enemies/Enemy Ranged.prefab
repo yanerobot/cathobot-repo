@@ -288,7 +288,7 @@ MonoBehaviour:
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 1.52
-  pickNextWaypointDist: 0.5
+  pickNextWaypointDist: 0.25
   endReachedDistance: 0.81
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
@@ -331,24 +331,14 @@ MonoBehaviour:
   rb: {fileID: 2108511036}
   destinationSetter: {fileID: 2720864799523658801}
   aiPath: {fileID: 2720864799523658800}
-  aiManager: {fileID: 0}
   explosionPrefab: {fileID: 4390423827110283709, guid: 20023ebc4150e83449f64b5bbff50bc0, type: 3}
-  target: {fileID: 0}
-  attackDamage: 16
-  attackRadius: 1
   runningDistance: 20
-  combatDistance: 5
+  combatDistance: 9
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
-  delayBetweenAttacks: 1
   isStatic: 0
-  explosionRadius: 0
-  bulletSpeed: 7
-  bulletDamage: 10
-  bulletPrefab: {fileID: 6871634380604022873, guid: 10b9cc4b9510630439d5ac38fb00ffe7, type: 3}
-  isSoundOnAttack: 1
-  attackAudioClip: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
-  src: {fileID: -3458120904380979081}
+  target: {fileID: 0}
+  aiManager: {fileID: 0}
 --- !u!114 &4477672339259775072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +356,7 @@ MonoBehaviour:
   delayBetweenAttacks: 1
   attackingAudio: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
   isSoundOnAttack: 1
+  src: {fileID: 0}
   hitPoints:
   - {fileID: 1584414415}
   - {fileID: 8933834621262613498}
@@ -437,8 +428,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 10
+  m_AngularDrag: 10
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

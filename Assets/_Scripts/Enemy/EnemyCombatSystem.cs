@@ -24,8 +24,11 @@ public abstract class EnemyCombatSystem : MonoBehaviour
 
     public virtual void OnCombatStateEnter()
     {
-        attackDelay = new TimeCondition(delayBetweenAttacks);
-        attackDelay.ResetTimer(); 
+        if (attackDelay == null)
+            attackDelay = new TimeCondition(delayBetweenAttacks);
+
+        if (attackDelay.HasTimePassed())
+            attackDelay.ResetTimer();
         
         if (!isSoundOnAttack)
         {

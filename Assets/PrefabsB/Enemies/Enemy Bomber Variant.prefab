@@ -200,6 +200,7 @@ MonoBehaviour:
   delayBetweenAttacks: 0
   attackingAudio: {fileID: 0}
   isSoundOnAttack: 0
+  src: {fileID: 0}
   damagableLayers:
     serializedVersion: 2
     m_Bits: 8
