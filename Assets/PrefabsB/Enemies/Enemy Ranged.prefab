@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 2720864799523658800}
   - component: {fileID: 2720864799523658801}
   - component: {fileID: 829458436}
+  - component: {fileID: 4477672339259775072}
   - component: {fileID: 829458437}
   - component: {fileID: 2108511036}
   - component: {fileID: -3458120904380979081}
@@ -323,15 +324,10 @@ MonoBehaviour:
   updateTime: 0
   deltaTime: 0
   gfx: {fileID: 6499127620188406210}
-  staticTurret: {fileID: 0}
+  combatSystem: {fileID: 4477672339259775072}
   visibleLayers:
     serializedVersion: 2
     m_Bits: 520
-  damagableLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  hitPoint: {fileID: 1584414415}
-  hitPoint2: {fileID: 8933834621262613498}
   rb: {fileID: 2108511036}
   destinationSetter: {fileID: 2720864799523658801}
   aiPath: {fileID: 2720864799523658800}
@@ -345,9 +341,7 @@ MonoBehaviour:
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   delayBetweenAttacks: 1
-  isRanged: 1
   isStatic: 0
-  isExplosive: 0
   explosionRadius: 0
   bulletSpeed: 7
   bulletDamage: 10
@@ -355,7 +349,28 @@ MonoBehaviour:
   isSoundOnAttack: 1
   attackAudioClip: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
   src: {fileID: -3458120904380979081}
-  initialPoint: {x: 0, y: 0}
+--- !u!114 &4477672339259775072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2720864799523658802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d023cfeff8be29d479366ea36766e8da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoint: {fileID: 0}
+  attackDamage: 10
+  delayBetweenAttacks: 1
+  attackingAudio: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
+  isSoundOnAttack: 1
+  hitPoints:
+  - {fileID: 1584414415}
+  - {fileID: 8933834621262613498}
+  bulletPrefab: {fileID: 6871634380604022873, guid: 10b9cc4b9510630439d5ac38fb00ffe7, type: 3}
+  bulletSpeed: 7
 --- !u!114 &829458437
 MonoBehaviour:
   m_ObjectHideFlags: 0

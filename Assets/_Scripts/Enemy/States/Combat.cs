@@ -1,11 +1,8 @@
-using System.Collections;
 using UnityEngine;
 
 public class Combat : State
 {
     EnemyAI AI;
-    Coroutine attacking;
-    AudioClip mainClip;
 
     public Combat(StateMachine fsm)
     {
@@ -14,17 +11,7 @@ public class Combat : State
 
     public override void OnEnter()
     {
-        attacking = AI.StartCoroutine(StartAttacking());
-
-        if (!AI.isSoundOnAttack)
-        {
-            if (AI.attackAudioClip != null)
-            {
-                mainClip = AI.src.clip;
-                AI.src.clip = AI.attackAudioClip;
-                AI.src.Play();
-            }
-        }
+        AI.combatSystem.OnCombatStateEnter();
     }
 
     public override void OnUpdate()
@@ -33,36 +20,18 @@ public class Combat : State
 
         if (AI.isStatic)
         {
-            AI.staticTurret.transform.up = dir;
+            AI.gfx.transform.up = dir;
         }
         else
         {
             AI.transform.up = dir;
         }
+
+        AI.combatSystem.OnCombatStateUpdate();
     }
 
     public override void OnExit()
     {
-        if (attacking != null)
-            AI.StopCoroutine(attacking);
-
-        if (mainClip != null)
-        {
-            AI.src.clip = mainClip;
-            AI.src.Play();
-        }
-    }
-
-    IEnumerator StartAttacking()
-    {
-        yield return new WaitForSeconds(AI.delayBetweenAttacks / 2);
-        while (true)
-        {
-            if (AI.Attack())
-                if (AI.isSoundOnAttack)
-                    AI.src.PlayOneShot(AI.attackAudioClip);
-
-            yield return new WaitForSeconds(AI.delayBetweenAttacks);
-        }
+        AI.combatSystem.OnCombatStateExit();
     }
 }

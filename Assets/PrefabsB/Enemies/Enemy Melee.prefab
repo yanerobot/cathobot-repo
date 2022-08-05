@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 2720864799523658800}
   - component: {fileID: 2720864799523658801}
   - component: {fileID: 829458436}
+  - component: {fileID: 2671831521219342037}
   - component: {fileID: 829458437}
   - component: {fileID: 2108511036}
   - component: {fileID: 8224808444030959249}
@@ -312,15 +313,10 @@ MonoBehaviour:
   updateTime: 0
   deltaTime: 0
   gfx: {fileID: 7211357821288810235}
-  staticTurret: {fileID: 0}
+  combatSystem: {fileID: 2671831521219342037}
   visibleLayers:
     serializedVersion: 2
-    m_Bits: 0
-  damagableLayers:
-    serializedVersion: 2
     m_Bits: 8
-  hitPoint: {fileID: 1584414415}
-  hitPoint2: {fileID: 0}
   rb: {fileID: 2108511036}
   destinationSetter: {fileID: 2720864799523658801}
   aiPath: {fileID: 2720864799523658800}
@@ -334,9 +330,7 @@ MonoBehaviour:
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   delayBetweenAttacks: 0.3
-  isRanged: 0
   isStatic: 0
-  isExplosive: 0
   explosionRadius: 0
   bulletSpeed: 0
   bulletDamage: 0
@@ -344,7 +338,27 @@ MonoBehaviour:
   isSoundOnAttack: 0
   attackAudioClip: {fileID: 8300000, guid: cf94c1476952b454ea8f76bc6a046785, type: 3}
   src: {fileID: 8224808444030959249}
-  initialPoint: {x: 0, y: 0}
+--- !u!114 &2671831521219342037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2720864799523658802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 121f71a21948213458fb83abe440ac50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoint: {fileID: 1584414415}
+  attackDamage: 3
+  delayBetweenAttacks: 0.3
+  attackingAudio: {fileID: 8300000, guid: cf94c1476952b454ea8f76bc6a046785, type: 3}
+  isSoundOnAttack: 0
+  damagableLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  attackRadius: 1
 --- !u!114 &829458437
 MonoBehaviour:
   m_ObjectHideFlags: 0

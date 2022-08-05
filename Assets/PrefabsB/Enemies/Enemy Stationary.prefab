@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 2959289012639193707}
   - component: {fileID: 2959289012639193706}
   - component: {fileID: 924352498529668703}
+  - component: {fileID: 5503611937729852963}
   - component: {fileID: 924352498529668702}
   - component: {fileID: 924352499815994727}
   - component: {fileID: -8475903353794287845}
@@ -376,15 +377,10 @@ MonoBehaviour:
   updateTime: 0
   deltaTime: 0
   gfx: {fileID: 6260706696975943577}
-  staticTurret: {fileID: 924352498119681024}
+  combatSystem: {fileID: 5503611937729852963}
   visibleLayers:
     serializedVersion: 2
     m_Bits: 520
-  damagableLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  hitPoint: {fileID: 924352499251132564}
-  hitPoint2: {fileID: 0}
   rb: {fileID: 924352499815994727}
   destinationSetter: {fileID: 2959289012639193706}
   aiPath: {fileID: 2959289012639193707}
@@ -398,9 +394,7 @@ MonoBehaviour:
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   delayBetweenAttacks: 0.5
-  isRanged: 1
   isStatic: 1
-  isExplosive: 0
   explosionRadius: 0
   bulletSpeed: 7
   bulletDamage: 10
@@ -408,7 +402,27 @@ MonoBehaviour:
   isSoundOnAttack: 1
   attackAudioClip: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
   src: {fileID: -8475903353794287845}
-  initialPoint: {x: 0, y: 0}
+--- !u!114 &5503611937729852963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959289012639193705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d023cfeff8be29d479366ea36766e8da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoint: {fileID: 0}
+  attackDamage: 15
+  delayBetweenAttacks: 0.5
+  attackingAudio: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
+  isSoundOnAttack: 1
+  hitPoints:
+  - {fileID: 924352499251132564}
+  bulletPrefab: {fileID: 6871634380604022873, guid: 10b9cc4b9510630439d5ac38fb00ffe7, type: 3}
+  bulletSpeed: 7
 --- !u!114 &924352498529668702
 MonoBehaviour:
   m_ObjectHideFlags: 0

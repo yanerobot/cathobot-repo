@@ -1,48 +1,64 @@
-using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyAI))]
 public abstract class EnemyCombatSystem : MonoBehaviour
 {
-    [SerializeField] protected EnemyAI AI;
+    [Header("General")]
+    [SerializeField] protected Transform hitPoint;
+    [SerializeField] protected int attackDamage;
+    [SerializeField] protected float delayBetweenAttacks;
+    [SerializeField] protected AudioClip attackingAudio;
+    [SerializeField] protected bool isSoundOnAttack;
 
-    public abstract void OnCombatStateEnter();
+    [HideInInspector]
+    public AudioSource src;
 
-    public abstract void OnCombatStateUpdate();
+    TimeCondition attackDelay;
 
-    public abstract void OnCombatStateExit();
+    AudioClip mainClip;
 
-    protected IEnumerator StartAttacking()
+    void Start()
     {
-        yield return new WaitForSeconds(AI.delayBetweenAttacks / 2);
-        while (true)
-        {
-            if (AI.Attack())
-                if (AI.isSoundOnAttack)
-                    AI.src.PlayOneShot(AI.attackAudioClip);
-
-            yield return new WaitForSeconds(AI.delayBetweenAttacks);
-        }
+        src = GetComponent<AudioSource>();
     }
-/*    public bool Attack()
-    {
-        if (isRanged)
-            return RangedAttack();
-        else if (isExplosive)
-            Explode();
-        else
-            MeleeAttack();
-        return true;
-    }
-    void MeleeAttack()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(hitPoint.position, attackRadius, damagableLayers);
 
-        foreach (var coll in colliders)
+    public virtual void OnCombatStateEnter()
+    {
+        attackDelay = new TimeCondition(delayBetweenAttacks);
+        attackDelay.ResetTimer(); 
+        
+        if (!isSoundOnAttack)
         {
-            if (coll.TryGetComponent(out Health health))
+            if (attackingAudio != null)
             {
-                health.TakeDamage(attackDamage);
+                mainClip = src.clip;
+                src.clip = attackingAudio;
+                src.Play();
             }
         }
-    }*/
+    }
+
+    public virtual void OnCombatStateUpdate()
+    {
+        if (attackDelay.HasTimePassed())
+        {
+            Attack();
+            attackDelay.ResetTimer();
+
+
+            if (isSoundOnAttack)
+                src.PlayOneShot(attackingAudio);
+        }
+    }
+
+    public virtual void OnCombatStateExit()
+    {
+        if (mainClip != null)
+        {
+            src.clip = mainClip;
+            src.Play();
+        }
+    }
+
+    protected abstract void Attack();
 }

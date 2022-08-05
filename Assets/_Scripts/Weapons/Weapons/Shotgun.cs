@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Shotgun : Weapon
 {
@@ -20,13 +19,15 @@ public class Shotgun : Weapon
         canShoot = false;
         Invoke(nameof(EnableShooting), stats.delayBetweenShots);
 
-        src.PlayOneShot(shotGunReload);
+        if (shotGunReload != null)
+            src.PlayOneShot(shotGunReload);
 
         SpreadShot();
     }
 
     void SpreadShot()
     {
+
         GameObject bullet;
 
         float singleBulletAngle = shotgunStats.shotgunSpreadAngle / shotgunStats.shotgunMaxBulletsPershot;

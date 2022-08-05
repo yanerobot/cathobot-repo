@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedCombatSystem : MonoBehaviour
+public class RangedCombatSystem : EnemyCombatSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Ranged")]
+    [SerializeField] Transform[] hitPoints;
+    [SerializeField] GameObject bulletPrefab;
+
+    [SerializeField] float bulletSpeed;
+
+    int currentHitPointIndex;
+
+    public override void OnCombatStateEnter()
     {
-        
+        base.OnCombatStateEnter();
+        currentHitPointIndex = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Attack()
     {
-        
+        var shootPoint = hitPoints[currentHitPointIndex];
+
+        currentHitPointIndex = (currentHitPointIndex + 1) % hitPoints.Length;
+
+
+        var go = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation, null);
+        var bullet = go.GetComponent<Bullet>();
+
+        bullet.Init(gameObject, attackDamage, bulletSpeed);
     }
 }

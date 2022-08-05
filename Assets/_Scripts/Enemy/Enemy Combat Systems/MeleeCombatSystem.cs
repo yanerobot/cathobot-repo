@@ -1,38 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeCombatSystem : EnemyCombatSystem
 {
-    [SerializeField] int attackDamage;
-    [SerializeField] float attackRadius;
-    [SerializeField] public AudioClip attackingAudio;
-    [SerializeField] bool isSoundOnAttack;
+    [Header("Melee")]
+    [SerializeField] protected LayerMask damagableLayers;
+    [SerializeField] protected float attackRadius;
 
-    public float delayBetweenAttacks;
-
-    AudioClip currentClip;
-
-    public override void OnCombatStateEnter()
+    protected override void Attack()
     {
-        if (!isSoundOnAttack)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(hitPoint.position, attackRadius, damagableLayers);
+
+        foreach (var coll in colliders)
         {
-            if (attackingAudio != null)
+            if (coll.TryGetComponent(out Health health))
             {
-                currentClip = AI.src.clip;
-                AI.src.clip = AI.attackAudioClip;
-                AI.src.Play();
+                health.TakeDamage(attackDamage);
             }
         }
-    }
-
-    public override void OnCombatStateUpdate()
-    {
-
-    }
-
-    public override void OnCombatStateExit()
-    {
-
     }
 }

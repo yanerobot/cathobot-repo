@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Automatic : Weapon
 {
+    [SerializeField] float fireRateDelayChanged;
+    [SerializeField] float timeToChange;
+
     protected Coroutine shooting;
     protected override void Shoot()
     {
@@ -21,11 +24,21 @@ public class Automatic : Weapon
 
     IEnumerator AutoShoot(float delay)
     {
+        float currentTime = 0;
+        float finalDelay = delay;
+
         while (true)
         {
             SingleShot();
             src.PlayOneShot(stats.shootSFX);
-            yield return new WaitForSeconds(delay);
+
+            if (fireRateDelayChanged != 0)
+            {
+                finalDelay = Mathf.Lerp(delay, fireRateDelayChanged, currentTime/timeToChange);
+                currentTime += Time.deltaTime;
+            }
+
+            yield return new WaitForSeconds(finalDelay);
         }
     }
 }

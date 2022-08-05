@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -14,11 +13,17 @@ public class Weapon : Item
 
     protected bool canShoot = true;
 
+    int currentBullets = -1;
+
     protected override void Awake()
     {
         base.Awake();
         GFX = GetComponentInChildren<SpriteRenderer>();
         src = GetComponent<AudioSource>();
+        if (stats.reloadTime > 0)
+        {
+            currentBullets = stats.maxBullets;
+        }
     }
 
     protected virtual void Shoot()
@@ -28,10 +33,13 @@ public class Weapon : Item
 
     protected void SingleShot()
     {
-        if (canShoot == false && !(this is Automatic))
+        if ((canShoot == false) && !(this is Automatic))
             return;
 
+
         canShoot = false;
+        
+
         Invoke(nameof(EnableShooting), stats.delayBetweenShots);
 
         var bulletGO = Instantiate(stats.bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
@@ -40,6 +48,11 @@ public class Weapon : Item
         bullet.Init(character.gameObject, stats.damage, stats.bulletSpeed, character.Modifier);
 
         PlayShootEffects();
+    }
+
+    void Reload()
+    {
+        currentBullets = stats.maxBullets;
     }
 
     protected void EnableShooting()
@@ -52,14 +65,16 @@ public class Weapon : Item
         shootEffect?.Play();
         var initialPitch = src.pitch;
         src.pitch = src.pitch + Random.Range(-stats.pitchRandomness, stats.pitchRandomness);
-        //remove comment after added audioclip
         src.PlayOneShot(stats.shootSFX);
         src.pitch = initialPitch;
     }
 
-    public override void Aim(Vector2 aimPoint)
+    public override void WasEquippedBy(EquipmentSystem character)
     {
+        base.WasEquippedBy(character);
 
+        if (currentBullets == 0)
+            this.Co_DelayedExecute(Reload, stats.reloadTime);
     }
 
     public override void WasTossedAway()
@@ -70,6 +85,17 @@ public class Weapon : Item
 
     public override void Use()
     {
+        if (stats.reloadTime > 0)
+        {
+            if (currentBullets <= 0)
+                return;
+
+            currentBullets--;
+
+            if (currentBullets == 0)
+                this.Co_DelayedExecute(Reload, stats.reloadTime);
+        }
+
         Shoot();
     }
 }
