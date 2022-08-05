@@ -1,15 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1989733571563806836
+--- !u!1001 &685229809414483160
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: Pierce
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Name
-      value: PowerUpBullet
+      value: Minigun Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965041, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_RootOrder
@@ -56,24 +60,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
+      propertyPath: m_LocalScale.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0089
-      objectReference: {fileID: 0}
-    - target: {fileID: 4953967475412206545, guid: ede74126933203949be4f072765e4370, type: 3}
-      propertyPath: m_Name
-      value: GFX
+      propertyPath: m_LocalScale.y
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fc0f845c79dfc9c4e81f420476a7ba68, type: 3}
+    - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.b
-      value: 0.9208169
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.9456895
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.r

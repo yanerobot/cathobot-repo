@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f564f1594c190843be79d5a61c405fd, type: 3}
   m_Name: Minigun
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
+  bulletPrefab: {fileID: 5567130606645669109, guid: ca080cd005b7458409dd08bbc3c38ffc, type: 3}
   isAutomatic: 1
-  delayBetweenShots: 1
-  damage: 25
-  bulletSpeed: 20
+  delayBetweenShots: 0.5
+  damage: 20
+  bulletSpeed: 40
   maxBullets: 0
   reloadTime: 0
   shootSFX: {fileID: 8300000, guid: 6dd80ef7332c4c84381c3cfeeb647aec, type: 3}

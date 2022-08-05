@@ -3993,34 +3993,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1822338219}
     m_Modifications:
-    - target: {fileID: 4163167355397711058, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
-      propertyPath: timeToChange
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163167355397711058, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
-      propertyPath: fireRateDelayChanged
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204120438584622501, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204120438584622501, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204120438584622502, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204120438584622502, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
-      propertyPath: m_Color.g
-      value: 0.10007739
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204120438584622502, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8204120438709834959, guid: 4992b51fbb7bc1a4bb5d39b93d8373dd, type: 3}
       propertyPath: m_RootOrder
       value: 0

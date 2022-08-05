@@ -35,7 +35,7 @@ public class Automatic : Weapon
             if (fireRateDelayChanged != 0)
             {
                 finalDelay = Mathf.Lerp(delay, fireRateDelayChanged, currentTime/timeToChange);
-                currentTime += Time.deltaTime;
+                currentTime += finalDelay;
             }
 
             yield return new WaitForSeconds(finalDelay);

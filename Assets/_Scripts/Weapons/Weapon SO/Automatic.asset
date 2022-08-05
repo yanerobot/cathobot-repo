@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Automatic
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
-  sus: {fileID: 0}
   isAutomatic: 1
-  delayBetweenShots: 0.1
+  delayBetweenShots: 0.12
   damage: 25
   bulletSpeed: 20
-  bulletGravityScale: 0
+  maxBullets: 0
+  reloadTime: 0
   shootSFX: {fileID: 8300000, guid: 6dd80ef7332c4c84381c3cfeeb647aec, type: 3}
-  emptyMagSFX: {fileID: 0}
   pitchRandomness: 0.5
