@@ -7,8 +7,8 @@ public class EquipmentSystem : MonoBehaviour, IFreezible
     [SerializeField] internal Transform itemHolder;
     [SerializeField] float pickCooldown;
 
-    [HideInInspector]
     public UnityAction<Item> OnEquip, OnToss;
+    public UnityAction<float> OnReloadStart;
 
     [HideInInspector]
     public string holder;
@@ -21,6 +21,7 @@ public class EquipmentSystem : MonoBehaviour, IFreezible
     Vector3 mouseDir;
 
     public static bool LevelEnded;
+
 
     public float Modifier { get; set; } = 1;
 
@@ -160,6 +161,7 @@ public class EquipmentSystem : MonoBehaviour, IFreezible
     {
         Modifier = 1;
     }
+    
 
     protected virtual void OnSetItem(Item item) { }
     protected virtual void OnUnsetItem(Item item) { }

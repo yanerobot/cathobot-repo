@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1989733571563806836
+--- !u!1001 &760672413503336274
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Name
-      value: PistolBullet Variant
+      value: Posion Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965038, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_LinearDrag
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965041, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_RootOrder
@@ -60,28 +60,53 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
-      propertyPath: m_LocalScale.y
+      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0089
-      objectReference: {fileID: 0}
-    - target: {fileID: 4953967475412206545, guid: ede74126933203949be4f072765e4370, type: 3}
-      propertyPath: m_Name
-      value: GFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
-      propertyPath: m_Color.b
-      value: 0.21173012
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.g
-      value: 0.735849
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.r
-      value: 0.3202991
+      value: 0.047864318
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ede74126933203949be4f072765e4370, type: 3}
+--- !u!50 &5642575666394656636 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 4953967475146965038, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 760672413503336274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &5642575666394656637 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4953967475146965039, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 760672413503336274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5642575666394656639 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 760672413503336274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &29812406777060965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642575666394656639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb3d9a12986d6e4fa4d01b5e482212f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5642575666394656636}
+  audioSrc: {fileID: 5642575666394656637}
+  destroyOnCollision: 1
+  poisonPuddle: {fileID: 174621642970443474, guid: 3265cb9463760664e87af794ce8eea9d, type: 3}
+  poisonPuddleTime: 8

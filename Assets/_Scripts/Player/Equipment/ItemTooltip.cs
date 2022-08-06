@@ -6,24 +6,17 @@ public class ItemTooltip : MonoBehaviour
 {
     [SerializeField] RectTransform eButtonTip;
     [SerializeField] Vector3 offset;
+    [SerializeField] UIBehaiv ui;
+
 
     EquipmentSystem es;
     Camera cam;
-
     Item bestItem;
 
-    IEnumerator Start()
+    void Start()
     {
-        GameObject player = null;
-
-        while (player == null)
-        {
-            player = GameObject.FindWithTag(TopDownMovement.PLAYERTAG);
-
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        player.TryGetComponent(out es);
+        var player = ui.GetPlayerHealth();
+        es = player.GetComponent<EquipmentSystem>();
         cam = Camera.main;
     }
 

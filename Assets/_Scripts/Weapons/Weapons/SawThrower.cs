@@ -9,7 +9,7 @@ public class SawThrower : Weapon
     }
     protected override void Shoot()
     {
-        if (sawBullet == null && CurrentBullets > 0)
+        if (sawBullet == null && HasBullets())
         {
             var bullet = SingleShot();
 

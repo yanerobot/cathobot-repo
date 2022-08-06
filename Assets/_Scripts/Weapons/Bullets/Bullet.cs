@@ -13,8 +13,6 @@ public class Bullet : MonoBehaviour
     protected int damage = 10;
     protected float speed = 30f;
 
-    float modifier;
-
     bool collided;
 
     void DestroySelf()
@@ -24,8 +22,7 @@ public class Bullet : MonoBehaviour
 
     public void Init(GameObject holder, int damage, float speed, float modifier = 1)
     {
-        this.modifier = modifier;
-        this.damage = damage;
+        this.damage = Mathf.RoundToInt(damage * modifier);
         this.speed = speed;
         this.holder = holder; 
         
@@ -78,7 +75,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.TryGetComponent(out Health health))
         {
-            health.TakeDamage(Mathf.RoundToInt(damage * modifier));
+            health.TakeDamage(Mathf.RoundToInt(damage));
         }
 
     }

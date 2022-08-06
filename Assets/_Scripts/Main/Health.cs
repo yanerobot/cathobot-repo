@@ -112,17 +112,18 @@ public class Health : MonoBehaviour
         _OnRestore?.Invoke(currentHealth);
     }
 
-    public void TickDamage(float tickRate, int damage, Func<bool> predicate, int id)
+    public void TickDamage(float tickRate, int damage, int id)
     {
         if (tickingSourcesCoroutines == null)
             tickingSourcesCoroutines = new Dictionary<string, Coroutine>();
 
-        var coroutine = StartCoroutine(Co_TickDamage(tickRate, damage, predicate));
+        var coroutine = StartCoroutine(Co_TickDamage(tickRate, damage));
 
         string idStr = id + "" + transform.GetInstanceID();
 
         if (tickingSourcesCoroutines.ContainsKey(idStr))
         {
+            StopCoroutine(tickingSourcesCoroutines[idStr]);
             tickingSourcesCoroutines[idStr] = coroutine;
         }
         else
@@ -141,9 +142,9 @@ public class Health : MonoBehaviour
             StopCoroutine(coroutine);
     }
 
-    IEnumerator Co_TickDamage(float tickRate, int damage, Func<bool> predicate)
+    IEnumerator Co_TickDamage(float tickRate, int damage)
     {
-        while (predicate() == false)
+        while (true)
         {
             TakeDamage(damage);
             yield return new WaitForSeconds(tickRate);

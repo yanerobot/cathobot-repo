@@ -24,13 +24,21 @@ public class Weapon : Item
         set
         {
             currentBullets = value;
-            if (currentBullets <= 0)
-                Reload();
+
+            if (stats.reloadTime <= 0)
+                return;
+
             OnChangeBullets?.Invoke(GetBullets());
+
+            if (currentBullets <= 0)
+            {
+                Reload();
+            }
         }
     }
 
     public UnityAction<(int, int)> OnChangeBullets;
+    public UnityAction OnReload;
 
     protected override void Awake()
     {
@@ -68,6 +76,15 @@ public class Weapon : Item
     protected void Reload()
     {
         this.Co_DelayedExecute(() => CurrentBullets = stats.maxBullets, stats.reloadTime);
+        character?.OnReloadStart?.Invoke(stats.reloadTime);
+    }
+
+    protected bool HasBullets()
+    {
+        if (stats.reloadTime <= 0)
+            return true;
+
+        return CurrentBullets > 0;
     }
 
     protected void EnableShooting()
@@ -93,7 +110,7 @@ public class Weapon : Item
     {
         base.WasEquippedBy(character);
 
-        if (CurrentBullets == 0)
+        if (!HasBullets())
             this.Co_DelayedExecute(Reload, stats.reloadTime);
     }
 

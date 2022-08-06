@@ -4,8 +4,17 @@ using UnityEngine.UI;
 public class UIReloadSlider : MonoBehaviour
 {
     [SerializeField] Slider slider;
+    [SerializeField] UIBehaiv ui;
 
+    EquipmentSystem es;
     bool canFill;
+
+    void Start()
+    {
+        es = ui.GetPlayerHealth().GetComponent<EquipmentSystem>();
+        es.OnReloadStart += StartReload;
+    }
+
     public void StartReload(float time)
     {
         slider.gameObject.SetActive(true);

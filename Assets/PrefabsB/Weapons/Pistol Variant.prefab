@@ -69,15 +69,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.14240764
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalRotation.w
@@ -85,15 +85,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -150,6 +150,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 099d1fe32b28fd34c9ea5ead8de5bb75, type: 2}
   shootingPoint: {fileID: 7553844021603960034}
   shootEffect: {fileID: 7553844022427529703}
+  GFX: {fileID: 0}
 --- !u!198 &7553844022427529703 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5195059377260591697, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}

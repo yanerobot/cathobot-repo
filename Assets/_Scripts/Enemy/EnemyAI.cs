@@ -8,7 +8,7 @@ using UnityEditor;
 public class EnemyAI : StateMachine
 {
     [Header("References")]
-    [SerializeField] public GFXBehaivior gfx;
+    [SerializeField] public CharacterGFXBehaivior gfx;
     [SerializeField] public EnemyCombatSystem combatSystem;
     [SerializeField] LayerMask visibleLayers;
     [SerializeField] public Rigidbody2D rb;

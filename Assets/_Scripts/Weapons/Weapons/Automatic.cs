@@ -31,7 +31,7 @@ public class Automatic : Weapon
 
         while (true)
         {
-            if (CurrentBullets <= 0)
+            if (!HasBullets())
                 break;
 
             CurrentBullets--;

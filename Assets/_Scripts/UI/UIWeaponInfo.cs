@@ -9,23 +9,16 @@ public class UIWeaponInfo : MonoBehaviour
     [SerializeField] GameObject infniteAmmoGO;
     [SerializeField] TextMeshProUGUI bulletTextObj;
     [SerializeField] Image weaponImage;
+    [SerializeField] UIBehaiv ui;
     EquipmentSystem es;
 
     Weapon currentWeapon;
 
-    IEnumerator Start()
+    void Start()
     {
-        GameObject player = null;
-        WaitForSeconds wfs = new WaitForSeconds(0.1f);
-
-        while (player == null)
-        {
-            player = GameObject.FindWithTag(TopDownMovement.PLAYERTAG);
-            yield return wfs;
-        }
+        var player = ui.GetPlayerHealth();
 
         es = player.GetComponent<EquipmentSystem>();
-
         es.OnEquip += EnableUI;
         es.OnToss += DisableUI;
     }

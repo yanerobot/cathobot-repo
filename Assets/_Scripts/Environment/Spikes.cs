@@ -28,7 +28,7 @@ public class Spikes : MonoBehaviour
     {
         if (collision.TryGetComponent(out Health health))
         {
-            health.TickDamage(tickRate, damage, () => false, 0);
+            health.TickDamage(tickRate, damage, 0);
             takingDamage.Add(health);
             src.Play();
             if (currentNum == 0)

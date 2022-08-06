@@ -3,8 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class UIBehaiv : MonoBehaviour
 {
-    [SerializeField] GameObject gos;
-    [SerializeField] GameObject egs;
+    [SerializeField] GameObject gameOverGO;
+    [SerializeField] GameObject levelCompletedGO;
+
+    Health playerHealth;
+    void Awake()
+    {
+        gameOverGO.SetActive(false);
+        var player = GameObject.FindWithTag(TopDownMovement.PLAYERTAG);
+
+        playerHealth = player.GetComponent<Health>();
+        playerHealth._OnDie.AddListener(EnableGameOverUI);
+    }
+
+    void OnDestroy()
+    {
+        playerHealth?._OnDie.RemoveListener(EnableGameOverUI);
+    }
 
     void Update()
     {
@@ -19,16 +34,21 @@ public class UIBehaiv : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public Health GetPlayerHealth()
+    {
+        return playerHealth;
+    }
+
     public void EnableGameOverUI()
     {
-        gos.SetActive(true);
+        gameOverGO.SetActive(true);
         EquipmentSystem.LevelEnded = true;
         TopDownMovement.LevelEnded = true;
     }
 
     public void EnableLevelCompletedUI()
     {
-        egs.SetActive(true);
+        levelCompletedGO.SetActive(true);
         EquipmentSystem.LevelEnded = true;
         TopDownMovement.LevelEnded = true;
     }

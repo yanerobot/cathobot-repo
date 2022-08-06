@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
-public class GFXBehaivior : MonoBehaviour
+public class CharacterGFXBehaivior : MonoBehaviour
 {
     [SerializeField] SpriteRenderer sr;
     [SerializeField] Color damagedColor;
@@ -11,6 +9,8 @@ public class GFXBehaivior : MonoBehaviour
     [SerializeField] float delayBetweenBlinks;
 
     Color normalColor;
+    Color initialDamagedColor;
+    Color initalNormalColor;
     void Start()
     {
         normalColor = sr.color;
@@ -18,8 +18,23 @@ public class GFXBehaivior : MonoBehaviour
 
     public float Blink()
     {
+        StopAllCoroutines();
         StartCoroutine(Co_Blink());
         return timeToBlink;
+    }
+
+    public void TiltTickColor(Color color)
+    {
+        initialDamagedColor = damagedColor;
+        initalNormalColor = normalColor;
+        damagedColor *= color;
+        normalColor *= color;
+    }
+
+    public void ResetDamagedColor()
+    {
+        damagedColor = initialDamagedColor;
+        normalColor = initalNormalColor;
     }
 
     public IEnumerator Co_Blink()

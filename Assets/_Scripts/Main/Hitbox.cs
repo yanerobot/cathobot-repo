@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour, IBuffable
 {
-    [SerializeField] GFXBehaivior gfx;
+    [SerializeField] CharacterGFXBehaivior gfx;
     [SerializeField] CapsuleCollider2D mainCollider;
     [SerializeField] Transform GFX;
     [SerializeField] GameObject explosionPrefab;

@@ -6,7 +6,7 @@ public class SingleShotter : Weapon
 {
     protected override void Shoot()
     {
-        if (CurrentBullets <= 0)
+        if (!HasBullets())
             return;
 
         CurrentBullets--;

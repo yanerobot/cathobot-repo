@@ -16,7 +16,7 @@ public class Shotgun : Weapon
         if (canShoot == false)
             return;
      
-        if (CurrentBullets <= 0)
+        if (!HasBullets())
             return;
 
         CurrentBullets--;

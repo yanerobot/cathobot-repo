@@ -25,11 +25,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.1569824
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2564087
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalPosition.z
@@ -41,15 +41,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -107,6 +107,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 8b47483270d816e4490180a2de746bc6, type: 2}
   shootingPoint: {fileID: 6672767579084116924}
   shootEffect: {fileID: 6672767578309715641}
+  GFX: {fileID: 0}
   shotGunReload: {fileID: 8300000, guid: d70ba7531d099b2478c57ab40f473a74, type: 3}
 --- !u!4 &6672767579084116924 stripped
 Transform:

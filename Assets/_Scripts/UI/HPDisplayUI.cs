@@ -7,19 +7,12 @@ public class HPDisplayUI : MonoBehaviour
 {
     [SerializeField] Image hpFill;
     [SerializeField] TextMeshProUGUI textObj;
+    [SerializeField] UIBehaiv ui;
     Health health;
 
-    IEnumerator Start()
+    void Start()
     {
-        GameObject player = null;
-
-        while (player == null)
-        {
-            player = GameObject.FindWithTag(TopDownMovement.PLAYERTAG);
-            yield return null;
-        }
-
-        Init(player);
+        health = ui.GetPlayerHealth();
     }
 
     void OnDestroy()
