@@ -11,7 +11,6 @@ public class SafeZone : MonoBehaviour
 
     void OnEnable()
     {
-        OnSafeZoneOut?.RemoveAllListeners();
         OnSafeZoneOut = new UnityEvent();
     }
 
@@ -22,5 +21,10 @@ public class SafeZone : MonoBehaviour
             OnSafeZoneOut?.Invoke();
             Destroy(gameObject);
         }
+    }
+
+    void OnDisable()
+    {
+        OnSafeZoneOut?.RemoveAllListeners();
     }
 }

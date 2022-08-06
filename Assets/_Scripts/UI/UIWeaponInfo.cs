@@ -1,0 +1,87 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class UIWeaponInfo : MonoBehaviour
+{
+    [SerializeField] GameObject bulletCountGO;
+    [SerializeField] GameObject infniteAmmoGO;
+    [SerializeField] TextMeshProUGUI bulletTextObj;
+    [SerializeField] Image weaponImage;
+    EquipmentSystem es;
+
+    Weapon currentWeapon;
+
+    IEnumerator Start()
+    {
+        GameObject player = null;
+        WaitForSeconds wfs = new WaitForSeconds(0.1f);
+
+        while (player == null)
+        {
+            player = GameObject.FindWithTag(TopDownMovement.PLAYERTAG);
+            yield return wfs;
+        }
+
+        es = player.GetComponent<EquipmentSystem>();
+
+        es.OnEquip += EnableUI;
+        es.OnToss += DisableUI;
+    }
+
+    void EnableUI(Item item)
+    {
+        if (!(item is Weapon))
+            return;
+
+        currentWeapon = item as Weapon;
+
+        weaponImage.sprite = currentWeapon.GFX.sprite;
+        weaponImage.gameObject.SetActive(true);
+
+        if (!currentWeapon.IsReloadable())
+        {
+            infniteAmmoGO.SetActive(true);
+            return;
+        }
+
+        var bullets = currentWeapon.GetBullets();
+        currentWeapon.OnChangeBullets += DisplayBullets;
+
+        bulletCountGO.SetActive(true);
+        DisplayBullets(bullets);
+    }
+
+    void DisableUI(Item item)
+    {
+        bulletCountGO.SetActive(false);
+        infniteAmmoGO.SetActive(false);
+        weaponImage.gameObject.SetActive(false);
+
+        if (currentWeapon != null)
+            currentWeapon.OnChangeBullets -= DisplayBullets;
+
+        currentWeapon = null;
+    }
+
+    void DisplayBullets((int, int) bulletData)
+    {
+        bulletTextObj.text = bulletData.Item1.ToString() + "/" + bulletData.Item2.ToString();
+    }
+
+    void OnDestroy()
+    {
+        if (es != null)
+        {
+
+            es.OnEquip -= EnableUI;
+            es.OnToss -= DisableUI;
+        }
+
+        if (currentWeapon != null)
+        {
+            currentWeapon.OnChangeBullets -= DisplayBullets;
+        }
+    }
+}

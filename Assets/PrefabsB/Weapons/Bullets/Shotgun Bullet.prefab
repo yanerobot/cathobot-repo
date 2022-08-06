@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: destroyOnCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Name
       value: Shotgun Bullet

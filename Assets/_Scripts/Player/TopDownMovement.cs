@@ -73,6 +73,7 @@ public class TopDownMovement : MonoBehaviour, IBuffable
         StopDash();
         CancelInvoke();
         StopAllCoroutines();
+        src.Stop();
         Modifier = newModifier;
         superDash = false;
         canDash = false;
@@ -90,7 +91,7 @@ public class TopDownMovement : MonoBehaviour, IBuffable
         if (isDashing)
             return;
 
-        rb.MovePosition(rb.position + movementInput * movementSpeed * Modifier * Time.deltaTime);
+        rb.velocity = movementInput * movementSpeed * Modifier;
     }
 
     void Dash()

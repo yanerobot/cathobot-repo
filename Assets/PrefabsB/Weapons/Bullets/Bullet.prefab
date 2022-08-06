@@ -4996,7 +4996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4953967475146965038}
   audioSrc: {fileID: 4953967475146965039}
-  Pierce: 0
+  destroyOnCollision: 1
 --- !u!1 &4953967475412206545
 GameObject:
   m_ObjectHideFlags: 0

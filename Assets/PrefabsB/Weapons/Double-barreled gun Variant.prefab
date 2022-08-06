@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6672767578406353924, guid: 0d77bd5c503c73f4d8ef0a5794868049, type: 3}
       propertyPath: m_Name
-      value: Double-barreled gun
+      value: Double-barreled gun Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6672767578406353976, guid: 0d77bd5c503c73f4d8ef0a5794868049, type: 3}
       propertyPath: m_RootOrder
@@ -67,5 +67,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9186600689312548849, guid: 0d77bd5c503c73f4d8ef0a5794868049, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 792984e77fdef6040b0c4eed6e0821b6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d77bd5c503c73f4d8ef0a5794868049, type: 3}

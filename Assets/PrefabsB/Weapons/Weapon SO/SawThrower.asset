@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f564f1594c190843be79d5a61c405fd, type: 3}
-  m_Name: Rocket Launcher
+  m_Name: SawThrower
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3675198323420388356, guid: 6897ebf75b35cab41ba1279b55f1e560, type: 3}
+  bulletPrefab: {fileID: 4812642511784640405, guid: cc3ec61189b9e9f44b6be06d5bbb17dc, type: 3}
   isAutomatic: 0
-  delayBetweenShots: 0.65
-  damage: 110
-  bulletSpeed: 10
-  shootSFX: {fileID: 8300000, guid: f2c5967b6ccb8f34fb258f1963e1ac18, type: 3}
+  delayBetweenShots: 0
+  damage: 65
+  bulletSpeed: 15
+  maxBullets: 1
+  reloadTime: 1
+  shootSFX: {fileID: 8300000, guid: b4ad53ad2620ff84cb9aa58f525ebaf6, type: 3}
   pitchRandomness: 0

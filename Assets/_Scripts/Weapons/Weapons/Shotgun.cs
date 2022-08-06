@@ -15,6 +15,11 @@ public class Shotgun : Weapon
     {
         if (canShoot == false)
             return;
+     
+        if (CurrentBullets <= 0)
+            return;
+
+        CurrentBullets--;
 
         canShoot = false;
         Invoke(nameof(EnableShooting), stats.delayBetweenShots);

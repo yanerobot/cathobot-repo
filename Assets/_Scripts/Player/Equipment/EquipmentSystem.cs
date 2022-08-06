@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
-public class EquipmentSystem : MonoBehaviour, IFreezible, IBuffable
+public class EquipmentSystem : MonoBehaviour, IFreezible
 {
     [SerializeField] internal Transform itemHolder;
     [SerializeField] float pickCooldown;
+
+    [HideInInspector]
+    public UnityAction<Item> OnEquip, OnToss;
 
     [HideInInspector]
     public string holder;
@@ -76,6 +79,8 @@ public class EquipmentSystem : MonoBehaviour, IFreezible, IBuffable
         currentItem = GetBestItem();
         currentItem.WasEquippedBy(this);
 
+        OnEquip?.Invoke(currentItem);
+
         return true;
     }
 
@@ -86,6 +91,9 @@ public class EquipmentSystem : MonoBehaviour, IFreezible, IBuffable
             Debug.Log("No item equipped!");
             return;
         }
+
+        OnToss?.Invoke(currentItem);
+
         currentItem.WasTossedAway();
         currentItem = null;
     }
@@ -126,18 +134,16 @@ public class EquipmentSystem : MonoBehaviour, IFreezible, IBuffable
     public Item GetBestItem()
     {
         Item bestItem = null;
-        float bestScore = -Mathf.Infinity;
+        float currentDictance = Mathf.Infinity;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         foreach (var item in itemsToPick)
         {
-            var dist = Vector3.Distance(transform.position, item.transform.position);
-            var dir = (item.transform.position - transform.position).normalized;
-            var dot = Vector3.Dot(transform.forward, dir);
-
-            var currentScore = 1 / dist * dot;
-            if (currentScore > bestScore)
+            var dist = Vector2.Distance(item.transform.position, mousePos);
+            if (Vector2.Distance(item.transform.position, mousePos) < currentDictance)
             {
                 bestItem = item;
-                bestScore = currentScore;
+                currentDictance = dist;
             }
         }
 

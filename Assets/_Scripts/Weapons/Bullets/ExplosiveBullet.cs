@@ -1,12 +1,17 @@
 using UnityEngine;
-using System.Collections;
+
 public class ExplosiveBullet : Bullet
 {
     [SerializeField] GameObject explosionObject;
     [SerializeField] float explosionRadius, explosionForce;
     [SerializeField] LayerMask explosiveLayers;
     
-    protected override bool RegisterHit(Collider2D _)
+    protected override void OnRegisterCollision(Collider2D _)
+    {
+        Explode();
+    }
+
+    public void Explode()
     {
         var collisions = Physics2D.OverlapCircleAll(transform.position, explosionRadius, explosiveLayers);
 
@@ -23,13 +28,10 @@ public class ExplosiveBullet : Bullet
             Push(coll.attachedRigidbody);
         }
 
-
         Instantiate(explosionObject, transform.position, Quaternion.identity);
-
-        return true;
     }
 
-    public void Push(Rigidbody2D rbToPush)
+    void Push(Rigidbody2D rbToPush)
     {
         if (rbToPush == null)
             return;

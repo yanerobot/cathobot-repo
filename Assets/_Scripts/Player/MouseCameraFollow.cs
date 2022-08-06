@@ -39,8 +39,6 @@ public class MouseCameraFollow : MonoBehaviour
         targetPos.x = Mathf.Clamp(targetPos.x, -threshholdOuter, threshholdOuter);
         targetPos.y = Mathf.Clamp(targetPos.y, -threshholdOuter, threshholdOuter);
 
-        
-
         targetPos *= actualPositionModifier;
 
         transform.position = (Vector2)player.position + targetPos;

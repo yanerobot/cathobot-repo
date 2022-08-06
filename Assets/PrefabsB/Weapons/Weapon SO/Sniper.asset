@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f564f1594c190843be79d5a61c405fd, type: 3}
-  m_Name: Minigun
+  m_Name: Sniper
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5567130606645669109, guid: ca080cd005b7458409dd08bbc3c38ffc, type: 3}
-  isAutomatic: 1
-  delayBetweenShots: 0.5
-  damage: 20
-  bulletSpeed: 40
-  maxBullets: 0
-  reloadTime: 0
-  shootSFX: {fileID: 8300000, guid: 6dd80ef7332c4c84381c3cfeeb647aec, type: 3}
-  pitchRandomness: 0.5
+  bulletPrefab: {fileID: 5567130606645669109, guid: 5929d64f327728f47a16956ff8d4aa0f, type: 3}
+  isAutomatic: 0
+  delayBetweenShots: 0
+  damage: 200
+  bulletSpeed: 30
+  maxBullets: 1
+  reloadTime: 1
+  shootSFX: {fileID: 8300000, guid: b4ad53ad2620ff84cb9aa58f525ebaf6, type: 3}
+  pitchRandomness: 0

@@ -67,6 +67,10 @@ public static class Extensions
         var heading = to - from;
         return heading.normalized;
     }
+    public static bool Contains(this LayerMask mask, int layer)
+    {
+        return mask == (mask | (1 << layer));
+    }
 
     #region Coroutine
     /// <summary> Calls function with delay (seconds). Coroutine </summary>

@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected AudioSource audioSrc;
+    [SerializeField] bool destroyOnCollision;
 
     protected GameObject holder;
 
@@ -15,14 +16,6 @@ public class Bullet : MonoBehaviour
     float modifier;
 
     bool collided;
-
-    public bool Pierce;
-
-    void Start()
-    {
-        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
-        Invoke(nameof(DestroySelf), 6);
-    }
 
     void DestroySelf()
     {
@@ -34,7 +27,10 @@ public class Bullet : MonoBehaviour
         this.modifier = modifier;
         this.damage = damage;
         this.speed = speed;
-        this.holder = holder;
+        this.holder = holder; 
+        
+        rb.velocity = transform.right * speed;
+        Invoke(nameof(DestroySelf), 6);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -51,7 +47,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject == holder || collision.gameObject.layer == holder.layer)
             return;
 
-        if (!Pierce)
+        if (destroyOnCollision)
         {
             collided = true;
             rb.velocity = Vector2.zero;
@@ -59,16 +55,20 @@ public class Bullet : MonoBehaviour
             transform.SetParent(collision.transform);
         }
 
-        bool isHitHealth = RegisterHit(collision);
+        OnRegisterCollision(collision);
 
-        if (Pierce)
+        if (!destroyOnCollision)
             return;
 
-        if (!Pierce || !isHitHealth)
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 
-    protected virtual bool RegisterHit(Collider2D collision)
+    protected virtual void OnRegisterCollision(Collider2D collision)
+    {
+        SimpleDamage(collision);
+    }
+
+    protected void SimpleDamage(Collider2D collision)
     {
         if (collision.TryGetComponent(out Rigidbody2D otherRB))
         {
@@ -81,6 +81,5 @@ public class Bullet : MonoBehaviour
             health.TakeDamage(Mathf.RoundToInt(damage * modifier));
         }
 
-        return health != null;
     }
 }

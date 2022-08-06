@@ -27,9 +27,18 @@ public class Automatic : Weapon
         float currentTime = 0;
         float finalDelay = delay;
 
+        yield return null;
+
         while (true)
         {
+            if (CurrentBullets <= 0)
+                break;
+
+            CurrentBullets--;
+
+
             SingleShot();
+
             src.PlayOneShot(stats.shootSFX);
 
             if (fireRateDelayChanged != 0)

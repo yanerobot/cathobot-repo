@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class Weapon : Item
@@ -9,36 +10,48 @@ public class Weapon : Item
     [SerializeField] ParticleSystem shootEffect;
 
     protected AudioSource src;
-    SpriteRenderer GFX;
+    [HideInInspector]
+    public SpriteRenderer GFX;
 
     protected bool canShoot = true;
+    int currentBullets;
+    protected int CurrentBullets
+    {
+        get
+        {
+            return currentBullets;
+        }
+        set
+        {
+            currentBullets = value;
+            if (currentBullets <= 0)
+                Reload();
+            OnChangeBullets?.Invoke(GetBullets());
+        }
+    }
 
-    int currentBullets = -1;
+    public UnityAction<(int, int)> OnChangeBullets;
 
     protected override void Awake()
     {
         base.Awake();
         GFX = GetComponentInChildren<SpriteRenderer>();
         src = GetComponent<AudioSource>();
+        CurrentBullets = -1;
         if (stats.reloadTime > 0)
         {
-            currentBullets = stats.maxBullets;
+            CurrentBullets = stats.maxBullets;
         }
     }
 
-    protected virtual void Shoot()
-    {
-        SingleShot();
-    }
+    protected virtual void Shoot() { }
 
-    protected void SingleShot()
+    protected Bullet SingleShot()
     {
         if ((canShoot == false) && !(this is Automatic))
-            return;
-
+            return null;
 
         canShoot = false;
-        
 
         Invoke(nameof(EnableShooting), stats.delayBetweenShots);
 
@@ -48,11 +61,13 @@ public class Weapon : Item
         bullet.Init(character.gameObject, stats.damage, stats.bulletSpeed, character.Modifier);
 
         PlayShootEffects();
+
+        return bullet;
     }
 
-    void Reload()
+    protected void Reload()
     {
-        currentBullets = stats.maxBullets;
+        this.Co_DelayedExecute(() => CurrentBullets = stats.maxBullets, stats.reloadTime);
     }
 
     protected void EnableShooting()
@@ -69,11 +84,16 @@ public class Weapon : Item
         src.pitch = initialPitch;
     }
 
+    public (int, int) GetBullets()
+    {
+        return (CurrentBullets, stats.maxBullets);
+    }
+
     public override void WasEquippedBy(EquipmentSystem character)
     {
         base.WasEquippedBy(character);
 
-        if (currentBullets == 0)
+        if (CurrentBullets == 0)
             this.Co_DelayedExecute(Reload, stats.reloadTime);
     }
 
@@ -85,17 +105,11 @@ public class Weapon : Item
 
     public override void Use()
     {
-        if (stats.reloadTime > 0)
-        {
-            if (currentBullets <= 0)
-                return;
-
-            currentBullets--;
-
-            if (currentBullets == 0)
-                this.Co_DelayedExecute(Reload, stats.reloadTime);
-        }
-
         Shoot();
+    }
+
+    public bool IsReloadable()
+    {
+        return stats.reloadTime > 0;
     }
 }

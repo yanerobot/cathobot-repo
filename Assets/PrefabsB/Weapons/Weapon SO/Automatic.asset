@@ -17,7 +17,7 @@ MonoBehaviour:
   delayBetweenShots: 0.12
   damage: 25
   bulletSpeed: 20
-  maxBullets: 0
-  reloadTime: 0
+  maxBullets: 25
+  reloadTime: 1.5
   shootSFX: {fileID: 8300000, guid: 6dd80ef7332c4c84381c3cfeeb647aec, type: 3}
   pitchRandomness: 0.5

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &685229809414483160
+--- !u!1001 &435151476313341880
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,9 +11,21 @@ PrefabInstance:
       propertyPath: Pierce
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: Ricochet
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: maxRicochetCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: environmentLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Name
-      value: Sniper Bullet 2
+      value: Saw Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965041, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_RootOrder
@@ -61,27 +73,84 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 0.7451
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.7451
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953967475412206544, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: fc0f845c79dfc9c4e81f420476a7ba68, type: 3}
+      objectReference: {fileID: -2413806693520163455, guid: 75f1306df43d6d641a451657bcc995b9, type: 3}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.7169812
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.7169812
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.7169812
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6660265168246533333, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_Radius
+      value: 0.32
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ede74126933203949be4f072765e4370, type: 3}
+--- !u!1 &4812642511784640405 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 435151476313341880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-716184140963634753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4812642511784640405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf25e826ffa13046924dab9923f0be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4812642511784640406}
+  audioSrc: {fileID: 4812642511784640407}
+  destroyOnCollision: 0
+  explosionObject: {fileID: 2802896194184839393, guid: ef2c8cb954718e84f8b1cbcbf2285290, type: 3}
+  explosionRadius: 1
+  explosionForce: 5
+  explosiveLayers:
+    serializedVersion: 2
+    m_Bits: 73
+  maxRicochetCount: 5
+  environmentLayers:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!50 &4812642511784640406 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 4953967475146965038, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 435151476313341880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &4812642511784640407 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4953967475146965039, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 435151476313341880}
+  m_PrefabAsset: {fileID: 0}
