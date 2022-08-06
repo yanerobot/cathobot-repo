@@ -322,6 +322,7 @@ MonoBehaviour:
   aiPath: {fileID: 2720864799523658800}
   explosionPrefab: {fileID: 4390423827110283709, guid: 20023ebc4150e83449f64b5bbff50bc0, type: 3}
   runningDistance: 20
+  runningCombatDistance: 1.7
   combatDistance: 1.3
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3

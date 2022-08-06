@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: delayBetweenAttacks
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+      propertyPath: runningCombatDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 829458437, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
       propertyPath: maxHealth
       value: 14

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6871634380604022873, guid: 2b680265e0cd761449969d70a03da46b, type: 3}
+  bulletPref: {fileID: 6871634380604022872, guid: 2b680265e0cd761449969d70a03da46b, type: 3}
   isAutomatic: 0
   delayBetweenShots: 0.4
   damage: 40
   bulletSpeed: 15
+  randomBulletSpread: 3
   maxBullets: 12
   reloadTime: 2.5
   shootSFX: {fileID: 8300000, guid: c23a570040e0b7c4da23e5cc41f19fb3, type: 3}

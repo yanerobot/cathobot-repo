@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eButtonTip: {fileID: 288417869914458605}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 1, z: 0}
   ui: {fileID: 2385133904582054254}
 --- !u!1 &4839362505024869356
 GameObject:

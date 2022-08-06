@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 3675198323420388356, guid: e101e000d6594714b9faadde1941cc41, type: 3}
     - target: {fileID: 829458436, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: combatDistance
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 829458436, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: attackAudioClip
@@ -54,10 +54,6 @@ PrefabInstance:
     - target: {fileID: 903772025970138844, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2720864799523658800, guid: e652e399fb2618d4294f380255a55fba, type: 3}
-      propertyPath: pickNextWaypointDist
-      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2720864799523658802, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: m_Name
@@ -119,6 +115,10 @@ PrefabInstance:
       propertyPath: attackingAudio
       value: 
       objectReference: {fileID: 8300000, guid: f2c5967b6ccb8f34fb258f1963e1ac18, type: 3}
+    - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
+      propertyPath: delayBetweenAttacks
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: hitPoints.Array.size
       value: 1

@@ -4,12 +4,14 @@ using UnityEngine;
 public class WeaponStatsSO : ScriptableObject
 {
     public GameObject bulletPrefab;
+    public Bullet bulletPref;
 
     [Header("Stats")]
     public bool isAutomatic;
     public float delayBetweenShots;
     public int damage;
     public float bulletSpeed;
+    public float randomBulletSpread;
 
     [Header("Reload")]
     public int maxBullets;

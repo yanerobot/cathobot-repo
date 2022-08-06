@@ -13,6 +13,7 @@ public class HPDisplayUI : MonoBehaviour
     void Start()
     {
         health = ui.GetPlayerHealth();
+        Init();
     }
 
     void OnDestroy()
@@ -22,10 +23,8 @@ public class HPDisplayUI : MonoBehaviour
         health?._OnDie.RemoveListener(DisplayZeroHealth);
     }
 
-    void Init(GameObject player)
+    void Init()
     {
-        health = player.GetComponent<Health>();
-
         hpFill.fillAmount = health.currentHealth / health.maxHealth;
 
         health._OnDamage.AddListener(DisplayHealth);

@@ -27,8 +27,8 @@ public abstract class EnemyCombatSystem : MonoBehaviour
         if (attackDelay == null)
             attackDelay = new TimeCondition(delayBetweenAttacks);
 
-        if (attackDelay.HasTimePassed())
-            attackDelay.ResetTimer();
+/*        if (attackDelay.HasTimePassed())
+            attackDelay.ResetTimer();*/
         
         if (!isSoundOnAttack)
         {

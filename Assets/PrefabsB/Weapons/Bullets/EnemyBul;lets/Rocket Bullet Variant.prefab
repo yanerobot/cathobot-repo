@@ -214,7 +214,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3675198323420388359}
   audioSrc: {fileID: 3675198323420388358}
-  Pierce: 0
+  destroyOnCollision: 1
+  destroyselfAfter: 6
   explosionObject: {fileID: 2802896194184839393, guid: ef2c8cb954718e84f8b1cbcbf2285290, type: 3}
   explosionRadius: 2
   explosionForce: 8

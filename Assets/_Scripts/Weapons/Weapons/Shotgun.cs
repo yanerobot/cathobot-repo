@@ -32,18 +32,12 @@ public class Shotgun : Weapon
 
     void SpreadShot()
     {
-
-        GameObject bullet;
-
         float singleBulletAngle = shotgunStats.shotgunSpreadAngle / shotgunStats.shotgunMaxBulletsPershot;
 
         for (int i = 0; i < shotgunStats.shotgunMaxBulletsPershot; i++)
         {
-            bullet = Instantiate(stats.bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
-            bullet.transform.Rotate(Vector3.forward, (i - Mathf.FloorToInt(shotgunStats.shotgunMaxBulletsPershot * 0.5f)) * singleBulletAngle);
-
-            bullet.GetComponent<Bullet>().Init(character.gameObject, stats.damage, stats.bulletSpeed, character.Modifier);
-
+            float angle = (i - Mathf.FloorToInt(shotgunStats.shotgunMaxBulletsPershot * 0.5f)) * singleBulletAngle;
+            CreateBullet(angle);
             PlayShootEffects();
         }
     }

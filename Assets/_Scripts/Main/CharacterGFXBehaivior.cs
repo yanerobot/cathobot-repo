@@ -13,7 +13,9 @@ public class CharacterGFXBehaivior : MonoBehaviour
     Color initalNormalColor;
     void Start()
     {
-        normalColor = sr.color;
+        normalColor = sr.color; 
+        initialDamagedColor = damagedColor;
+        initalNormalColor = normalColor;
     }
 
     public float Blink()
@@ -25,8 +27,6 @@ public class CharacterGFXBehaivior : MonoBehaviour
 
     public void TiltTickColor(Color color)
     {
-        initialDamagedColor = damagedColor;
-        initalNormalColor = normalColor;
         damagedColor *= color;
         normalColor *= color;
     }

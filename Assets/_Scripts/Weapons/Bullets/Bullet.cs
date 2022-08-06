@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected AudioSource audioSrc;
     [SerializeField] bool destroyOnCollision;
+    [SerializeField] float destroyselfAfter = 6;
 
     protected GameObject holder;
 
@@ -27,7 +28,7 @@ public class Bullet : MonoBehaviour
         this.holder = holder; 
         
         rb.velocity = transform.right * speed;
-        Invoke(nameof(DestroySelf), 6);
+        Invoke(nameof(DestroySelf), destroyselfAfter);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

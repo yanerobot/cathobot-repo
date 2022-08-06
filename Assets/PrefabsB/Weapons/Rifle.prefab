@@ -5157,6 +5157,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 138ca4314b9dd3e4eb740cf49a36394f, type: 2}
   shootingPoint: {fileID: 5195059378612621140}
   shootEffect: {fileID: 5195059377260591697}
+  bulletSpread: 8
   GFX: {fileID: 0}
   fireRateDelayChanged: 0
   timeToChange: 0

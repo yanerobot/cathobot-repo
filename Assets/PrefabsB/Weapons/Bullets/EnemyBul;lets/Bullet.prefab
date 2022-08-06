@@ -4994,13 +4994,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b6c3b271bed34439b86aabcb65b914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHitObstaclePS: {fileID: 0}
-  onHitBodyPS: {fileID: 0}
-  onHitObstacleAudio: {fileID: 0}
-  onHitBodyAudio: {fileID: 0}
   rb: {fileID: 4953967475146965038}
-  spriteRend: {fileID: 4953967475412206547}
   audioSrc: {fileID: 4953967475146965039}
+  destroyOnCollision: 1
+  destroyselfAfter: 6
 --- !u!1 &4953967475412206545
 GameObject:
   m_ObjectHideFlags: 0

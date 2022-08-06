@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6871634380604022873, guid: d5229e9bb225d014a998794dfa5b814a, type: 3}
-  sus: {fileID: 0}
+  bulletPref: {fileID: 6871634380604022872, guid: d5229e9bb225d014a998794dfa5b814a, type: 3}
   isAutomatic: 0
   delayBetweenShots: 0
   damage: 8
   bulletSpeed: 15
-  bulletGravityScale: 0
+  randomBulletSpread: 12
+  maxBullets: 0
+  reloadTime: 0
   shootSFX: {fileID: 8300000, guid: 56c0bab6423a0c34b99db70285b083a5, type: 3}
-  emptyMagSFX: {fileID: 0}
   pitchRandomness: 0.1

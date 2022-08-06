@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Rocket Launcher
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3675198323420388356, guid: 6897ebf75b35cab41ba1279b55f1e560, type: 3}
+  bulletPref: {fileID: -4517708171207352436, guid: 6897ebf75b35cab41ba1279b55f1e560, type: 3}
   isAutomatic: 0
   delayBetweenShots: 0
   damage: 110
   bulletSpeed: 10
+  randomBulletSpread: 4
   maxBullets: 1
   reloadTime: 0.65
   shootSFX: {fileID: 8300000, guid: f2c5967b6ccb8f34fb258f1963e1ac18, type: 3}

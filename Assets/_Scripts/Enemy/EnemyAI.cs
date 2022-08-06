@@ -18,7 +18,6 @@ public class EnemyAI : StateMachine
 
     [Header("Stats")]
     [SerializeField] float runningDistance;
-    [SerializeField] float combatDistance;
     [SerializeField] float speedDecreaseOnHitModifier;
     [SerializeField] float stunOnDamageTime;
     [SerializeField] public bool isStatic;
@@ -48,14 +47,20 @@ public class EnemyAI : StateMachine
         var searching = new Searching(this);
         var running = new Running(this);
         var combat = new Combat(this);
+        var runningCombat = new RunningCombat(this);
 
         searching.AddTransition(running, () => IsPlayerAvailable() && IsPlayerWithinRunningRange()).AddTransitionCallBack(ActivateSounds);
         
         running.AddTransition(combat, IsPlayerWithingCombatRange, IsPlayerVisible);
         running.AddTransition(searching, () => !IsPlayerAvailable());
+        running.AddTransition(runningCombat, IsPlayerWithingRunningCombatRange, () => !IsPlayerWithingCombatRange(), IsPlayerVisible);
 
-        combat.AddTransition(running, () => !IsPlayerWithingCombatRange() || !IsPlayerVisible());
+        combat.AddTransition(running, () => !IsPlayerWithingRunningCombatRange() || !IsPlayerVisible());
+        combat.AddTransition(runningCombat, () => !IsPlayerWithingCombatRange(), IsPlayerWithingRunningCombatRange);
         combat.AddTransition(searching, IsTargetDead);
+
+        runningCombat.AddTransition(running, () => !IsPlayerWithingRunningCombatRange() || !IsPlayerVisible());
+        runningCombat.AddTransition(combat, IsPlayerWithingCombatRange, IsPlayerVisible);
 
         SetState(searching);
     }
@@ -94,7 +99,7 @@ public class EnemyAI : StateMachine
 
     public bool IsPlayerVisible()
     {
-        var ray = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), combatDistance, visibleLayers);
+        var ray = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), aiPath.slowdownDistance, visibleLayers);
 
         if (ray.collider != null && ray.collider.transform == target)
             return true;
@@ -111,7 +116,14 @@ public class EnemyAI : StateMachine
         if (target == null)
             return false;
 
-        return Vector3.Distance(transform.position, target.position) <= combatDistance;
+        return Vector3.Distance(transform.position, target.position) <= aiPath.endReachedDistance;
+    }
+    bool IsPlayerWithingRunningCombatRange()
+    {
+        if (target == null)
+            return false;
+
+        return Vector3.Distance(transform.position, target.position) <= aiPath.slowdownDistance;
     }
 
     public void OnDamage()
@@ -145,8 +157,10 @@ public class EnemyAI : StateMachine
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, runningDistance);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, aiPath.slowdownDistance);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, combatDistance);
+        Gizmos.DrawWireSphere(transform.position, aiPath.endReachedDistance);
     }
 #endif
 }

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Poison Thrower
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5642575666394656639, guid: 0f94c239b5dd22b4f985e55303d4e999, type: 3}
+  bulletPref: {fileID: 29812406777060965, guid: 0f94c239b5dd22b4f985e55303d4e999, type: 3}
   isAutomatic: 0
   delayBetweenShots: 0.3
   damage: 15
   bulletSpeed: 20
+  randomBulletSpread: 4
   maxBullets: 2
   reloadTime: 1
   shootSFX: {fileID: 8300000, guid: b4ad53ad2620ff84cb9aa58f525ebaf6, type: 3}

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: SawThrower
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4812642511784640405, guid: cc3ec61189b9e9f44b6be06d5bbb17dc, type: 3}
+  bulletPref: {fileID: -716184140963634753, guid: cc3ec61189b9e9f44b6be06d5bbb17dc, type: 3}
   isAutomatic: 0
   delayBetweenShots: 0
   damage: 65
   bulletSpeed: 15
+  randomBulletSpread: 5
   maxBullets: 1
   reloadTime: 1
   shootSFX: {fileID: 8300000, guid: b4ad53ad2620ff84cb9aa58f525ebaf6, type: 3}

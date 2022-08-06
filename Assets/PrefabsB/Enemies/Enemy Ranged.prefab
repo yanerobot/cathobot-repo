@@ -287,9 +287,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 1.52
-  pickNextWaypointDist: 0.25
-  endReachedDistance: 0.81
+  slowdownDistance: 10
+  pickNextWaypointDist: 0.1
+  endReachedDistance: 4
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -333,7 +333,8 @@ MonoBehaviour:
   aiPath: {fileID: 2720864799523658800}
   explosionPrefab: {fileID: 4390423827110283709, guid: 20023ebc4150e83449f64b5bbff50bc0, type: 3}
   runningDistance: 20
-  combatDistance: 9
+  runningCombatDistance: 10
+  combatDistance: 2
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   isStatic: 0

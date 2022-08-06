@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5567130606645669109, guid: 5929d64f327728f47a16956ff8d4aa0f, type: 3}
+  bulletPref: {fileID: 5567130606645669108, guid: 5929d64f327728f47a16956ff8d4aa0f, type: 3}
   isAutomatic: 0
   delayBetweenShots: 0
   damage: 200
   bulletSpeed: 30
+  randomBulletSpread: 1
   maxBullets: 1
-  reloadTime: 1
+  reloadTime: 2
   shootSFX: {fileID: 8300000, guid: b4ad53ad2620ff84cb9aa58f525ebaf6, type: 3}
   pitchRandomness: 0

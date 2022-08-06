@@ -8,6 +8,7 @@ public class Weapon : Item
     [SerializeField] protected WeaponStatsSO stats;
     [SerializeField] protected Transform shootingPoint;
     [SerializeField] ParticleSystem shootEffect;
+    [SerializeField] protected float bulletSpread;
 
     protected AudioSource src;
     [HideInInspector]
@@ -63,12 +64,17 @@ public class Weapon : Item
 
         Invoke(nameof(EnableShooting), stats.delayBetweenShots);
 
-        var bulletGO = Instantiate(stats.bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
-        var bullet = bulletGO.GetComponent<Bullet>();
+        PlayShootEffects();
+
+        return CreateBullet();
+    }
+
+    protected Bullet CreateBullet(float spreadAngle = 0)
+    {
+        var bullet = Instantiate(stats.bulletPref, shootingPoint.position, shootingPoint.rotation, null);
+        bullet.transform.Rotate(Vector3.forward, spreadAngle + Random.Range(-stats.randomBulletSpread, stats.randomBulletSpread));
 
         bullet.Init(character.gameObject, stats.damage, stats.bulletSpeed, character.Modifier);
-
-        PlayShootEffects();
 
         return bullet;
     }
