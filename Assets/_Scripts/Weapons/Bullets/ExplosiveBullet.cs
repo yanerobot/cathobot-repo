@@ -17,10 +17,7 @@ public class ExplosiveBullet : Bullet
 
         foreach (var coll in collisions)
         {
-            if (coll.gameObject == holder.gameObject)
-                continue;
-
-            if (coll.TryGetComponent(out Health health))
+            if (coll.gameObject != holder.gameObject &&  coll.TryGetComponent(out Health health))
             {
                 health.TakeDamage(damage);
             }
@@ -38,6 +35,11 @@ public class ExplosiveBullet : Bullet
 
         Vector2 dir = (rbToPush.position - rb.position).normalized;
         float distanceModifier = Mathf.Clamp(1 / Vector2.Distance(rb.position, rbToPush.position), 0.3f, 1);
+
+        if (rbToPush.TryGetComponent(out IStunnable stunnable))
+        {
+            stunnable.Stun(0.5f);
+        }
 
         rbToPush.AddForce(dir * explosionForce * distanceModifier, ForceMode2D.Impulse);
     }

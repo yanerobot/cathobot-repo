@@ -119,6 +119,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2720864799523658807, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+      propertyPath: traversableTags
+      value: -65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720864799523658807, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+      propertyPath: tagPenalties.Array.data[6]
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7211357821288810235, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
       propertyPath: damagedColor.a
       value: 1

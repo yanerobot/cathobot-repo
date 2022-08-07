@@ -14,9 +14,11 @@ public class Running : State
         if (AI.isStatic)
             return;
 
-        AI.aiPath.canMove = true;
-
-        ResetRigidbody();
+        if (!AI.movementDisabledExternally)
+        {
+            AI.aiPath.canMove = true;
+            AI.ResetRigidbody();
+        }
     }
 
     public override void OnUpdate()
@@ -26,18 +28,12 @@ public class Running : State
         if (timePassed > 1.5f)
         {
             timePassed = 0;
-            ResetRigidbody();
+            AI.ResetRigidbody();
         }
     }
 
     public override void OnExit()
     {
         AI.aiPath.canMove = false;
-    }
-
-    void ResetRigidbody()
-    {
-        AI.rb.velocity *= 0;
-        AI.rb.angularVelocity *= 0;
     }
 }

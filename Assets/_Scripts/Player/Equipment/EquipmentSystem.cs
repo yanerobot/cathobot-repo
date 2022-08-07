@@ -20,20 +20,16 @@ public class EquipmentSystem : MonoBehaviour, IFreezible
 
     Vector3 mouseDir;
 
-    public static bool LevelEnded;
-
-
     public float Modifier { get; set; } = 1;
 
     void Awake()
     {
-        LevelEnded = false;
         currentPickCD = pickCooldown;
     }
 
     void Update()
     {
-        if (LevelEnded)
+        if (UIBehaiv.LevelEnded)
         {
             StopUsing();
             return;

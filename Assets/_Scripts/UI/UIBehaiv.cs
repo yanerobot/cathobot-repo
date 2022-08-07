@@ -7,8 +7,11 @@ public class UIBehaiv : MonoBehaviour
     [SerializeField] GameObject levelCompletedGO;
 
     Health playerHealth;
+
+    public static bool LevelEnded;
     void Awake()
     {
+        LevelEnded = false;
         gameOverGO.SetActive(false);
         var player = GameObject.FindWithTag(TopDownMovement.PLAYERTAG);
 
@@ -42,15 +45,13 @@ public class UIBehaiv : MonoBehaviour
     public void EnableGameOverUI()
     {
         gameOverGO.SetActive(true);
-        EquipmentSystem.LevelEnded = true;
-        TopDownMovement.LevelEnded = true;
+        LevelEnded = true;
     }
 
     public void EnableLevelCompletedUI()
     {
         levelCompletedGO.SetActive(true);
-        EquipmentSystem.LevelEnded = true;
-        TopDownMovement.LevelEnded = true;
+        LevelEnded = true;
     }
 
 #if UNITY_EDITOR

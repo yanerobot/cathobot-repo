@@ -41,7 +41,7 @@ public class Hitbox : MonoBehaviour, IBuffable
 
     public void OnDie()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity).transform.localScale = transform.localScale;
         Destroy(gameObject);
     }
 

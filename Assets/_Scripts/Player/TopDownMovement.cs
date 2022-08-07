@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TopDownMovement : MonoBehaviour, IBuffable
+public class TopDownMovement : MonoBehaviour, IStunnable
 {
     public const string PLAYERTAG = "Player";
 
@@ -28,13 +28,11 @@ public class TopDownMovement : MonoBehaviour, IBuffable
 
     Vector2 movementInput;
 
-    public static bool LevelEnded;
+    bool stunned;
 
     void Start()
     {
-        LevelEnded = false;
-
-        SafeZone.OnSafeZoneOut.AddListener(ActivateDash);
+        SafeZone.OnSafeZoneOut.AddListener(()=> canDash = true);
     }
 
     void Update()
@@ -42,10 +40,11 @@ public class TopDownMovement : MonoBehaviour, IBuffable
         if (Time.timeScale == 0)
             return;
 
-        if (LevelEnded)
+        if (UIBehaiv.LevelEnded)
         {
             movementInput *= 0;
             src.Stop();
+            animator.SetBool("IsMoving", false);
             return;
         }
 
@@ -62,12 +61,6 @@ public class TopDownMovement : MonoBehaviour, IBuffable
         if (canDash && Input.GetKeyDown(KeyCode.Space))
             Dash();
     }
-
-    void ActivateDash()
-    {
-        canDash = true;
-    }
-
     public void Buff(float newModifier, float time)
     {
         StopDash();
@@ -91,7 +84,16 @@ public class TopDownMovement : MonoBehaviour, IBuffable
         if (isDashing)
             return;
 
-        rb.velocity = movementInput * movementSpeed * Modifier;
+        if (stunned)
+        {
+            if (rb.velocity.magnitude >= movementSpeed * Modifier)
+                return;
+
+            rb.AddForce(movementInput * movementSpeed * Modifier * 0.5f, ForceMode2D.Impulse);
+            return;
+        }
+
+        rb.velocity = movementInput * movementSpeed * Modifier * superDashModifier;
     }
 
     void Dash()
@@ -104,10 +106,14 @@ public class TopDownMovement : MonoBehaviour, IBuffable
         }
         canDash = false;
         isDashing = true;
+        
         var dashDir = movementInput;
+        
         if (movementInput.magnitude < 0.001f)
             dashDir = transform.up;
+        
         rb.velocity = dashDir * dashSpeed * superDashModifier;
+
         Invoke(nameof(StopDash), dashTime);
         Invoke(nameof(EnableDash), dashTime + dashCooldown);
     }
@@ -121,7 +127,7 @@ public class TopDownMovement : MonoBehaviour, IBuffable
 
     void EnableDash()
     {
-        if (LevelEnded)
+        if (UIBehaiv.LevelEnded)
             return;
 
         src.Stop();
@@ -129,5 +135,15 @@ public class TopDownMovement : MonoBehaviour, IBuffable
         canDash = true;
 
         this.Co_DelayedExecute(() => superDash = false, superDashTiming);
+    }
+
+    Coroutine stunRoutine;
+    public void Stun(float time)
+    {
+        if (stunRoutine != null)
+            StopCoroutine(stunRoutine);
+
+        stunned = true;
+        stunRoutine = this.Co_DelayedExecute(() => stunned = false, time);
     }
 }

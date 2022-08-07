@@ -5,7 +5,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class EnemyAI : StateMachine
+public class EnemyAI : StateMachine, IStunnable
 {
     [Header("References")]
     [SerializeField] public CharacterGFXBehaivior gfx;
@@ -22,6 +22,8 @@ public class EnemyAI : StateMachine
     [SerializeField] float stunOnDamageTime;
     [SerializeField] public bool isStatic;
 
+    [HideInInspector]
+    public bool movementDisabledExternally;
 
     Animator animator;
 
@@ -46,11 +48,11 @@ public class EnemyAI : StateMachine
 
         var searching = new Searching(this);
         var running = new Running(this);
-        var combat = new Combat(this);
         var runningCombat = new RunningCombat(this);
+        var combat = new Combat(this);
 
         searching.AddTransition(running, () => IsPlayerAvailable() && IsPlayerWithinRunningRange()).AddTransitionCallBack(ActivateSounds);
-        
+
         running.AddTransition(combat, IsPlayerWithingCombatRange, IsPlayerVisible);
         running.AddTransition(searching, () => !IsPlayerAvailable());
         running.AddTransition(runningCombat, IsPlayerWithingRunningCombatRange, () => !IsPlayerWithingCombatRange(), IsPlayerVisible);
@@ -65,18 +67,15 @@ public class EnemyAI : StateMachine
         SetState(searching);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.collider.TryGetComponent(out Bullet bullet) || isStatic)
-            return;
-
-        aiPath.canMove = false;
-        Invoke(nameof(EnableMovement), stunOnDamageTime);
-    }
-
     void ActivateSounds()
     {
         combatSystem.src.enabled = true;
+    }
+
+    public void ResetRigidbody()
+    {
+        rb.velocity *= 0;
+        rb.angularVelocity *= 0;
     }
 
     public void SetTarget(Transform target)
@@ -99,8 +98,18 @@ public class EnemyAI : StateMachine
 
     public bool IsPlayerVisible()
     {
+/*        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.useTriggers = false;
+        contactFilter.*/
         var ray = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), aiPath.slowdownDistance, visibleLayers);
+        //var raty = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), );
 
+
+        /*        foreach (var coll in ray)
+                {
+                    if (coll.collider != null && coll.collider.transform == target)
+                        return true;
+                }*/
         if (ray.collider != null && ray.collider.transform == target)
             return true;
         return false;
@@ -108,7 +117,9 @@ public class EnemyAI : StateMachine
 
     public bool IsPlayerWithinRunningRange()
     {
-        return aiPath.remainingDistance < runningDistance;
+        if (target == null)
+            return false;
+        return Vector2.Distance(transform.position, target.position) < runningDistance;
     }
 
     bool IsPlayerWithingCombatRange()
@@ -133,12 +144,18 @@ public class EnemyAI : StateMachine
         aiPath.maxSpeed *= speedDecreaseOnHitModifier;
         this.Co_DelayedExecute(() => aiPath.maxSpeed = normalSpeed, time);
     }
+    public void Stun(float time)
+    {
+        aiPath.canMove = false;
+        movementDisabledExternally = true;
+        Invoke(nameof(EnableMovement), time);
+    }
 
     void EnableMovement()
     {
+        movementDisabledExternally = false;
         aiPath.canMove = true;
-        rb.velocity *= 0;
-        rb.angularVelocity *= 0;
+        ResetRigidbody();
     }
 
     public void OnDie()

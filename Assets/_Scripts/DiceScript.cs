@@ -45,7 +45,7 @@ public class DiceScript : MonoBehaviour
             CheckSuccess();
         }
 
-        if (EquipmentSystem.LevelEnded)
+        if (UIBehaiv.LevelEnded)
             StopRolling();
     }
 

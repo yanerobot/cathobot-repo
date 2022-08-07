@@ -3,7 +3,7 @@ using UnityEngine;
 public class RunningCombat : State
 {
     EnemyAI AI;
-
+    float timePassed;
     public RunningCombat(StateMachine fsm)
     {
         AI = fsm as EnemyAI;
@@ -11,7 +11,12 @@ public class RunningCombat : State
 
     public override void OnEnter()
     {
-        AI.aiPath.canMove = true;
+        if (!AI.movementDisabledExternally)
+        {
+            AI.aiPath.canMove = true;
+            AI.ResetRigidbody();
+        }
+
         AI.combatSystem.OnCombatStateEnter();
     }
 
@@ -26,6 +31,14 @@ public class RunningCombat : State
         else
         {
             AI.transform.up = dir;
+        }
+
+        timePassed += AI.deltaTime;
+
+        if (timePassed > 1.5f)
+        {
+            timePassed = 0;
+            AI.ResetRigidbody();
         }
 
         AI.combatSystem.OnCombatStateUpdate();

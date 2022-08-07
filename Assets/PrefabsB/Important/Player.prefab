@@ -251,7 +251,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -344,8 +344,8 @@ MonoBehaviour:
   movementSpeed: 8
   rb: {fileID: 7378826178220668250}
   src: {fileID: 1119935537268220071}
-  dashSpeed: 25
-  dashTime: 0.1
+  dashSpeed: 35
+  dashTime: 0.2
   dashCooldown: 2
   superDashTiming: 0.5
   superDashDuration: 1.3

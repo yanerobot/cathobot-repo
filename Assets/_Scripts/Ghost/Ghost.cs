@@ -61,7 +61,7 @@ public class Ghost : MonoBehaviour
         if (Time.timeScale == 0 || !recording || health.isDead)
             return;
 
-        if (TopDownMovement.LevelEnded)
+        if (UIBehaiv.LevelEnded)
         {
             recording = false;
             return;
