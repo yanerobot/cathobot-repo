@@ -6,7 +6,7 @@ public class ExplosiveBullet : Bullet
     [SerializeField] float explosionRadius, explosionForce;
     [SerializeField] LayerMask explosiveLayers;
     
-    protected override void OnRegisterCollision(Collider2D _)
+    protected override void OnRegisterCollision(Collider2D collision)
     {
         Explode();
     }
@@ -17,9 +17,13 @@ public class ExplosiveBullet : Bullet
 
         foreach (var coll in collisions)
         {
-            if (coll.gameObject != holder.gameObject &&  coll.TryGetComponent(out Health health))
+            if (coll.gameObject != holder &&  coll.TryGetComponent(out Health health))
             {
-                health.TakeDamage(damage);
+                float dist = Mathf.Clamp(Vector2.Distance(transform.position, coll.transform.position), 0.5f, explosionRadius);
+                int dmg = Mathf.CeilToInt(damage / dist);
+                print(dmg);
+
+                health.TakeDamage(dmg);
             }
 
             Push(coll.attachedRigidbody);

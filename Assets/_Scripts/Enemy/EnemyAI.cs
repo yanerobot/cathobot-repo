@@ -18,6 +18,8 @@ public class EnemyAI : StateMachine, IStunnable
 
     [Header("Stats")]
     [SerializeField] float runningDistance;
+    [SerializeField] float runningCombatDistance;
+    [SerializeField] float combatDistance;
     [SerializeField] float speedDecreaseOnHitModifier;
     [SerializeField] float stunOnDamageTime;
     [SerializeField] public bool isStatic;
@@ -101,7 +103,7 @@ public class EnemyAI : StateMachine, IStunnable
 /*        ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.useTriggers = false;
         contactFilter.*/
-        var ray = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), aiPath.slowdownDistance, visibleLayers);
+        var ray = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), runningCombatDistance, visibleLayers);
         //var raty = Physics2D.CircleCast(transform.position, 1, transform.position.Direction(target.position), );
 
 
@@ -127,14 +129,14 @@ public class EnemyAI : StateMachine, IStunnable
         if (target == null)
             return false;
 
-        return Vector3.Distance(transform.position, target.position) <= aiPath.endReachedDistance;
+        return Vector3.Distance(transform.position, target.position) <= combatDistance;
     }
     bool IsPlayerWithingRunningCombatRange()
     {
         if (target == null)
             return false;
 
-        return Vector3.Distance(transform.position, target.position) <= aiPath.slowdownDistance;
+        return Vector3.Distance(transform.position, target.position) <= runningCombatDistance;
     }
 
     public void OnDamage()
@@ -149,6 +151,12 @@ public class EnemyAI : StateMachine, IStunnable
         aiPath.canMove = false;
         movementDisabledExternally = true;
         Invoke(nameof(EnableMovement), time);
+    }
+
+    public void BuffSpeed(float modifier, float time)
+    {
+        aiPath.maxSpeed *= modifier;
+        this.Co_DelayedExecute(() => aiPath.maxSpeed /= modifier, time);
     }
 
     void EnableMovement()
@@ -175,9 +183,9 @@ public class EnemyAI : StateMachine, IStunnable
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, runningDistance);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, aiPath.slowdownDistance);
+        Gizmos.DrawWireSphere(transform.position, runningCombatDistance);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, aiPath.endReachedDistance);
+        Gizmos.DrawWireSphere(transform.position, combatDistance);
     }
 #endif
 }

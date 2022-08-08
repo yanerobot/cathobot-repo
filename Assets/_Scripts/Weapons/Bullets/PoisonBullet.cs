@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PoisonBullet : Bullet
 {
-    [SerializeField] GameObject poisonPuddle;
+    [SerializeField] PoisonPuddle poisonPuddle;
     [SerializeField] float poisonPuddleTime;
+    [SerializeField] int damageToHolder;
 
     void Update()
     {
@@ -20,10 +21,10 @@ public class PoisonBullet : Bullet
 
     void SpillPoison()
     {
-        var go = Instantiate(poisonPuddle, transform.position, transform.rotation);
-        var puddle = go.GetComponent<PoisonPuddle>();
+        var puddle = Instantiate(poisonPuddle, transform.position, transform.rotation);
         puddle.DestroyAfterTime(poisonPuddleTime);
         puddle.SetDamage(damage);
+        puddle.SetDamageToChar(holder.transform, damageToHolder);
         Destroy(gameObject);
     }
 }

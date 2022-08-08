@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PoisonPuddle : MonoBehaviour
 {
@@ -6,6 +7,11 @@ public class PoisonPuddle : MonoBehaviour
     [SerializeField] int damagePerTick;
     [SerializeField] float tickRate;
     [SerializeField] float timeToTickAfterLeaving;
+
+    Transform lowerDamageCharacter;
+    int lowerDamage;
+
+    const string poisonTickDamageKey = "poison";
 
     public void DestroyAfterTime(float time)
     {
@@ -17,11 +23,21 @@ public class PoisonPuddle : MonoBehaviour
         damagePerTick = damage;
     }
 
+    public void SetDamageToChar(Transform transform, int damage)
+    {
+        lowerDamageCharacter = transform;
+        lowerDamage = damage;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Health health))
         {
-            health.TickDamage(tickRate, damagePerTick, transform.GetInstanceID());
+            if (collision.transform == lowerDamageCharacter)
+                health.TickDamage(poisonTickDamageKey, tickRate, lowerDamage);
+            else
+                health.TickDamage(poisonTickDamageKey, tickRate, damagePerTick);
+
             health.GetComponentInChildren<CharacterGFXBehaivior>()?.TiltTickColor(poisonedColor);
         }
     }
@@ -30,16 +46,7 @@ public class PoisonPuddle : MonoBehaviour
     {
         if (collision.TryGetComponent(out Health health))
         {
-            this.Co_DelayedExecute(() => Unpoison(health), timeToTickAfterLeaving);
+            health.StopTickDamage(poisonTickDamageKey, timeToTickAfterLeaving, () => health.GetComponentInChildren<CharacterGFXBehaivior>()?.ResetDamagedColor());
         }
-    }
-
-    void Unpoison(Health health)
-    {
-        if (health == null)
-            return;
-
-        health.StopTickDamage(transform.GetInstanceID());
-        health.GetComponentInChildren<CharacterGFXBehaivior>()?.ResetDamagedColor();
     }
 }

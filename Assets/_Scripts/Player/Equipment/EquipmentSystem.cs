@@ -51,6 +51,9 @@ public class EquipmentSystem : MonoBehaviour, IFreezible
             Use();
         if (Input.GetMouseButtonUp(0))
             StopUsing();
+        if (Input.GetKeyDown(KeyCode.R))
+            if (currentItem is Weapon weapon)
+                weapon.Reload();
     }
 
     protected virtual void OnEnable()

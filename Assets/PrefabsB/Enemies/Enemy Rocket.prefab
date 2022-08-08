@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 3675198323420388356, guid: e101e000d6594714b9faadde1941cc41, type: 3}
     - target: {fileID: 829458436, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: combatDistance
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 829458436, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: attackAudioClip
@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: attackDamage
-      value: 70
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: bulletPrefab

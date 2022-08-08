@@ -333,6 +333,8 @@ MonoBehaviour:
   aiPath: {fileID: 2720864799523658800}
   explosionPrefab: {fileID: 4390423827110283709, guid: 20023ebc4150e83449f64b5bbff50bc0, type: 3}
   runningDistance: 20
+  runningCombatDistance: 10
+  combatDistance: 4
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   isStatic: 0
@@ -353,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoint: {fileID: 0}
   attackDamage: 10
-  delayBetweenAttacks: 1
+  delayBetweenAttacks: 0.4
   attackingAudio: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
   isSoundOnAttack: 1
   src: {fileID: 0}

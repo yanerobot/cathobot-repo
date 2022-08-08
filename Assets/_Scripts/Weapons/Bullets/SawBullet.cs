@@ -17,7 +17,10 @@ public class SawBullet : ExplosiveBullet
     void Ricochet()
     {
         if (currentRicochetCount >= maxRicochetCount)
+        {
+            Explode();
             Destroy(gameObject);
+        }
 
         var hit = Physics2D.Raycast(transform.position, transform.right, 3, environmentLayers);
         if (hit.collider == null)

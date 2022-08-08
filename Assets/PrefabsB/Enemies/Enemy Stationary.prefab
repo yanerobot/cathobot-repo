@@ -386,6 +386,8 @@ MonoBehaviour:
   aiPath: {fileID: 2959289012639193707}
   explosionPrefab: {fileID: 4390423827110283709, guid: 20023ebc4150e83449f64b5bbff50bc0, type: 3}
   runningDistance: 20
+  runningCombatDistance: 10
+  combatDistance: 10
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   isStatic: 1
@@ -413,7 +415,7 @@ MonoBehaviour:
   hitPoints:
   - {fileID: 924352499251132564}
   bulletPrefab: {fileID: 6871634380604022873, guid: 10b9cc4b9510630439d5ac38fb00ffe7, type: 3}
-  bulletSpeed: 7
+  bulletSpeed: 12
 --- !u!114 &924352498529668702
 MonoBehaviour:
   m_ObjectHideFlags: 0

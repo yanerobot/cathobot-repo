@@ -108,5 +108,7 @@ MonoBehaviour:
   rb: {fileID: 5642575666394656636}
   audioSrc: {fileID: 5642575666394656637}
   destroyOnCollision: 1
-  poisonPuddle: {fileID: 174621642970443474, guid: 3265cb9463760664e87af794ce8eea9d, type: 3}
+  destroyselfAfter: 6
+  poisonPuddle: {fileID: 174621642970443475, guid: 3265cb9463760664e87af794ce8eea9d, type: 3}
   poisonPuddleTime: 8
+  damageToHolder: 2

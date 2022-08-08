@@ -32,7 +32,10 @@ public class Automatic : Weapon
         while (true)
         {
             if (!HasBullets())
-                break;
+            {
+                yield return null;
+                continue;
+            }
 
             CurrentBullets--;
 

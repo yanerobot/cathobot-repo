@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +14,8 @@ public class Spikes : MonoBehaviour
     Sprite initialSprite;
     int currentNum;
 
+    const string spikesTickDamageKey = "spikes";
+
     List<Health> takingDamage;
 
     void Start()
@@ -28,7 +29,7 @@ public class Spikes : MonoBehaviour
     {
         if (collision.TryGetComponent(out Health health))
         {
-            health.TickDamage(tickRate, damage, transform.GetInstanceID());
+            health.TickDamage(spikesTickDamageKey, tickRate, damage);
             takingDamage.Add(health);
             src.Play();
             if (currentNum == 0)
@@ -48,7 +49,7 @@ public class Spikes : MonoBehaviour
             if (takingDamage.Contains(health))
             {
                 takingDamage.Remove(health);
-                health?.StopTickDamage(transform.GetInstanceID());
+                health?.StopTickDamage(spikesTickDamageKey);
             }
 
             currentNum--;

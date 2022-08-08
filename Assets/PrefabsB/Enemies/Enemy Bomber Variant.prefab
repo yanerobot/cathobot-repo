@@ -36,6 +36,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5690958926082125973}
     - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+      propertyPath: combatDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
       propertyPath: attackAudioClip
       value: 
       objectReference: {fileID: 0}

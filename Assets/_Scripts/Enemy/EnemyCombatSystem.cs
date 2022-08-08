@@ -17,9 +17,14 @@ public abstract class EnemyCombatSystem : MonoBehaviour
 
     AudioClip mainClip;
 
+    protected EnemyAI AI;
+
+    protected TopDownMovement playerMovement;
+
     void Start()
     {
         src = GetComponent<AudioSource>();
+        AI = GetComponent<EnemyAI>();
     }
 
     public virtual void OnCombatStateEnter()
@@ -39,10 +44,14 @@ public abstract class EnemyCombatSystem : MonoBehaviour
                 src.Play();
             }
         }
+
+        playerMovement = AI.target.GetComponent<TopDownMovement>();
     }
 
     public virtual void OnCombatStateUpdate()
     {
+        LookAtTarget();
+
         if (attackDelay.HasTimePassed())
         {
             Attack();
@@ -52,6 +61,22 @@ public abstract class EnemyCombatSystem : MonoBehaviour
             if (isSoundOnAttack)
                 src.PlayOneShot(attackingAudio);
         }
+    }
+
+    void LookAtTarget()
+    {
+        var dir = GetDirection(); 
+
+        if (AI.isStatic)
+            AI.gfx.transform.up = dir;
+        else
+            AI.transform.up = dir;
+        
+    }
+
+    protected virtual Vector2 GetDirection()
+    {
+        return (Vector2)AI.target.position - (Vector2)AI.transform.position;
     }
 
     public virtual void OnCombatStateExit()

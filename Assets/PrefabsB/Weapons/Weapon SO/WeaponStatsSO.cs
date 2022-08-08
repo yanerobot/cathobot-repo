@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon", menuName = "SO/Weapon/WeaponStats")]
 public class WeaponStatsSO : ScriptableObject
 {
-    public GameObject bulletPrefab;
     public Bullet bulletPref;
 
     [Header("Stats")]

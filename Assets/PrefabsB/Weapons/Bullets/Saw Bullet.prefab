@@ -134,13 +134,14 @@ MonoBehaviour:
   rb: {fileID: 4812642511784640406}
   audioSrc: {fileID: 4812642511784640407}
   destroyOnCollision: 0
+  destroyselfAfter: 6
   explosionObject: {fileID: 2802896194184839393, guid: ef2c8cb954718e84f8b1cbcbf2285290, type: 3}
-  explosionRadius: 1
-  explosionForce: 5
+  explosionRadius: 2
+  explosionForce: 10
   explosiveLayers:
     serializedVersion: 2
     m_Bits: 73
-  maxRicochetCount: 5
+  maxRicochetCount: 10
   environmentLayers:
     serializedVersion: 2
     m_Bits: 512

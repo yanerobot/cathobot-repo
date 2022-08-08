@@ -14,6 +14,7 @@ public class Weapon : Item
     [HideInInspector]
     public SpriteRenderer GFX;
 
+    bool reloading;
     protected bool canShoot = true;
     int currentBullets;
     protected int CurrentBullets
@@ -79,10 +80,20 @@ public class Weapon : Item
         return bullet;
     }
 
-    protected void Reload()
+    public void Reload()
     {
-        this.Co_DelayedExecute(() => CurrentBullets = stats.maxBullets, stats.reloadTime);
+        if (reloading || !IsReloadable())
+            return;
+
+        reloading = true;
+        this.Co_DelayedExecute(FinishReload, stats.reloadTime);
         character?.OnReloadStart?.Invoke(stats.reloadTime);
+    }
+
+    void FinishReload()
+    {
+        reloading = false;
+        CurrentBullets = stats.maxBullets;
     }
 
     protected bool HasBullets()

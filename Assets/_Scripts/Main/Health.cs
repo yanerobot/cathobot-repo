@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     bool startCountingTime;
     float damageModifier = 1;
 
-    Dictionary<string, Coroutine> tickingSourcesCoroutines;
+    Dictionary<string, TickDamageSource> tickingSources;
 
     void OnEnable()
     {
@@ -50,6 +50,8 @@ public class Health : MonoBehaviour
 
     public virtual void Init()
     {
+        tickingSources = new Dictionary<string, TickDamageSource>();
+
         if (initialHealth > 0)
             currentHealth = initialHealth;
         else
@@ -112,34 +114,63 @@ public class Health : MonoBehaviour
         _OnRestore?.Invoke(currentHealth);
     }
 
-    public void TickDamage(float tickRate, int damage, int id)
+    public void TickDamage(string key, float tickRate, int damage)
     {
-        if (tickingSourcesCoroutines == null)
-            tickingSourcesCoroutines = new Dictionary<string, Coroutine>();
-
-        var coroutine = StartCoroutine(Co_TickDamage(tickRate, damage));
-
-        string idStr = id + "" + transform.GetInstanceID();
-
-        if (tickingSourcesCoroutines.ContainsKey(idStr))
+        print("Start tick damage");
+        if (tickingSources.ContainsKey(key))
         {
-            StopCoroutine(tickingSourcesCoroutines[idStr]);
-            tickingSourcesCoroutines[idStr] = coroutine;
+            if (tickingSources[key].toStop != null)
+                StopCoroutine(tickingSources[key].toStop);
         }
         else
         {
-            tickingSourcesCoroutines.Add(idStr, coroutine);
+            var coroutine = StartCoroutine(Co_TickDamage(tickRate, damage));
+            tickingSources.Add(key, new TickDamageSource(coroutine));
         }
     }
 
-    public void StopTickDamage(int id)
+    public void StopTickDamage(string key)
     {
-        string idStr = id + "" + transform.GetInstanceID();
+        tickingSources.TryGetValue(key, out var src);
 
-        tickingSourcesCoroutines.TryGetValue(idStr, out var coroutine);
+        if (src == null)
+        {
+            tickingSources.Remove(key);
+            return;
+        }
 
-        if (coroutine != null)
-            StopCoroutine(coroutine);
+        if (src.coroutine != null)
+        {
+            StopCoroutine(src.coroutine);
+            tickingSources.Remove(key);
+        }
+
+    }
+    public void StopTickDamage(string key, float time, UnityAction callback = null)
+    {
+        tickingSources.TryGetValue(key, out var src);
+
+        if (src == null)
+        {
+            tickingSources.Remove(key);
+            return;
+        }
+
+        if (src.toStop != null)
+            StopCoroutine(src.toStop);
+
+        src.toStop = this.Co_DelayedExecute(() => 
+        {
+            if (src == null)
+                return;
+
+            if (src.coroutine != null)
+            {
+                StopCoroutine(src.coroutine);
+                tickingSources.Remove(key);
+            }
+            callback?.Invoke();
+        }, time);
     }
 
     IEnumerator Co_TickDamage(float tickRate, int damage)
@@ -173,5 +204,16 @@ public class Health : MonoBehaviour
     {
         invulnerable = false;
         invBubble.gameObject.SetActive(false);
+    }
+}
+
+public class TickDamageSource
+{
+    public Coroutine coroutine;
+    public Coroutine toStop;
+
+    public TickDamageSource (Coroutine routine)
+    {
+        coroutine = routine;
     }
 }

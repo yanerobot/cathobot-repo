@@ -29,6 +29,7 @@ public class TopDownMovement : MonoBehaviour, IStunnable
     Vector2 movementInput;
 
     bool stunned;
+    public Vector2 MovementVector => rb.velocity;
 
     void Start()
     {
