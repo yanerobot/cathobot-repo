@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f564f1594c190843be79d5a61c405fd, type: 3}
+  m_Name: Minigun
+  m_EditorClassIdentifier: 
+  bulletPref: {fileID: 5567130606645669108, guid: ca080cd005b7458409dd08bbc3c38ffc, type: 3}
+  isAutomatic: 1
+  delayBetweenShots: 0.2
+  damage: 20
+  bulletSpeed: 40
+  randomBulletSpread: 6
+  magBullets: 120
+  maxBullets: 0
+  reloadTime: 2
+  shootSFX: {fileID: 8300000, guid: 6dd80ef7332c4c84381c3cfeeb647aec, type: 3}
+  pitchRandomness: 0.5
