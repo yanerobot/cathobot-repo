@@ -9,7 +9,6 @@ public class RollingDiceUI : MonoBehaviour
     [SerializeField] Color timedColorMod;
     [SerializeField] Color timeHitColor;
     [SerializeField] Color originalDiceColor;
-    public const string TAG = "RollingDice";
     [SerializeField] Image buffImg;
     [SerializeField] Image diceImg;
     [SerializeField] Image mouseHint;
@@ -17,10 +16,56 @@ public class RollingDiceUI : MonoBehaviour
     [SerializeField, Tooltip("Index should match with Buff Type")] List<Buff> buffSprites;
     [SerializeField] AudioSource src;
     [SerializeField] Color disabledColor;
+    [SerializeField] Animator rollingDiceAnimator;
 
     Buff currentBuff;
+    DiceScript diceScript;
+    public static bool IsRolling;
 
     void Start()
+    {
+        IsRolling = false;
+        var go = GameObject.FindWithTag(DiceScript.TAG);
+        if (go == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        IsRolling = true;
+
+        diceScript = go.GetComponent<DiceScript>();
+
+        diceScript.OnStartRolling += OnStartRolling;
+        diceScript.OnHitZoneEnter += OnHitZoneEnter;
+        diceScript.OnFinishRolling += OnFinishRolling;
+        diceScript.OnStopRolling += DisableDiceRolling;
+
+        DisableDiceRolling();
+    }
+    
+    public void SetAnimatorUpdateMode(bool unscaled)
+    {
+        if (rollingDiceAnimator == null)
+            return;
+
+        if (!unscaled)
+            rollingDiceAnimator.updateMode = AnimatorUpdateMode.Normal;
+        else
+            rollingDiceAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+    }
+
+    void OnDestroy()
+    {
+        if (diceScript == null)
+            return;
+
+        diceScript.OnStartRolling -= OnStartRolling;
+        diceScript.OnHitZoneEnter -= OnHitZoneEnter;
+        diceScript.OnFinishRolling -= OnFinishRolling;
+        diceScript.OnStopRolling -= DisableDiceRolling;
+    }
+
+    public void DisableDiceRolling()
     {
         buffImg.gameObject.SetActive(false);
         diceImg.gameObject.SetActive(false);
@@ -39,9 +84,9 @@ public class RollingDiceUI : MonoBehaviour
         diceImg.color = originalDiceColor;
     }
 
-    public void OnFinishRolling(float time, int type, bool isBuff)
+    public void OnFinishRolling(BuffInfo buffInfo)
     {
-        if (isBuff)
+        if (buffInfo.isBuff)
         {
             diceImg.color = timeHitColor;
         }
@@ -53,7 +98,7 @@ public class RollingDiceUI : MonoBehaviour
 
         mouseHint.gameObject.SetActive(false);
 
-        this.Co_DelayedExecute(() => RollResult(time -  0.4f, type), 0.4f, false);
+        this.Co_DelayedExecute(() => RollResult(buffInfo.time -  0.4f, buffInfo.type), 0.4f, false);
     }
 
     void RollResult(float time, int type)

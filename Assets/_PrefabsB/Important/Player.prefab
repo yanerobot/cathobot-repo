@@ -178,8 +178,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2042788679
+  m_SortingLayer: 1
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 269328a544b60564fa3f0f263ba7b2bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58a75827b6e51042a9783ffc6d05214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InvulnerabilityAfterHit: 0.1
+  InvulnerabilityAfterHit: 0.2
   maxHealth: 100
   initialHealth: 0
   isStatic: 0
@@ -417,7 +417,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8060442127823526135}
-  movementSpeed: 8
+  movementSpeed: 7
+  maxSpeed: 25
   rb: {fileID: 7378826178220668250}
   src: {fileID: 1119935537268220071}
   dashSpeed: 35
@@ -430,6 +431,7 @@ MonoBehaviour:
   bounceLayers:
     serializedVersion: 2
     m_Bits: 0
+  slowDownRate: 0
 --- !u!114 &7378826178220668251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,8 +634,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2042788679
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -503551654, guid: 77c7a73dbf9cdc943b777b7318408018, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -673,6 +675,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7378826178220668255}
     m_Modifications:
+    - target: {fileID: 1753020796, guid: b2235abf54bc25245b277d2ce6bfeee0, type: 3}
+      propertyPath: diceCD
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1857435761, guid: b2235abf54bc25245b277d2ce6bfeee0, type: 3}
       propertyPath: es
       value: 
@@ -681,6 +687,10 @@ PrefabInstance:
       propertyPath: hitbox
       value: 
       objectReference: {fileID: 7378826178220668228}
+    - target: {fileID: 1857435761, guid: b2235abf54bc25245b277d2ce6bfeee0, type: 3}
+      propertyPath: buffTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1857435761, guid: b2235abf54bc25245b277d2ce6bfeee0, type: 3}
       propertyPath: movement
       value: 
@@ -696,6 +706,10 @@ PrefabInstance:
     - target: {fileID: 1857435761, guid: b2235abf54bc25245b277d2ce6bfeee0, type: 3}
       propertyPath: enemiesToKill
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857435761, guid: b2235abf54bc25245b277d2ce6bfeee0, type: 3}
+      propertyPath: speedBuffValue
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1857435761, guid: b2235abf54bc25245b277d2ce6bfeee0, type: 3}
       propertyPath: increasedChanceBuff

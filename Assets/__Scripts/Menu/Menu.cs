@@ -26,7 +26,14 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        var lastLevel = PlayerPrefs.GetInt(ExitScript.PrefsKey, -1);
+
+        if (lastLevel > 0 && UI_InitialGameLoader.isContinue)
+        {
+            SceneManager.LoadScene(lastLevel);
+            return;
+        }
+        SceneManager.LoadScene(1);
     }
 
 

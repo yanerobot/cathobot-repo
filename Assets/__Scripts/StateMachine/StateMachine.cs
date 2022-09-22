@@ -44,7 +44,7 @@ public class StateMachine : MonoBehaviour
 
     public void SetState(State newState)
     {
-        print(newState);
+        //print("Transitioning from " + currentState + " TO " + newState);
         currentState = newState;
 
         stateUpdateCoroutine = StartCoroutine(Co_UpdateStateMachine());

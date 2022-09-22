@@ -1,14 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KillOnTouch : MonoBehaviour
 {
-    [SerializeField] BoxCollider2D coll;
+    [SerializeField] float delay;
+    bool instaKill;
 
+    void OnEnable()
+    {
+        instaKill = true;
+        this.Co_DelayedExecute(() => instaKill = false, delay);
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Health health))
-            health.Kill();
+        {
+            if (instaKill)
+            {
+                health.Kill();
+                return;
+            }
+            this.Co_DelayedExecute(() => health.Kill(), delay);
+        }
     }
 }

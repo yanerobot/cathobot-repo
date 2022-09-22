@@ -10,24 +10,20 @@ public class RangedCombatSystem : EnemyCombatSystem
 
     int currentHitPointIndex;
 
-    TimeCondition changeDirDelay;
-
-    Vector2 currentOffset;
-    float currentLerp;
-
     public override void OnCombatStateEnter()
     {
         base.OnCombatStateEnter();
-        changeDirDelay = new TimeCondition(0.5f);
         currentHitPointIndex = 0;
+    }
+
+    public override void OnCombatStateUpdate()
+    {
+        base.OnCombatStateUpdate();
     }
 
     protected override void Attack()
     {
-        var shootPoint = hitPoints[currentHitPointIndex];
-
-        currentHitPointIndex = (currentHitPointIndex + 1) % hitPoints.Length;
-        
+        var shootPoint = GetHitPoint();
 
         var go = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation, null);
         var bullet = go.GetComponent<Bullet>();
@@ -57,10 +53,14 @@ public class RangedCombatSystem : EnemyCombatSystem
         return Vector2.Lerp(dir, dir + currentOffset, currentLerp);
     }*/
 
-    void OnDrawGizmos()
+    public override bool CanExit()
     {
-        Gizmos.color = Color.red;
+        return !hasPreparationFinished;
+    }
 
-        Gizmos.DrawSphere((Vector2)transform.position + currentOffset, 0.2f);
+    protected virtual Transform GetHitPoint()
+    {
+        currentHitPointIndex = (currentHitPointIndex + 1) % hitPoints.Length;
+        return hitPoints[currentHitPointIndex];
     }
 }

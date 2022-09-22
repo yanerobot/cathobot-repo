@@ -48,12 +48,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+      propertyPath: visibilityRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
       propertyPath: delayBetweenAttacks
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
       propertyPath: runningCombatDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+      propertyPath: specialAbilities.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829458436, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+      propertyPath: specialAbilities.Array.data[0].component
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 829458437, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
       propertyPath: maxHealth
@@ -131,22 +143,6 @@ PrefabInstance:
       propertyPath: tagPenalties.Array.data[6]
       value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 7211357821288810235, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
-      propertyPath: damagedColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7211357821288810235, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
-      propertyPath: damagedColor.b
-      value: 0.38679248
-      objectReference: {fileID: 0}
-    - target: {fileID: 7211357821288810235, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
-      propertyPath: damagedColor.g
-      value: 0.38679248
-      objectReference: {fileID: 0}
-    - target: {fileID: 7211357821288810235, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
-      propertyPath: damagedColor.r
-      value: 0.38679248
-      objectReference: {fileID: 0}
     - target: {fileID: 7572171351683216917, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
       propertyPath: m_Controller
       value: 
@@ -161,6 +157,7 @@ PrefabInstance:
       objectReference: {fileID: -7689924898758410521, guid: cf0fdda35122d1d49b6504392ee72aaa, type: 2}
     m_RemovedComponents:
     - {fileID: 2671831521219342037, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
+    - {fileID: 5416824146243370842, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6831eb427daedff4bb82fd31245608f4, type: 3}
 --- !u!114 &3358522524342665560 stripped
 MonoBehaviour:
@@ -216,6 +213,8 @@ MonoBehaviour:
   delayBetweenAttacks: 0
   attackingAudio: {fileID: 0}
   isSoundOnAttack: 0
+  preparationStateTime: 0
+  attackingStateTime: 0
   src: {fileID: 0}
   damagableLayers:
     serializedVersion: 2

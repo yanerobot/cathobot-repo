@@ -1,11 +1,12 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
 {
     public const string PLAYERTAG = "Player";
 
     [SerializeField] Animator animator;
     [SerializeField] float movementSpeed;
+    [SerializeField] float maxSpeed;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] AudioSource src;
 
@@ -19,6 +20,7 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
     [SerializeField] float superDashMultiplier;
     [SerializeField] AudioClip superDashSound;
     [SerializeField] LayerMask bounceLayers;
+    [SerializeField] float slowDownRate;
     
     bool canDash = true;
     bool gameStarted;
@@ -32,14 +34,26 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
 
     bool stunned;
     bool onIce;
+    bool speedBoosted;
+
+    List<float> allBuffs;
+    int currentBuffIndex;
+
+    float currentSpeed;
+    bool slowDown;
 
     public Vector2 MovementVector => rb.velocity;
+
 
     void Start()
     {
         LevelStartCountDown.OnCountDownEnd.AddListener(()=> {
             gameStarted = true;
         });
+        allBuffs = new List<float>();
+        allBuffs.Add(1);
+
+        currentSpeed = movementSpeed;
     }
 
     void Update()
@@ -68,30 +82,13 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
         if (canDash && Input.GetKeyDown(KeyCode.Space))
             Dash();
     }
-    public void Buff(float newModifier, float time)
-    {
-        StopDash();
-        CancelInvoke();
-        StopAllCoroutines();
-        src.Stop();
-        Modifier = newModifier;
-        superDash = false;
-        canDash = false;
-        Invoke(nameof(SetNormalModifier), time);
-    }
-
-    public void SetNormalModifier()
-    {
-        canDash = true;
-        Modifier = 1;
-    }
 
     void FixedUpdate()
     {
         if (isDashing)
             return;
 
-        if (stunned)
+        if (stunned || onIce)
         {
             if (rb.velocity.magnitude >= movementSpeed * Modifier)
                 return;
@@ -100,25 +97,68 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
             rb.AddForce(movementInput * Modifier, ForceMode2D.Impulse);
             return;
         }
+        rb.velocity = movementInput * currentSpeed * Modifier * superDashModifier;
 
-        if (onIce)
+        if (currentSpeed > movementSpeed) 
         {
-            if (rb.velocity.magnitude >= movementSpeed * Modifier)
-                return;
-
-            rb.AddForce(movementInput * Modifier, ForceMode2D.Impulse);
-            return;
+            currentSpeed = Mathf.Clamp(rb.velocity.magnitude, movementSpeed, currentSpeed);
         }
 
-        rb.velocity = movementInput * movementSpeed * Modifier * superDashModifier;
+        if (slowDown)
+        {
+            currentSpeed -= slowDownRate;
+            currentSpeed = Mathf.Clamp(currentSpeed, movementSpeed, maxSpeed);
+            if (currentSpeed == movementSpeed)
+                slowDown = false;
+        }
     }
+    public void Buff(float newModifier, float time)
+    {
+        ResetMovementModifiers();
+        Modifier = newModifier;
+        canDash = false;
+        Invoke(nameof(EnableDash), time);
+        Invoke(nameof(SetNormalModifier), time);
+    }
+
+    public void SpeedBoost(float additionalSpeed, float time)
+    {
+        ResetMovementModifiers();
+        canDash = false;
+        slowDown = false;
+        currentSpeed += additionalSpeed;
+        if (currentSpeed > maxSpeed)
+            currentSpeed = maxSpeed;
+
+        Invoke(nameof(EnableDash), dashCooldown);
+        Invoke(nameof(SlowDown), 1f);
+    }
+
+    void SlowDown() => slowDown = true;
+
+    public void SetNormalModifier()
+    {
+        Modifier = 1;
+    }
+
+    void ResetMovementModifiers()
+    {
+        CancelInvoke();
+        src.Stop();
+        isDashing = false;
+        superDash = false;
+        stunned = false;
+        superDashModifier = 1;
+    }
+
+    #region Dash
 
     void Dash()
     {
         if (superDash)
         {
             superDashModifier = superDashMultiplier;
-            this.Co_DelayedExecute(() => superDashModifier = 1, superDashDuration);
+            Invoke(nameof(ResetSuperDash), superDashDuration);
             src.PlayOneShot(superDashSound);
         }
         canDash = false;
@@ -132,13 +172,14 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
         rb.velocity = dashDir * dashSpeed * superDashModifier;
 
         Invoke(nameof(StopDash), dashTime);
-        Invoke(nameof(EnableDash), dashTime + dashCooldown);
     }
 
     void StopDash()
     {
         isDashing = false;
         src.Play();
+        Invoke(nameof(EnableDash), dashCooldown);
+        Invoke(nameof(EnableSuperDash), dashCooldown);
     }
 
     void EnableDash()
@@ -147,22 +188,42 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
             return;
 
         src.Stop();
-        superDash = true;
         canDash = true;
-
-        this.Co_DelayedExecute(() => superDash = false, superDashTiming);
     }
 
-    Coroutine stunRoutine;
+    void EnableSuperDash()
+    {
+        superDash = true;
+        Invoke(nameof(DisableSuperDash), superDashTiming);
+    }
+
+    void DisableSuperDash()
+    {
+        superDash = false;
+    }
+
+    void ResetSuperDash()
+    {
+        superDashModifier = 1;
+    }
+    #endregion
+
+    #region Stun
     public void DisableMovement(float time)
     {
-        if (stunRoutine != null)
-            StopCoroutine(stunRoutine);
+        CancelInvoke(nameof(EnableMovement));
 
         stunned = true;
-        stunRoutine = this.Co_DelayedExecute(() => stunned = false, time);
+        Invoke(nameof(EnableMovement), time);
     }
 
+    void EnableMovement()
+    {
+        stunned = false;
+    }
+    #endregion
+
+    #region Ice
     float initialDrag;
     public void OnIceEnter()
     {
@@ -177,4 +238,5 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
         onIce = false;
         rb.drag = initialDrag;
     }
+    #endregion
 }

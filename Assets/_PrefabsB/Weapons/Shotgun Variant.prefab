@@ -15,10 +15,34 @@ PrefabInstance:
       propertyPath: shotGunReload
       value: 
       objectReference: {fileID: 8300000, guid: d70ba7531d099b2478c57ab40f473a74, type: 3}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1417f23f584bcf144aa917217a969e4d, type: 3}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f155b97dbeab0d44a96420858c7f5918, type: 3}
+      objectReference: {fileID: 21300000, guid: 7e2d7859f20461a47b05491c272ba90f, type: 3}
+    - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195059377272752571, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -107,6 +131,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 8b47483270d816e4490180a2de746bc6, type: 2}
   shootingPoint: {fileID: 6672767579084116924}
   shootEffect: {fileID: 6672767578309715641}
+  bulletSpread: 0
   GFX: {fileID: 0}
   shotGunReload: {fileID: 8300000, guid: d70ba7531d099b2478c57ab40f473a74, type: 3}
 --- !u!4 &6672767579084116924 stripped

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Level4 Medals
   m_EditorClassIdentifier: 
   AuthorTime: 11.401
-  GoldTime: 13
-  SilverTime: 20
+  GoldTime: 14
+  SilverTime: 17
   BronzeTime: 40

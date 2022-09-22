@@ -56,6 +56,9 @@ public class State
         return this;
     }
 
+    /// <summary>
+    /// Comma = "AND"
+    /// </summary>
     public Transition AddTransition(State to, params Func<bool>[] conditions)
     {
         var transition = new Transition(to, conditions);

@@ -10,16 +10,22 @@ public abstract class EnemyCombatSystem : MonoBehaviour
     [SerializeField] protected AudioClip attackingAudio;
     [SerializeField] protected bool isSoundOnAttack;
 
+    [SerializeField] float preparationStateTime;
+    [SerializeField] float attackingStateTime;
+
     [HideInInspector]
     public AudioSource src;
 
-    TimeCondition attackDelay;
+    TimeCondition attackDelay, preparationTC;
 
     AudioClip mainClip;
 
     protected EnemyAI AI;
 
     protected TopDownMovement playerMovement;
+
+    bool hasPreparationStarted;
+    protected bool hasPreparationFinished;
 
     void Start()
     {
@@ -30,11 +36,13 @@ public abstract class EnemyCombatSystem : MonoBehaviour
     public virtual void OnCombatStateEnter()
     {
         if (attackDelay == null)
+        {
             attackDelay = new TimeCondition(delayBetweenAttacks);
+            attackDelay.ReduceTime(delayBetweenAttacks);
+        }
 
-/*        if (attackDelay.HasTimePassed())
-            attackDelay.ResetTimer();*/
-        
+        preparationTC = new TimeCondition(preparationStateTime);
+
         if (!isSoundOnAttack)
         {
             if (attackingAudio != null)
@@ -45,18 +53,29 @@ public abstract class EnemyCombatSystem : MonoBehaviour
             }
         }
 
+        attackingStateTC = new TimeCondition(attackingStateTime);
+
         playerMovement = AI.target.GetComponent<TopDownMovement>();
     }
+
+    TimeCondition attackingStateTC;
 
     public virtual void OnCombatStateUpdate()
     {
         LookAtTarget();
 
+        if (PrepareAttack())
+            return;
+
+        if (attackingStateTC.HasTimePassed() && attackingStateTime > 0)
+        {
+            preparationTC.ResetTimer();
+        }
+
         if (attackDelay.HasTimePassed())
         {
             Attack();
             attackDelay.ResetTimer();
-
 
             if (isSoundOnAttack)
                 src.PlayOneShot(attackingAudio);
@@ -86,7 +105,39 @@ public abstract class EnemyCombatSystem : MonoBehaviour
             src.clip = mainClip;
             src.Play();
         }
+        hasPreparationStarted = false;
+    }
+
+    bool PrepareAttack()
+    {
+        if (preparationStateTime <= 0)
+            return false;
+
+        if (!preparationTC.HasTimePassed())
+        {
+            hasPreparationFinished = false;
+            if (!hasPreparationStarted)
+            {
+                OnPrepareAttackStart();
+                hasPreparationStarted = true;
+            }
+            OnPrepareAttackUpdate();
+        }
+        else if (!hasPreparationFinished)
+        {
+            OnPrepareAttackEnd();
+            hasPreparationFinished = true;
+            hasPreparationStarted = false;
+            attackingStateTC.ResetTimer();
+        }
+        return !hasPreparationFinished;
     }
 
     protected abstract void Attack();
+
+    protected virtual void OnPrepareAttackStart() { }
+    protected virtual void OnPrepareAttackUpdate() { }
+    protected virtual void OnPrepareAttackEnd() { }
+
+    public virtual bool CanExit() { return true; }
 }

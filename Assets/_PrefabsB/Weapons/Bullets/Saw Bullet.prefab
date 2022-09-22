@@ -114,6 +114,17 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ede74126933203949be4f072765e4370, type: 3}
+--- !u!114 &3179552840419742034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3038238150052359914, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 435151476313341880}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b3919b86b3bcd4795e23b32fb7e517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4812642511784640405 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
@@ -135,6 +146,10 @@ MonoBehaviour:
   audioSrc: {fileID: 4812642511784640407}
   destroyOnCollision: 0
   destroyselfAfter: 6
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  GFX: {fileID: 3179552840419742034}
   explosionObject: {fileID: 2802896194184839393, guid: ef2c8cb954718e84f8b1cbcbf2285290, type: 3}
   explosionRadius: 2
   explosionForce: 10

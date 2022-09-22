@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 929716654859113805}
   - component: {fileID: 929716654859113806}
   - component: {fileID: 929716654859113810}
+  - component: {fileID: 1221515370951193744}
   m_Layer: 0
   m_Name: ConveyorBelt
   m_TagString: Untagged
@@ -73,7 +74,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 5.27, y: 1.5000001}
+    newSize: {x: 7.4057064, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
@@ -122,12 +123,12 @@ SpriteRenderer:
   m_SortingLayerID: -1835190631
   m_SortingLayer: -2
   m_SortingOrder: 12
-  m_Sprite: {fileID: 7482667652216324306, guid: 612755bee02f3d248a80c43fbba9c59c, type: 3}
-  m_Color: {r: 0.31648272, g: 0.35782543, b: 0.5283019, a: 1}
+  m_Sprite: {fileID: 1017609850, guid: e48c39172c564ab4f8500f4e665cfd26, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 5.27, y: 1.5000001}
+  m_Size: {x: 7.4057064, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -166,3 +167,23 @@ MonoBehaviour:
   legacyMode: 0
   serializedVersion: 1
   legacyUseWorldSpace: 0
+--- !u!95 &1221515370951193744
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929716654859113807}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 654f4d0140c3ed146b6ada9b213e7abf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -82,23 +82,21 @@ public class Health : MonoBehaviour
         if (invulnirable && !ignoreInvulnirability)
             return;
 
-        timeAfterFirstHit = 0;
-        startCountingTime = true;
         if (InvulnerabilityAfterHit > 0)
+        {
+            timeAfterFirstHit = 0;
+            startCountingTime = true;
             invulnirable = true;
+        }
 
         currentHealth -= (int)(amount * damageModifier);
 
-        if (currentHealth < 0) 
-            currentHealth = 0;
-
-
-        if (currentHealth == 0)
+        if (currentHealth <= 0)
         {
+            currentHealth = 0;
             isDead = true;
             _OnDie?.Invoke();
             return;
-            
         }
 
         _OnDamage?.Invoke(currentHealth);
@@ -116,7 +114,6 @@ public class Health : MonoBehaviour
 
     public void TickDamage(string key, float tickRate, int damage)
     {
-        print("Start tick damage");
         if (tickingSources.ContainsKey(key))
         {
             if (tickingSources[key].toStop != null)

@@ -21,9 +21,9 @@ TagManager:
   - ItemSearch
   - Environment
   - Obstacle
-  - 
-  - 
-  - 
+  - Transparent
+  - MainPP
+  - BulletForEnvironment
   - 
   - 
   - 

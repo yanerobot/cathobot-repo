@@ -42,18 +42,14 @@ public class AIManager : MonoBehaviour
         return null;
     }
 
-    public List<Health> GetClosestEnemies(Vector3 pos, int count)
+    public List<Health> GetClosestEnemies(int count)
     {
-        List<Health> enemies = new List<Health>();
-
-        Transform[] enemyTransforms = transform.Cast<Transform>().ToArray();
-
-        enemies = enemyTransforms.OrderBy(t => (t.position - pos).sqrMagnitude)
+        return transform.Cast<Transform>()
+            .Select(t => t.GetComponent<EnemyAI>())
+            .OrderBy(ai => ai.GetRunningDistance())
             .Take(count)
             .Select(t => t.GetComponent<Health>())
             .ToList();
-
-        return enemies;
     }
 
     public void KillClosestEnemy(Vector2 pos)

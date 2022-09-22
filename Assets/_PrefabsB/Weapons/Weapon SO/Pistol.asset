@@ -16,9 +16,10 @@ MonoBehaviour:
   isAutomatic: 0
   delayBetweenShots: 0
   damage: 8
-  bulletSpeed: 15
-  randomBulletSpread: 9
+  bulletSpeed: 30
+  randomBulletSpread: 0
+  magBullets: 0
   maxBullets: 0
   reloadTime: 0
-  shootSFX: {fileID: 8300000, guid: 56c0bab6423a0c34b99db70285b083a5, type: 3}
+  shootSFX: {fileID: 8300000, guid: b8b055110fd0f384f998855523b281c2, type: 3}
   pitchRandomness: 0.1

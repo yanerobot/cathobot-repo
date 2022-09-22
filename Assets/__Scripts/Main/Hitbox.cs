@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Hitbox : MonoBehaviour, IBuffable
 {
@@ -16,6 +17,9 @@ public class Hitbox : MonoBehaviour, IBuffable
     [HideInInspector]
     public bool isTightPlace;
 
+    public static UnityAction OnHitboxBuffStart;
+    public static UnityAction OnHitboxBuffEnd;
+
     void Start()
     {
         ccNormalSize = mainCollider.size;
@@ -26,6 +30,7 @@ public class Hitbox : MonoBehaviour, IBuffable
     {
         mainCollider.size *= value;
         GFX.localScale *= value;
+        OnHitboxBuffStart?.Invoke();
 
         Invoke(nameof(SetNormalModifier), time);
     }
@@ -34,6 +39,7 @@ public class Hitbox : MonoBehaviour, IBuffable
     {
         mainCollider.size = ccNormalSize;
         GFX.localScale = gfxNormalSize;
+        OnHitboxBuffEnd?.Invoke();
 
         if (isTightPlace)
             this.Co_DelayedExecute(() => health.Kill(true), 0.1f);

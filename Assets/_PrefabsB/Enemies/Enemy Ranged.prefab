@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 448832092}
   damagedColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
-  timeToBlink: 1
+  timeToBlink: 0.2
   delayBetweenBlinks: 0.2
 --- !u!1 &1584414414
 GameObject:
@@ -332,12 +332,15 @@ MonoBehaviour:
   destinationSetter: {fileID: 2720864799523658801}
   aiPath: {fileID: 2720864799523658800}
   explosionPrefab: {fileID: 4390423827110283709, guid: 20023ebc4150e83449f64b5bbff50bc0, type: 3}
+  checkByDistance: 0
   runningDistance: 20
   runningCombatDistance: 10
   combatDistance: 4
+  visibilityRange: 8
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   isStatic: 0
+  specialAbilities: []
   movementDisabledExternally: 0
   target: {fileID: 0}
   aiManager: {fileID: 0}
@@ -358,6 +361,8 @@ MonoBehaviour:
   delayBetweenAttacks: 0.4
   attackingAudio: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
   isSoundOnAttack: 1
+  preparationStateTime: 0
+  attackingStateTime: 0
   src: {fileID: 0}
   hitPoints:
   - {fileID: 1584414415}

@@ -21,6 +21,7 @@ public class Weapon : Item
 
     public UnityAction<(int, int)> OnChangeBullets;
     public UnityAction OnReload;
+    public UnityAction OnShoot;
 
     protected override void Awake()
     {
@@ -99,7 +100,7 @@ public class Weapon : Item
 
     protected virtual void PlayShootEffects()
     {
-        shootEffect?.Play();
+        //shootEffect?.Play();
         var initialPitch = src.pitch;
         src.pitch = src.pitch + Random.Range(-stats.pitchRandomness, stats.pitchRandomness);
         src.PlayOneShot(stats.shootSFX);
@@ -120,6 +121,7 @@ public class Weapon : Item
 
         currentMagBullets -= amount;
         currentBullets -= amount;
+        OnShoot?.Invoke();
 
         if (!IsReloadable())
             return;

@@ -18,12 +18,12 @@ public class Dice : MonoBehaviour
 
     void Start()
     {
-        var diceUiGo = GameObject.FindWithTag(RollingDiceUI.TAG);
+        /*var diceUiGo = GameObject.FindWithTag(RollingDiceUI.TAG);
         if (diceUiGo == null)
             return;
-
+*//*
         diceUI = diceUiGo.GetComponent<RollingDiceUI>();
-
+*/
         LevelStartCountDown.OnCountDownEnd.AddListener(StartRolling);
     }
 

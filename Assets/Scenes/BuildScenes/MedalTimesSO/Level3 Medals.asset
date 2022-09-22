@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b16361f7e6664479dadb8b7262b9f1, type: 3}
   m_Name: Level3 Medals
   m_EditorClassIdentifier: 
-  AuthorTime: 9.32
-  GoldTime: 12
-  SilverTime: 18
-  BronzeTime: 32
+  AuthorTime: 10.8
+  GoldTime: 11
+  SilverTime: 13.5
+  BronzeTime: 18

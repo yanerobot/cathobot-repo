@@ -8,7 +8,7 @@ public class SawBullet : ExplosiveBullet
 
     protected override void OnRegisterCollision(Collider2D collision)
     {
-        SimpleDamage(collision);
+        base.OnRegisterCollision(collision);
 
         if (environmentLayers.Contains(collision.gameObject.layer))
             Ricochet();

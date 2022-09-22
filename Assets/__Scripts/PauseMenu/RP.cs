@@ -1,15 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class RP : MonoBehaviour
 {
+    [SerializeField] GameObject OnlyValuableBuffsObj;
     public AudioSource back;
     public AudioSource forward;
 
     public static bool GameIsPaused = false;
     public GameObject PauseUI;
+
+    void OnEnable()
+    {
+        OnlyValuableBuffsObj.SetActive(false);
+        if (PlayerPrefs.GetInt(OnlyValuableBuffsToggle.EnabledPrefsKey, 0) == 1)
+        {
+            OnlyValuableBuffsObj.SetActive(true);
+        }
+    }
 
     private void Update()
     {

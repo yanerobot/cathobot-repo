@@ -14,7 +14,8 @@ public class SpeedBooster : MonoBehaviour
 
         if (collision.TryGetComponent(out TopDownMovement movement))
         {
-            movement.Buff(modifier, time);
+            movement.SpeedBoost(modifier, time);
+            GetComponent<AudioSource>()?.Play();
         }
         else if (collision.TryGetComponent(out EnemyAI ai))
         {

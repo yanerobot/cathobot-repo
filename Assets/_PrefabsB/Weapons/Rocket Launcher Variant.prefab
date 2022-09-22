@@ -23,10 +23,30 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: d05a1057f826c6c4899708037621d92a, type: 2}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5216ddba5c5852847ba5d1b633c7c021, type: 3}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.b
+      value: 0.43529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d730c54001d053f41ad559fa72503845, type: 3}
+      objectReference: {fileID: 21300000, guid: e556e96686e7c594a9dee73415ed232f, type: 3}
     - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_Color.b
       value: 0.43676576
@@ -142,6 +162,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: d05a1057f826c6c4899708037621d92a, type: 2}
   shootingPoint: {fileID: 6030385352495526247}
   shootEffect: {fileID: 6030385353328641122}
+  bulletSpread: 0
   GFX: {fileID: 0}
 --- !u!198 &6030385353328641122 stripped
 ParticleSystem:

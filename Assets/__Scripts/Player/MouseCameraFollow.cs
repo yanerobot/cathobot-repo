@@ -5,14 +5,15 @@ using Cinemachine;
 
 public class MouseCameraFollow : MonoBehaviour
 {
-    [SerializeField] float threshholdOuter;
-    [SerializeField] float threshholdInner;
+    [SerializeField] float threshHoldX;
+    [SerializeField] float threshHoldY;
     [SerializeField] float actualPositionModifier;
     [SerializeField] Transform player;
     [SerializeField] CinemachineVirtualCamera cmVcam;
     Camera cam;
 
-    Vector2 mousePos;
+    Vector2 mousePosWorld;
+    Vector2 mousePosScreen;
     Vector2 targetPos;
 
     void Start()
@@ -32,15 +33,23 @@ public class MouseCameraFollow : MonoBehaviour
 
     void Update()
     {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        mousePosScreen = Input.mousePosition;
 
-        targetPos = mousePos - (Vector2)player.position;
+        mousePosScreen.x = Mathf.Clamp(mousePosScreen.x, 0, Screen.width);
+        mousePosScreen.y = Mathf.Clamp(mousePosScreen.y, 0, Screen.height);
 
-        targetPos.x = Mathf.Clamp(targetPos.x, -threshholdOuter, threshholdOuter);
-        targetPos.y = Mathf.Clamp(targetPos.y, -threshholdOuter, threshholdOuter);
+        mousePosWorld = cam.ScreenToWorldPoint(mousePosScreen);
+
+        targetPos = mousePosWorld - (Vector2)player.position;
 
         targetPos *= actualPositionModifier;
 
         transform.position = (Vector2)player.position + targetPos;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(player.position, new Vector3(threshHoldX, threshHoldX, 0));
     }
 }

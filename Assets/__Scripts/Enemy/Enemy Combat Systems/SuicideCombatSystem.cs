@@ -39,4 +39,12 @@ public class SuicideCombatSystem : EnemyCombatSystem
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+#endif
 }

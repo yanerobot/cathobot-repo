@@ -19,7 +19,6 @@ public class Running : State
             AI.aiPath.canMove = true;
             AI.ResetRigidbody();
         }
-        AI.OnRunningEnter?.Invoke();
     }
 
     public override void OnUpdate()
@@ -31,12 +30,10 @@ public class Running : State
             timePassed = 0;
             AI.ResetRigidbody();
         }
-        AI.OnRunningUpdate?.Invoke();
     }
 
     public override void OnExit()
     {
         AI.aiPath.canMove = false;
-        AI.OnRunningExit?.Invoke();
     }
 }

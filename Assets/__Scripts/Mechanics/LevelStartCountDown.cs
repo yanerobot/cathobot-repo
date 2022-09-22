@@ -10,6 +10,7 @@ public class LevelStartCountDown : MonoBehaviour
     public static UnityEvent OnCountDownEnd;
     public static UnityEvent<int> OnSecondPassed;
 
+
     void Awake()
     {
         OnCountDownEnd = new UnityEvent();
@@ -17,14 +18,14 @@ public class LevelStartCountDown : MonoBehaviour
         StartCoroutine(CountDown(3));
     }
 
-/*    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == TopDownMovement.PLAYERTAG)
+    /*    void OnTriggerEnter2D(Collider2D collision)
         {
-            OnCountDownEnd?.Invoke();
-            Destroy(gameObject);
-        }
-    }*/
+            if (collision.tag == TopDownMovement.PLAYERTAG)
+            {
+                OnCountDownEnd?.Invoke();
+                Destroy(gameObject);
+            }
+        }*/
 
     void OnDisable()
     {

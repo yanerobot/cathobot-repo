@@ -1,7 +1,5 @@
 using Pathfinding;
-using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -22,9 +20,14 @@ public class EnemyAI : StateMachine, IStunnable
     [SerializeField] float runningDistance;
     [SerializeField] float runningCombatDistance;
     [SerializeField] float combatDistance;
+    [SerializeField] float visibilityRange;
     [SerializeField] float speedDecreaseOnHitModifier;
     [SerializeField] float stunOnDamageTime;
     [SerializeField] public bool isStatic;
+
+    [Header("Special Attack")]
+    [SerializeField] public SpecialAbilityData[] specialAbilities;
+    
 
     [HideInInspector]
     public bool movementDisabledExternally;
@@ -37,8 +40,7 @@ public class EnemyAI : StateMachine, IStunnable
     public AIManager aiManager;
 
     float normalSpeed;
-
-    public UnityAction OnRunningEnter, OnRunningUpdate, OnRunningExit;
+    bool sawPlayer;
 
     void Start()
     {
@@ -56,19 +58,47 @@ public class EnemyAI : StateMachine, IStunnable
         var running = new Running(this);
         var runningCombat = new RunningCombat(this);
         var combat = new Combat(this);
+        
 
         searching.AddTransition(running, () => IsPlayerAvailable() && IsPlayerWithinRunningRange()).AddTransitionCallBack(ActivateSounds);
 
-        running.AddTransition(combat, IsPlayerWithingCombatRange, IsPlayerVisible);
+        running.AddTransition(combat, IsPlayerWithinCombatRange, IsPlayerVisible);
         running.AddTransition(searching, () => !IsPlayerAvailable());
-        running.AddTransition(runningCombat, IsPlayerWithingRunningCombatRange, () => !IsPlayerWithingCombatRange(), IsPlayerVisible);
+        running.AddTransition(runningCombat, IsPlayerWithinRunningCombatRange, () => !IsPlayerWithinCombatRange(), IsPlayerVisible);
 
-        combat.AddTransition(running, () => !IsPlayerWithingRunningCombatRange() || !IsPlayerVisible());
-        combat.AddTransition(runningCombat, () => !IsPlayerWithingCombatRange(), IsPlayerWithingRunningCombatRange);
-        combat.AddTransition(searching, IsTargetDead);
+        combat.AddTransition(running, () => !IsPlayerWithinRunningCombatRange() || !IsPlayerVisible(), combatSystem.CanExit);
+        combat.AddTransition(searching, () => IsTargetDead() || !IsPlayerWithinRunningRange());
+        combat.AddTransition(runningCombat, () => !IsPlayerWithinCombatRange(), IsPlayerWithinRunningCombatRange, combatSystem.CanExit);
 
-        runningCombat.AddTransition(running, () => !IsPlayerWithingRunningCombatRange() || !IsPlayerVisible());
-        runningCombat.AddTransition(combat, IsPlayerWithingCombatRange, IsPlayerVisible);
+        runningCombat.AddTransition(running, () => !IsPlayerWithinRunningCombatRange() || !IsPlayerVisible(), combatSystem.CanExit);
+        runningCombat.AddTransition(combat, IsPlayerWithinCombatRange, IsPlayerVisible, combatSystem.CanExit);
+
+
+        if (specialAbilities.Length > 0)
+        {
+            foreach (var sa in specialAbilities)
+            {
+                var special = new SpecialAttack(this, sa.component);
+                if (sa.combat)
+                {
+                    combat.AddTransition(special, sa.component.EnterCondition);
+                }
+                if (sa.running)
+                {
+                    running.AddTransition(special, sa.component.EnterCondition);
+                }
+                if (sa.runningCombat)
+                {
+                    runningCombat.AddTransition(special, sa.component.EnterCondition);
+                }
+                special.AddTransition(combat, IsPlayerWithinCombatRange, IsPlayerVisible, sa.component.ExitCondition);
+                special.AddTransition(runningCombat, IsPlayerWithinRunningCombatRange, () => !IsPlayerWithinCombatRange(), IsPlayerVisible, sa.component.ExitCondition);
+                special.AddTransition(running, () => !IsPlayerWithinRunningCombatRange() || !IsPlayerVisible(), sa.component.ExitCondition);
+                sa.component.InitiateConditions();
+            }
+        }
+
+        AddAnyTransition(searching, () => !IsPlayerAvailable()).Except(searching);
 
         SetState(searching);
     }
@@ -104,10 +134,23 @@ public class EnemyAI : StateMachine, IStunnable
 
     public bool IsPlayerVisible()
     {
-        var ray = Physics2D.Raycast(transform.position, transform.position.Direction(target.position), runningCombatDistance, visibleLayers);
+        if (target == null)
+            return false;
+
+        var ray = Physics2D.Raycast(transform.position, transform.position.Direction(target.position), visibilityRange, visibleLayers);
 
         if (ray.collider != null && ray.collider.transform == target)
+        {
+            if (!sawPlayer)
+            {
+                sawPlayer = true;
+                foreach (var abil in specialAbilities)
+                {
+                    abil.component.ResetConditions();
+                }
+            }
             return true;
+        }
         return false;
     }
 
@@ -115,20 +158,26 @@ public class EnemyAI : StateMachine, IStunnable
     {
         if (target == null)
             return false;
-        float distance = aiPath.remainingDistance;
-        if (checkByDistance)
-            distance = Vector2.Distance(transform.position, target.position);
+        float distance = GetRunningDistance();
         return distance < runningDistance;
     }
 
-    bool IsPlayerWithingCombatRange()
+    public float GetRunningDistance()
+    {
+        if (checkByDistance)
+            return Vector2.Distance(transform.position, target.position);
+
+        return aiPath.remainingDistance;
+    }
+
+    bool IsPlayerWithinCombatRange()
     {
         if (target == null)
             return false;
 
         return Vector3.Distance(transform.position, target.position) <= combatDistance;
     }
-    bool IsPlayerWithingRunningCombatRange()
+    bool IsPlayerWithinRunningCombatRange()
     {
         if (target == null)
             return false;

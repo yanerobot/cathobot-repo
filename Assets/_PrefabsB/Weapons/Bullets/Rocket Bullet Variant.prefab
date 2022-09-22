@@ -208,10 +208,13 @@ MonoBehaviour:
   audioSrc: {fileID: 3675198323420388358}
   destroyOnCollision: 1
   destroyselfAfter: 6
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  GFX: {fileID: 6766966083774919363}
   explosionObject: {fileID: 2802896194184839393, guid: ef2c8cb954718e84f8b1cbcbf2285290, type: 3}
   explosionRadius: 3
   explosionForce: 25
-  explosionDamage: 80
   explosiveLayers:
     serializedVersion: 2
     m_Bits: 73
@@ -225,3 +228,14 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 4953967475146965038, guid: ede74126933203949be4f072765e4370, type: 3}
   m_PrefabInstance: {fileID: 8629154501710584873}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6766966083774919363 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3038238150052359914, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 8629154501710584873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b3919b86b3bcd4795e23b32fb7e517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

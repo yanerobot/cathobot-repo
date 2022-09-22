@@ -94,6 +94,21 @@ public static class Extensions
         return mask == (mask | (1 << layer));
     }
 
+    #region String
+
+
+    public static bool ContainsSpecialChar(this string mainString, string chars)
+    {
+        foreach (var ch in chars)
+        {
+            if (mainString.Contains(ch))
+                return true;
+        }
+        return false;
+    }
+
+    #endregion
+
     #region Coroutine
     /// <summary> Calls function with delay (seconds). Coroutine </summary>
     public static Coroutine Co_DelayedExecute(this MonoBehaviour caller, Action action, float delay, bool scaledTime = true) => caller.StartCoroutine(Utils.Co_DelayedExecute(action, delay, scaledTime));

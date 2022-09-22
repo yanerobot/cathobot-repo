@@ -8,12 +8,12 @@ public class TimeCondition
     public TimeCondition(float time)
     {
         timeLimit = time;
-        startTime = Time.time - timeLimit;
+        startTime = Time.time;
     }
 
-    public void SetInitialDelay(float time)
+    public void ReduceTime(float time)
     {
-        startTime += time;
+        startTime -= time;
     }
 
     public void ResetTimer()

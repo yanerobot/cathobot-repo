@@ -73,3 +73,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+--- !u!1 &1111963880431955957 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3004847749395061992, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+  m_PrefabInstance: {fileID: 2800430112382989085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7981977930530605388 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5195059377260591697, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+  m_PrefabInstance: {fileID: 2800430112382989085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7981977930694349809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5195059377499693292, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+  m_PrefabInstance: {fileID: 2800430112382989085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-5786107492035137965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981977930694349809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f464ed22a0e12844a0b10c9aad81751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdingOffset: {x: 0, y: 0}
+  pickableHint: {fileID: 1111963880431955957}
+  stats: {fileID: 11400000, guid: 1b8257ef33abcc2488f05d0545e6f9df, type: 2}
+  shootingPoint: {fileID: 7981977931358501961}
+  shootEffect: {fileID: 7981977930530605388}
+  bulletSpread: 8
+  GFX: {fileID: 0}
+  fireRateDelayChanged: 0
+  timeToChange: 0
+--- !u!4 &7981977931358501961 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5195059378612621140, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+  m_PrefabInstance: {fileID: 2800430112382989085}
+  m_PrefabAsset: {fileID: 0}

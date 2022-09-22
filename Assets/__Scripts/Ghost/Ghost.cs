@@ -2,35 +2,34 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
-using System.Text;
 
 public class Ghost : MonoBehaviour
 {
-    [SerializeField] float frequency;
+    [SerializeField, Range(1, 10), Tooltip("Frames")] int recordFrequency = 1;
     [SerializeField] Health health;
     [SerializeField] Transform mainTransform;
     [SerializeField] Transform gfxTransform;
     [SerializeField] PowerUp powerUp;
-    [SerializeField] string replaysPath;
     [SerializeField] SpriteRenderer sr;
 
     List<GhostFrameData> ghostDataCurrent;
     List<GhostFrameData> ghostDataHighScore;
 
     float currentTime;
-    float currentDelta;
+    float currentFrame;
 
     bool recording;
 
     GhostFrameData currentGFD;
     GhostFrameData prevGFD;
 
-    int currentGDindex;
+    int currentGFDindex;
     bool isLastFrame;
+    bool isReplayFinished;
 
     bool loaded;
-    string FileName => "/HighScoreScene" + SceneManager.GetActiveScene().buildIndex + ".save";
+    string Prefs_Key => "HighScoreReplay_" + SceneManager.GetActiveScene().name + "_BI_" + SceneManager.GetActiveScene().buildIndex;
+    //string ReplaysPath => GameManager.SAVE_FILES_DIRECTORY + "Replays/";
 
     void Start()
     {
@@ -38,22 +37,52 @@ public class Ghost : MonoBehaviour
 
         sr.enabled = false;
 
-        loaded = Serializer.TryLoad(out ghostDataHighScore, FileName, replaysPath);
+        var loadedData = PlayerPrefs.GetString(Prefs_Key, null);
+        loaded = Serializer.TryDeserializeString(loadedData, out ghostDataHighScore); //Serializer.TryLoad(out ghostDataHighScore, FileName, ReplaysPath);
 
-        LevelStartCountDown.OnCountDownEnd.AddListener(EnableRecording);
+        LevelStartCountDown.OnCountDownEnd.AddListener(StartGhost);
     }
 
-    void EnableRecording()
+    void StartGhost()
     {
         if (loaded)
         {
             sr.enabled = true;
             transform.position = ghostDataHighScore[0].position;
             transform.rotation = ghostDataHighScore[0].rotation;
-            currentGDindex = 1;
+            currentGFDindex = 1;
         }
 
         recording = true;
+    }
+
+    void FixedUpdate()
+    {
+        if (Time.timeScale == 0 || !recording || health.isDead)
+            return;
+
+        if (UIBehaiv.LevelEnded)
+        {
+            recording = false;
+            return;
+        }
+
+        if (isReplayFinished)
+        {
+            sr.enabled = false;
+            return;
+        }
+
+        if (currentFrame % recordFrequency == 0)
+        {
+            Record();
+            if (loaded)
+                SetCurrentGhostFrame();
+        }
+
+        currentFrame++;
+
+        UpdateGhostValues();
     }
 
     void Update()
@@ -68,47 +97,34 @@ public class Ghost : MonoBehaviour
         }
 
         currentTime += Time.unscaledDeltaTime;
-        currentDelta += Time.unscaledDeltaTime;
-
-        if (currentDelta >= frequency)
-        {
-            currentDelta -= frequency;
-            Record();
-            if (loaded)
-                SetCurrentGhostFrameDataIndex();
-        }
-        if (!isLastFrame)
-            UpdateGhostValues();
-        else
-            sr.enabled = false;
     }
 
     public void SaveGhost(bool highScore = false)
     {
         if (highScore)
-            Serializer.Save(ghostDataCurrent, FileName, replaysPath);
+        {
+            var ghostData = Serializer.SerializeToString(ghostDataCurrent);
+            PlayerPrefs.SetString(Prefs_Key, ghostData); //Serializer.Save(ghostDataCurrent, FileName, ReplaysPath);
+        }
     }
 
-    void SetCurrentGhostFrameDataIndex()
+    void SetCurrentGhostFrame()
     {
-        if (currentGDindex >= ghostDataHighScore.Count)
+        if (currentGFDindex >= ghostDataHighScore.Count - 1)
         {
             isLastFrame = true;
             return;
         }
 
-        var ghostTime = ghostDataHighScore[currentGDindex].timeValue;
-
-        if (ghostTime - currentTime > frequency * 0.5f || ghostTime - currentTime < frequency * 1.5f)
+        for (int i = currentGFDindex; i < ghostDataHighScore.Count; i++)
         {
-            currentGFD = ghostDataHighScore[currentGDindex];
-            prevGFD = ghostDataHighScore[currentGDindex - 1];
-            currentGDindex++;
-        }
-        else
-        {
-            currentGDindex++;
-            SetCurrentGhostFrameDataIndex();
+            if (ghostDataHighScore[i].timeValue > currentTime)
+            {
+                currentGFD = ghostDataHighScore[i];
+                prevGFD = ghostDataHighScore[i - 1];
+                currentGFDindex = i;
+                break;
+            }
         }
     }
 
@@ -117,10 +133,17 @@ public class Ghost : MonoBehaviour
         if (currentGFD == null)
             return;
 
-        transform.position = Vector3.Slerp(prevGFD.position, currentGFD.position, currentDelta * (1/frequency));
-        transform.rotation = Quaternion.Slerp(prevGFD.rotation, currentGFD.rotation, currentDelta * (1 / frequency));
+        var lerpValue = (currentTime - prevGFD.timeValue) / (currentGFD.timeValue - prevGFD.timeValue);
+
+        transform.position = Vector3.Lerp(prevGFD.position, currentGFD.position, lerpValue);
+        transform.rotation = Quaternion.Lerp(prevGFD.rotation, currentGFD.rotation, lerpValue);
 
         transform.localScale = currentGFD.gfxSize;
+
+        if (isLastFrame && lerpValue >= 1)
+        {
+            isReplayFinished = true;
+        }
     }
 
     void Record()

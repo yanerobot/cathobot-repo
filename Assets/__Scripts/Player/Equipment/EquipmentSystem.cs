@@ -64,9 +64,9 @@ public class EquipmentSystem : MonoBehaviour, IFreezible
     {
         itemsToPick = new List<Item>();
     }
-    public virtual bool Equip()
+    public virtual bool Equip(Item item = null)
     {
-        if (itemsToPick.Count == 0)
+        if (itemsToPick.Count == 0 && item == null)
         {
             Debug.Log("Action cannot be performed! Item is not set!");
             return false;

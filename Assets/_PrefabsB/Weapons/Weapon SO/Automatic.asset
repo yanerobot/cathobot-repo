@@ -16,8 +16,8 @@ MonoBehaviour:
   isAutomatic: 1
   delayBetweenShots: 0.12
   damage: 25
-  bulletSpeed: 20
-  randomBulletSpread: 3
+  bulletSpeed: 40
+  randomBulletSpread: 2
   magBullets: 25
   maxBullets: 0
   reloadTime: 0

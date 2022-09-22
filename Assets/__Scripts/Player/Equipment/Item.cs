@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Animations;
+using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
@@ -10,7 +10,16 @@ public class Item : MonoBehaviour
     protected Collider2D col;
     protected EquipmentSystem character;
     internal GameObject hintObject;
-    
+
+    public UnityAction<bool> OnEquipAction;
+    bool isEquipped;
+    public bool IsEquipped { get { return isEquipped; } 
+        private set {
+            isEquipped = value;
+            OnEquipAction?.Invoke(isEquipped);
+        } 
+    }
+
 
     protected virtual void Awake()
     {
@@ -24,6 +33,7 @@ public class Item : MonoBehaviour
         transform.localPosition = holdingOffset;
         transform.localEulerAngles = Vector2.zero;
         pickableHint.gameObject.SetActive(false);
+        IsEquipped = true;
     }
     public virtual void WasTossedAway()
     {
@@ -33,6 +43,7 @@ public class Item : MonoBehaviour
         transform.rotation = Quaternion.identity;
         character = null;
         pickableHint.gameObject.SetActive(true);
+        IsEquipped = false;
     }
 
     public virtual void Use() { }

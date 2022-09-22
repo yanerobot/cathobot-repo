@@ -116,11 +116,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: f2c5967b6ccb8f34fb258f1963e1ac18, type: 3}
     - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
+      propertyPath: attackingStateTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: delayBetweenAttacks
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
       propertyPath: hitPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477672339259775072, guid: e652e399fb2618d4294f380255a55fba, type: 3}
+      propertyPath: preparationStateTime
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

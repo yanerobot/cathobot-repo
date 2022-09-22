@@ -11,10 +11,34 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: dc96f34145e74e04f894df7f3f57094f, type: 2}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 96230e60de6371549ba71486580586ed, type: 3}
+    - target: {fileID: 3646013346564964775, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 59e407fc796777f42ba2e25351a00143, type: 3}
+      objectReference: {fileID: 21300000, guid: 8bb68feba3723164eb7cd0d9d82839d9, type: 3}
+    - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195059377272752569, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195059377272752571, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5195059377499693264, guid: 0a265674ecdd83541a3615ff43bf7471, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -97,6 +121,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: dc96f34145e74e04f894df7f3f57094f, type: 2}
   shootingPoint: {fileID: 1076327108000617543}
   shootEffect: {fileID: 1076327106673746242}
+  bulletSpread: 0
   GFX: {fileID: 0}
 --- !u!4 &1076327108000617543 stripped
 Transform:

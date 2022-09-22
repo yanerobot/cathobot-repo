@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Medal : MonoBehaviour
 {
@@ -9,27 +9,30 @@ public class Medal : MonoBehaviour
     [SerializeField] Color authorColor;
     [SerializeField] GameObject medalMessageGO;
     [SerializeField] GameObject authorMedalMessageGO;
-
-    public static string CurrentMedalPrefs => "currentMedalPrefs" + SceneManager.GetActiveScene().buildIndex;
-
-    void OnEnable()
-    {
-        var currentMedal = PlayerPrefs.GetInt(CurrentMedalPrefs, -1);
-
-        if (currentMedal >= 0)
-        {
-            SetMedal((Type)currentMedal);
-        }
-    }
-
+    [SerializeField] AudioSource src;
     public enum Type
     {
-        Current, None, Bronze, Silver, Gold, Author
+         None, Bronze, Silver, Gold, Author
     }
 
-    public void SetMedal(Type type)
+    public static Type GetMedal(float time, MedalTimesSO medals)
+    {
+        if (time <= medals.AuthorTime)
+            return Type.Author;
+        else if (time <= medals.GoldTime)
+            return Type.Gold;
+        else if (time <= medals.SilverTime)
+            return Type.Silver;
+        else if (time <= medals.BronzeTime)
+            return Type.Bronze;
+        else
+            return Type.None;
+    }
+
+    public void SetMedal(Type type, bool newMedal = false)
     {
         print("Setting medal to: " + type);
+
         gameObject.SetActive(true);
         medalMessageGO.SetActive(false);
         authorMedalMessageGO.SetActive(false);
@@ -57,11 +60,14 @@ public class Medal : MonoBehaviour
                 image.sprite = gold;
                 image.color = Color.black;
                 break;
-            case Type.Current:
-                SetMedal((Type)PlayerPrefs.GetInt(CurrentMedalPrefs, -1));
-                return;
         }
-        
-        PlayerPrefs.SetInt(CurrentMedalPrefs, (int)type);
+        if (newMedal)
+        {
+            image.DOFade(0.4f, 0);
+            image.DOFade(1f, 0.4f);
+            transform.localScale *= 2;
+            
+            image.transform.DOScale(1, 0.3f).OnComplete(() => src.Play());
+        }
     }
 }

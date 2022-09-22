@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 924352498119681031}
   damagedColor: {r: 0.30980393, g: 0.30980393, b: 0.30980393, a: 1}
-  timeToBlink: 1
+  timeToBlink: 0.2
   delayBetweenBlinks: 0.2
 --- !u!1 &924352499251132565
 GameObject:
@@ -231,10 +231,10 @@ GameObject:
   - component: {fileID: 2959289012639193707}
   - component: {fileID: 2959289012639193706}
   - component: {fileID: 924352498529668703}
-  - component: {fileID: 5503611937729852963}
   - component: {fileID: 924352498529668702}
   - component: {fileID: 924352499815994727}
   - component: {fileID: -8475903353794287845}
+  - component: {fileID: 6583207080304842670}
   m_Layer: 6
   m_Name: Enemy Stationary
   m_TagString: Untagged
@@ -377,7 +377,7 @@ MonoBehaviour:
   updateTime: 0
   deltaTime: 0
   gfx: {fileID: 6260706696975943577}
-  combatSystem: {fileID: 5503611937729852963}
+  combatSystem: {fileID: 6583207080304842670}
   visibleLayers:
     serializedVersion: 2
     m_Bits: 520
@@ -385,37 +385,18 @@ MonoBehaviour:
   destinationSetter: {fileID: 2959289012639193706}
   aiPath: {fileID: 2959289012639193707}
   explosionPrefab: {fileID: 4390423827110283709, guid: 20023ebc4150e83449f64b5bbff50bc0, type: 3}
+  checkByDistance: 0
   runningDistance: 20
   runningCombatDistance: 10
   combatDistance: 10
+  visibilityRange: 10
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   isStatic: 1
+  specialAbilities: []
   movementDisabledExternally: 0
   target: {fileID: 0}
   aiManager: {fileID: 0}
---- !u!114 &5503611937729852963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2959289012639193705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d023cfeff8be29d479366ea36766e8da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoint: {fileID: 0}
-  attackDamage: 15
-  delayBetweenAttacks: 0.5
-  attackingAudio: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
-  isSoundOnAttack: 1
-  src: {fileID: 0}
-  hitPoints:
-  - {fileID: 924352499251132564}
-  bulletPrefab: {fileID: 6871634380604022873, guid: 10b9cc4b9510630439d5ac38fb00ffe7, type: 3}
-  bulletSpeed: 12
 --- !u!114 &924352498529668702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +567,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6583207080304842670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959289012639193705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb50952270768d146be189fc7280d2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoint: {fileID: 924352499251132564}
+  attackDamage: 15
+  delayBetweenAttacks: 0.25
+  attackingAudio: {fileID: 8300000, guid: de3061a4732a8b34e9a2a97a9973877d, type: 3}
+  isSoundOnAttack: 1
+  preparationStateTime: 0.7
+  attackingStateTime: 2
+  src: {fileID: 0}
+  hitPoints: []
+  bulletPrefab: {fileID: 6871634380604022873, guid: d5229e9bb225d014a998794dfa5b814a, type: 3}
+  bulletSpeed: 12
+  lineRendPrefab: {fileID: 6430309350348500797, guid: 64c0c080dcf1cd24ba2fbdc6ffdbbfa7, type: 3}
+  preparationAudio: {fileID: 8300000, guid: 88dd365bd039ec94cb8d44c7ab7453f1, type: 3}
 --- !u!1001 &8486161130879452156
 PrefabInstance:
   m_ObjectHideFlags: 0

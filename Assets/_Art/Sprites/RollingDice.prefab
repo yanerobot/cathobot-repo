@@ -107,12 +107,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5629301957559119613}
   - component: {fileID: 5629301957559119488}
-  - component: {fileID: 5629301957559119614}
   - component: {fileID: 5629301957559119489}
   - component: {fileID: 7140821422590096220}
   m_Layer: 5
   m_Name: RollingDice
-  m_TagString: RollingDice
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,26 +147,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5629301957559119612}
   m_CullTransparentMesh: 1
---- !u!95 &5629301957559119614
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5629301957559119612}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 373aa1aa823668d499fa6381ce09d8c8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &5629301957559119489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,11 +184,12 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 2d6aeefb836c6b746951debc72047d28, type: 3}
     clip: {fileID: 8300000, guid: 95be19a8cad60b2418af9b224230dd35, type: 3}
   - sprite: {fileID: 21300000, guid: b7ff03aa0df30da4197b4350e3edfef1, type: 3}
-    clip: {fileID: 8300000, guid: 52a58647f203d4743b6ecacdf43ecde4, type: 3}
+    clip: {fileID: 8300000, guid: a3c5d27aa145cf647a1335542e07b417, type: 3}
   - sprite: {fileID: 21300000, guid: 5b811c077177e3247a56c26b67b74252, type: 3}
     clip: {fileID: 8300000, guid: c33fd32a8fe78ac4188c5cc2b6e3350b, type: 3}
   src: {fileID: 7140821422590096220}
   disabledColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.3137255}
+  rollingDiceAnimator: {fileID: 0}
 --- !u!82 &7140821422590096220
 AudioSource:
   m_ObjectHideFlags: 0

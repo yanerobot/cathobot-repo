@@ -7,9 +7,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1525272027418022281, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131966617912225738, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131966617912225738, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131966617912225738, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: 5c24c0b3985fc114c9630e1fafefcdf9, type: 2}
     - target: {fileID: 4953967475146965037, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Name
-      value: PistolBullet Variant
+      value: Pistol Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965038, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_LinearDrag
@@ -73,15 +89,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.b
-      value: 0.21173012
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.g
-      value: 0.735849
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4953967475412206547, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: m_Color.r
-      value: 0.3202991
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6660265168246533333, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: m_Radius
+      value: 0.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ede74126933203949be4f072765e4370, type: 3}

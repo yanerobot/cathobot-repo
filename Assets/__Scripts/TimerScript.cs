@@ -39,7 +39,7 @@ public class TimerScript : MonoBehaviour
 
         var curMinutes = Mathf.Floor(seconds / 60);
         var curSeconds = Mathf.Floor(seconds % 60);
-        var curMilliSeconds = seconds * 1000 % 1000;
+        var curMilliSeconds = Mathf.Floor(seconds * 1000) % 1000;
 
         sb.Clear();
         sb.Append(curMinutes.ToString("00")).Append(":")
@@ -49,7 +49,7 @@ public class TimerScript : MonoBehaviour
         return sb.ToString();
     }
 
-    public (float, string) StopTimer()
+    internal (float, string) StopTimer()
     {
         isStopped = true;
 

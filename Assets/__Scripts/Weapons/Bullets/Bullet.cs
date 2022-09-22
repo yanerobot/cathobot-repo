@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] protected AudioSource audioSrc;
     [SerializeField] bool destroyOnCollision;
     [SerializeField] float destroyselfAfter = 6;
+    [SerializeField] LayerMask ignoreLayers;
+    [SerializeField] BulletGFX GFX;
 
     protected GameObject holder;
 
@@ -42,31 +44,26 @@ public class Bullet : MonoBehaviour
         if (collision.isTrigger || collided)
             return;
 
-        if (collision.gameObject == holder || collision.gameObject.layer == holder.layer)
+        if (collision.gameObject == holder || ignoreLayers.Contains(collision.gameObject.layer) || collision.gameObject == holder)
             return;
-
-        if (destroyOnCollision)
-        {
-            collided = true;
-            rb.velocity = Vector2.zero;
-            rb.isKinematic = true;
-            transform.SetParent(collision.transform);
-        }
 
         OnRegisterCollision(collision);
 
         if (!destroyOnCollision)
             return;
 
-        Destroy(gameObject);
+        collided = true;
+        rb.velocity = Vector2.zero;
+        rb.isKinematic = true;
+        //transform.SetParent(collision.transform);
+
+        this.Co_DelayedExecute(() =>
+        {
+            Destroy(gameObject);
+        }, GFX.OnCollision());
     }
 
     protected virtual void OnRegisterCollision(Collider2D collision)
-    {
-        SimpleDamage(collision);
-    }
-
-    protected void SimpleDamage(Collider2D collision)
     {
         if (collision.TryGetComponent(out Rigidbody2D otherRB))
         {
@@ -78,6 +75,5 @@ public class Bullet : MonoBehaviour
         {
             health.TakeDamage(Mathf.RoundToInt(damage));
         }
-
     }
 }

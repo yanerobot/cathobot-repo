@@ -1,54 +1,51 @@
 using UnityEngine;
 
-public class AI_DashAbilitySpecial : MonoBehaviour
+public class AI_DashAbilitySpecial : AI_SpecialAbility
 {
-    [SerializeField] EnemyAI AI;
-    [SerializeField] float dashCooldown;
+    [SerializeField] float dashCooldownMin;
+    [SerializeField] float dashCooldownMax;
     [SerializeField] float dashSpeed;
     [SerializeField] float dashPreparation;
     [SerializeField] float pauseAfterPrep;
     [SerializeField] float dashTime;
     [SerializeField] int damageOnHit;
-    [SerializeField] GameObject lineRendererPrefab;
+    [SerializeField] LineRenderer lineRendererPrefab;
 
     bool isDashing;
     bool isPreparing;
     bool hasDealtDamage;
+    bool hasDashed;
     float initialDrag;
 
     TimeCondition timer;
-    GameObject lineRend;
+    LineRenderer lineRend;
 
     Vector2 targetLastPos;
 
-    void Start()
+    public override void OnSpecialEnter()
     {
-        AI.OnRunningEnter += OnRunningEnter;
-        AI.OnRunningUpdate += OnRunningUpdate;
-    }
-
-    void OnRunningEnter()
-    {
-        timer = new TimeCondition(dashCooldown);
-        timer.SetInitialDelay(Random.Range(1, dashCooldown));
+        StartDash();
+        isDashing = true;
         if (AI.IsPlayerAvailable())
             targetLastPos = AI.target.position;
     }
 
-    void OnRunningUpdate()
+    public override void OnSpecialUpdate()
     {
-        if (timer.HasTimePassed() && !isDashing)
-        {
-            if (AI.IsPlayerVisible())
-            {
-                StartDash();
-                isDashing = true;
-            }
-        }
         if (isPreparing)
         {
             transform.up = GetLastTargetPosition(AI.target) - (Vector2)transform.position;
+            var hit = Physics2D.Raycast(transform.position, transform.up, 30, AI.visibleLayers);
+            if (hit.collider != null)
+            {
+                lineRend.SetPosition(1, Vector3.zero.WhereY(hit.distance));
+            }
         }
+    }
+
+    public override void OnSpecialExit()
+    {
+        hasDashed = false;
     }
     void StartDash()
     {
@@ -66,7 +63,7 @@ public class AI_DashAbilitySpecial : MonoBehaviour
 
     void Dash()
     {
-        Destroy(lineRend);
+        Destroy(lineRend.gameObject);
         initialDrag = AI.rb.drag;
         AI.rb.drag = 0;
         AI.rb.velocity = transform.up * dashSpeed;
@@ -76,9 +73,11 @@ public class AI_DashAbilitySpecial : MonoBehaviour
     void StopDash()
     {
         AI.EnableMovement();
+        AI.rb.velocity *= 0;
         AI.rb.drag = initialDrag;
         timer.ResetTimer();
         isDashing = false;
+        hasDashed = true;
     }
 
     Vector2 GetLastTargetPosition(Transform target)
@@ -98,17 +97,32 @@ public class AI_DashAbilitySpecial : MonoBehaviour
         if (!isDashing || isPreparing || hasDealtDamage)
             return;
 
-        hasDealtDamage = true;
-
         if (collision.transform.TryGetComponent(out Health health))
         {
+            hasDealtDamage = true;
             health.TakeDamage(damageOnHit);
         }
     }
-
-    void OnDestroy()
+    public override bool EnterCondition()
     {
-        AI.OnRunningEnter -= OnRunningEnter;
-        AI.OnRunningUpdate -= OnRunningUpdate;
+        return  AI.IsPlayerVisible() && timer.HasTimePassed() && AI.IsPlayerWithinRunningRange();
+    }
+
+    public override bool ExitCondition()
+    {
+        return hasDashed;
+    }
+
+    public override void ResetConditions()
+    {
+        timer.ResetTimer();
+        timer.ReduceTime(Random.Range(0, dashCooldownMax - dashCooldownMin));
+        hasDashed = false;
+    }
+
+    public override void InitiateConditions()
+    {
+        timer = new TimeCondition(dashCooldownMax);
+        timer.ReduceTime(Random.Range(0, dashCooldownMax));
     }
 }

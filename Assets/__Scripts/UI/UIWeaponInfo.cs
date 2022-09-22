@@ -25,12 +25,14 @@ public class UIWeaponInfo : MonoBehaviour
 
     void EnableUI(Item item)
     {
-        if (!(item is Weapon))
+        if (!(item is Weapon weapon))
             return;
 
-        currentWeapon = item as Weapon;
+        currentWeapon = weapon;
 
-        weaponImage.sprite = currentWeapon.GFX.sprite;
+        var weaponVisuals = currentWeapon.GetComponent<WeaponVisuals>();
+
+        weaponImage.sprite = currentWeapon.GetComponent<WeaponVisuals>().GetNonEquippedSprite();
         weaponImage.gameObject.SetActive(true);
 
         if (!currentWeapon.IsReloadable())

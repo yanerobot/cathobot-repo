@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.lootlocker.lootlockersdk": "file:D:/Загрузки/unity-sdk-main/unity-sdk-main",
     "com.unity.cinemachine": "2.8.6",
     "com.unity.collab-proxy": "1.15.18",
     "com.unity.feature.2d": "1.0.0",

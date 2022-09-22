@@ -28,5 +28,7 @@ public class Searching : State
     public override void OnExit()
     {
         AI.SetUpdateMode(default);
+
+        Debug.Log("Initiating conditions " + AI.gameObject.name);
     }
 }

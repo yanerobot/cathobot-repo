@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DiceScript : MonoBehaviour
 {
@@ -10,11 +9,10 @@ public class DiceScript : MonoBehaviour
 
     bool enteredHitZone;
 
-    public float diceCD = 5;
-    public float diceStartZone = 1.5f;
-    public float diceHitZone = 0.5f;
-
-    RollingDiceUI diceUI;
+    [SerializeField] float initialDiceDelay;
+    [SerializeField] float diceCD = 5;
+    [SerializeField] float diceStartZone = 1.5f;
+    [SerializeField] float diceHitZone = 0.5f;
 
     float currentCD;
 
@@ -22,25 +20,27 @@ public class DiceScript : MonoBehaviour
 
     LevelStartCountDown safeZone;
 
+    public UnityAction OnStartRolling;
+    public UnityAction OnHitZoneEnter;
+    public UnityAction<BuffInfo> OnFinishRolling;
+    public UnityAction OnStopRolling;
+
+    public const string TAG = "RollingDice";
+
+    bool canIgnoreTimescale;
 
     private void Start()
     {
         currentCD = diceCD;
-        var obj = GameObject.FindWithTag(RollingDiceUI.TAG);
-        if (obj == null)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
-        diceUI = obj.GetComponent<RollingDiceUI>();
 
-        LevelStartCountDown.OnCountDownEnd.AddListener(DiceStart);
+        LevelStartCountDown.OnCountDownEnd.AddListener(StartRolling);
     }
 
     void Update()
     {
-        if (diceStarted && Input.GetKeyDown(KeyCode.Mouse1))
+        if (diceStarted && Input.GetKeyDown(KeyCode.Mouse1) && (Time.timeScale > 0 || canIgnoreTimescale))
         {
+            canIgnoreTimescale = false;
             CancelInvoke();
             CheckSuccess();
         }
@@ -49,11 +49,15 @@ public class DiceScript : MonoBehaviour
             StopRolling();
     }
 
+    public void IgnoreTimescale()
+    {
+        canIgnoreTimescale = true;
+    }
 
-    public void DiceStart()
+    public void StartRolling()
     {
         diceStarted = true;
-        diceUI.OnStartRolling();
+        OnStartRolling?.Invoke();
         Invoke(nameof(DiceHitZone), diceStartZone);
     }
 
@@ -61,7 +65,7 @@ public class DiceScript : MonoBehaviour
     {
         enteredHitZone = true;
         src.Play();
-        diceUI.OnHitZoneEnter();
+        OnHitZoneEnter?.Invoke();
         Invoke(nameof(DiceEnd), diceHitZone);
     }
 
@@ -73,29 +77,27 @@ public class DiceScript : MonoBehaviour
 
     public void CheckSuccess()
     {
-        (float, int) buffInfo = (0, 0);
+        BuffInfo buffInfo;
 
         if (enteredHitZone)
         {
-            print("buff");
             src.PlayOneShot(buffClip);
             buffInfo = powerUp.ChoosePowerUp(true);
         }
         else
         {
-            print("debuff");
             src.PlayOneShot(debuffClip);
             buffInfo = powerUp.ChoosePowerUp(false);
         }
 
 
-        diceUI.OnFinishRolling(buffInfo.Item1, buffInfo.Item2, enteredHitZone);
+        OnFinishRolling?.Invoke(buffInfo);
 
-        currentCD = diceCD  + buffInfo.Item1;
+        currentCD = diceCD  + buffInfo.time;
 
-        diceStartZone = Random.Range(1f, 3f);
+        diceStartZone = Random.Range(1f, 2f);
 
-        Invoke(nameof(DiceStart), currentCD);
+        Invoke(nameof(StartRolling), currentCD);
 
         diceStarted = false;
         enteredHitZone = false;
@@ -103,6 +105,8 @@ public class DiceScript : MonoBehaviour
 
     public void StopRolling()
     {
-        CancelInvoke();
+        CancelInvoke(); 
+        OnStopRolling?.Invoke();
+        diceStarted = false;
     }
 }

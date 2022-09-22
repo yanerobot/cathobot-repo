@@ -78,6 +78,17 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ede74126933203949be4f072765e4370, type: 3}
+--- !u!114 &2353005493886583224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3038238150052359914, guid: ede74126933203949be4f072765e4370, type: 3}
+  m_PrefabInstance: {fileID: 760672413503336274}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b3919b86b3bcd4795e23b32fb7e517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &5642575666394656636 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 4953967475146965038, guid: ede74126933203949be4f072765e4370, type: 3}
@@ -109,6 +120,10 @@ MonoBehaviour:
   audioSrc: {fileID: 5642575666394656637}
   destroyOnCollision: 1
   destroyselfAfter: 6
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  GFX: {fileID: 2353005493886583224}
   poisonPuddle: {fileID: 174621642970443475, guid: 3265cb9463760664e87af794ce8eea9d, type: 3}
   poisonPuddleTime: 8
   damageToHolder: 2

@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField] float buffTime;
-    [SerializeField] int increasedChanceBuff = -1;
-    [SerializeField, Tooltip("Should be negative if not neededed")] int setExactBuffType;
+    [SerializeField, Tooltip("Buffs:\n 0: Speed\n 2: Hitbox\n 4: Shield \n 5: ShootAround \n 7: Damage \n 9: Kill Enemies \n\n Debuffs: \n 1: Damage \n 3: Enemy Shields \n 6: Speed \n 8: Hitbox")] float buffTime;
+    [SerializeField] int[] increasedChanceBuffType;
+    [SerializeField] List<NestedList<int>> valuableBuffs;
+    [SerializeField] int[] decreasedChanceBuffType;
     [Space]
     [Header("Speed")]
     [SerializeField] float speedBuffValue;
@@ -35,13 +37,12 @@ public class PowerUp : MonoBehaviour
     [SerializeField] Hitbox hitbox;
     [SerializeField] Health playerHealth;
 
-    static int previousBuff = -1;
-    static (bool, int) shouldSetIncreasedChanceBuff;
-
     [HideInInspector]
     public int currentBuff;
 
     AIManager aiManager;
+
+    int currentPowerUpNum;
 
     void Start()
     {
@@ -52,123 +53,132 @@ public class PowerUp : MonoBehaviour
         }
     }
 
-    public (float, int) ChoosePowerUp(bool isBuff)
+    public BuffInfo ChoosePowerUp(bool isBuff)
     {
         if (es == null || movement == null || hitbox == null)
         {
             Debug.LogWarning("Scripts are not attached");
-            return (0, 0);
+            return null;
         }
 
         int buffType = Roll(isBuff);
 
-        if (buffType == previousBuff)
-            buffType = Roll(isBuff);
+        var buffTime = SetBuff(buffType);
 
-        previousBuff = buffType;
-
-
-        if (increasedChanceBuff >= 0 && shouldSetIncreasedChanceBuff.Item1 && buffType != increasedChanceBuff)
-        {
-            buffType = increasedChanceBuff;
-            shouldSetIncreasedChanceBuff.Item1 = false;
-            shouldSetIncreasedChanceBuff.Item2 = 0;
-        }
-        else if (buffType == increasedChanceBuff)
-        {
-            shouldSetIncreasedChanceBuff.Item1 = false;
-            shouldSetIncreasedChanceBuff.Item2 = 0;
-        }
-        else
-        {
-            shouldSetIncreasedChanceBuff.Item2++;
-            if (shouldSetIncreasedChanceBuff.Item2 >= 3)
-            {
-                shouldSetIncreasedChanceBuff.Item1 = true;
-            }
-        }
-
-
-        if (setExactBuffType >= 0)
-            buffType = setExactBuffType;
-
-        switch (buffType)
-        {
-            case 0:
-                movement.Buff(speedBuffValue, buffTime);
-                break;
-            case 1:
-                es.Buff(damageDebuffValue, buffTime);
-                break;
-            case 2:
-                hitbox.Buff(hitboxBuffValue, buffTime);
-                break;
-            case 3:
-                aiManager.MakeInvulnirable(3, buffTime);
-                break;
-            case 4:
-                playerHealth.MakeInvulnirable(buffTime);
-                break;
-            case 5:
-                StartCoroutine(ShootInEveryDirection());
-                return (bulletBuffTime, buffType);
-            case 6:
-                movement.Buff(speedDebuffValue, buffTime);
-                break;
-            case 7:
-                es.Buff(damageBuffValue, buffTime);
-                break;
-            case 8:
-                hitbox.Buff(hitboxDebuffValue, buffTime);
-                break;
-            case 9:
-                StartCoroutine(KillEnemies());
-                return (1, buffType);
-            default:
-                return (-1, buffType);
-        }
+        var buffInfo = new BuffInfo(buffTime, buffType, isBuff);
 
         currentBuff = buffType;
 
-        if (buffType == 9)
-            this.Co_DelayedExecute(() => currentBuff = -1, (float)enemiesToKill);
-        else if (buffType == 5)
-            this.Co_DelayedExecute(() => currentBuff = -1, bulletBuffTime);
-        else
-            this.Co_DelayedExecute(() => currentBuff = -1, buffTime);
+        currentPowerUpNum++;
 
-        return (buffTime, buffType);
+        this.Co_DelayedExecute(() => currentBuff = -1, buffInfo.time);
+
+        return buffInfo;
     }
+
 
     int Roll(bool isBuff)
     {
-        int[] buffIndexs = new int[] { 0, 2, 4, 5, 7 };
-        int killEnemiesBuff = 9;
+        int buffType = -1;
 
-        int[] debuffIndexs = new int[] { 1, 6, 8 };
-        int enemyShieldDebuff = 3;
+        int[] buffIndecies = new int[] { 0, 2, 4, 5, 7, 9 };
+
+        int[] debuffIndecies = new int[] { 1, 3, 6, 8 };
 
 
         if (isBuff)
         {
-            if (Random.Range(0, 1f) < 0.02f)
-                return killEnemiesBuff;
-            else
-                return buffIndexs[Random.Range(0, buffIndexs.Length)];
+            if (PlayerPrefs.GetInt(OnlyValuableBuffsToggle.TogglePrefsKey, 0) == 1 && valuableBuffs.Count > currentPowerUpNum)
+            {
+                var currentBuffs = valuableBuffs[currentPowerUpNum];
+
+                buffType = currentBuffs.list[Random.Range(0, currentBuffs.list.Count)];
+
+                //buffType = setExactBuffType[Random.Range(0, setExactBuffType.Length)];
+
+                buffType = CheckChances(buffType, currentBuffs.list.ToArray());
+                return buffType;
+            }
+
+            buffType = buffIndecies[Random.Range(0, buffIndecies.Length)];
+
+            buffType = CheckChances(buffType, buffIndecies);
         }
         else
         {
-            if (Random.Range(0, 9) == 1)
-                return enemyShieldDebuff;
-            else
-                return debuffIndexs[Random.Range(0, debuffIndexs.Length)];
+            buffType = debuffIndecies[Random.Range(0, debuffIndecies.Length)];
+
+            buffType = CheckChances(buffType, debuffIndecies);
         }
 
+        return buffType;
+
+        int CheckChances(int buffType, int[] array)
+        {
+            if (!Utils.DoesElementExistInArray(buffType, increasedChanceBuffType))
+                buffType = array[Random.Range(0, array.Length)];
+
+            if (Utils.DoesElementExistInArray(buffType, decreasedChanceBuffType))
+                buffType = array[Random.Range(0, array.Length)];
+
+            return buffType;
+        }
+    }
+
+
+
+    float SetBuff(int buffType)
+    {
+        float buffTime = 5;
+
+        switch (buffType)
+        {
+            case 0:
+                movement.Buff(speedBuffValue, this.buffTime);
+                break;
+            case 1:
+                es.Buff(damageDebuffValue, this.buffTime);
+                break;
+            case 2:
+                hitbox.Buff(hitboxBuffValue, this.buffTime);
+                break;
+            case 3:
+                aiManager.MakeInvulnirable(3, this.buffTime);
+                break;
+            case 4:
+                playerHealth.MakeInvulnirable(this.buffTime);
+                break;
+            case 5:
+                StartCoroutine(ShootInEveryDirection());
+                buffTime = bulletBuffTime;
+                break;
+            case 6:
+                movement.Buff(speedDebuffValue, this.buffTime);
+                break;
+            case 7:
+                es.Buff(damageBuffValue, this.buffTime);
+                break;
+            case 8:
+                hitbox.Buff(hitboxDebuffValue, this.buffTime);
+                break;
+            case 9:
+                StartCoroutine(KillEnemies());
+                buffTime = 0.3f * enemiesToKill;
+                break;
+            default:
+                buffTime = 0;
+                break;
+        }
+
+        if (buffTime == 0)
+            Debug.LogError("Time shouldnt be 0");
+
+        return buffTime;
     }
 
     IEnumerator KillEnemies()
     {
-        var enemies = aiManager.GetClosestEnemies(transform.position, enemiesToKill);
+        var enemies = aiManager.GetClosestEnemies(enemiesToKill);
 
         foreach (var enemy in enemies)
         {
@@ -202,5 +212,24 @@ public class PowerUp : MonoBehaviour
             bulletComp = bullet.GetComponent<Bullet>();
             bulletComp.Init(transform.parent.gameObject, damage, bulletSpeed, 1);
         }
+    }
+}
+[System.Serializable]
+public class NestedList<T>
+{
+    public List<T> list;
+}
+
+public class BuffInfo
+{
+    public float time;
+    public int type;
+    public bool isBuff;
+
+    public BuffInfo(float time, int type, bool isBuff)
+    {
+        this.time = time;
+        this.type = type;
+        this.isBuff = isBuff;
     }
 }

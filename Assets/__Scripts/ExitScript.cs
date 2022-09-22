@@ -15,6 +15,7 @@ public class ExitScript : MonoBehaviour
     bool finished;
     bool enemiesDead;
 
+    public static string PrefsKey => "CompletedScene" + SceneManager.GetActiveScene().buildIndex;
 
     void Awake()
     {
@@ -60,10 +61,17 @@ public class ExitScript : MonoBehaviour
 
         finished = true;
 
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int lastSavedLevel = PlayerPrefs.GetInt(PrefsKey, -1);
+        if (currentLevel > lastSavedLevel)
+        {
+            PlayerPrefs.SetInt(PrefsKey, SceneManager.GetActiveScene().buildIndex);
+        }
+
         var egs = GameObject.FindWithTag("UI");
         if (egs!= null)
         {
             egs.GetComponent<UIBehaiv>().EnableLevelCompletedUI();
-        }        
+        }
     }
 }

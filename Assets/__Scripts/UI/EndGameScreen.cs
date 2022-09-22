@@ -1,95 +1,112 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System;
 
 public class EndGameScreen : MonoBehaviour
 {
+    [SerializeField] OnlyValuableBuffsToggle ovbToggleController;
+    [SerializeField] LeaderBoardController leaderBoard;
     [SerializeField] TimerScript timer;
     [SerializeField] TextMeshProUGUI currentScoreTextObj;
     [SerializeField] TextMeshProUGUI highScoreTextObj;
     [SerializeField] TextMeshProUGUI nextMedalTextObj;
     [SerializeField] GameObject nextMedalMainObj;
+    [SerializeField] GameObject newHighScoreLabel;
     [Header("Medal")]
     [SerializeField] Medal medal;
     [SerializeField] MedalTimesSO medals;
+    [SerializeField] Button nextLevelButton;
 
-    public static string HighScorePrefsKey => "HighScore" + SceneManager.GetActiveScene().buildIndex;
-    public static string HighScoreTextPrefsKey => "HighScoreText" + SceneManager.GetActiveScene().buildIndex;
+    public static string HighScoreData_Path => GameManager.SAVE_FILES_DIRECTORY + "HighscoreData/";
+    public static string Prefs_Key => "HighScoreData_" + SceneManager.GetActiveScene().name + "_BI_" + SceneManager.GetActiveScene().buildIndex;
 
     void OnEnable()
     {
         var timerInfo = timer.StopTimer();
 
-        var time = timerInfo.Item1;
-        var timeText = timerInfo.Item2;
+        var newTime = timerInfo.Item1;
+        var newTimeText = timerInfo.Item2;
 
-        time = Mathf.Round(time * 1000.0f) / 1000.0f;
+        var loadedData = PlayerPrefs.GetString(Prefs_Key, "");
+        Serializer.TryDeserializeString(loadedData, out HighScoreData highScoreData);
 
+        //Serializer.TryLoad(out HighScoreData highScoreData, HighScoreData_FileName, HighScoreData_Path);
 
-        if (time < 1)
+        if (newTime < 1)
         {
-            medal.SetMedal(Medal.Type.Current);
+            //is valid time ?
+            highScoreTextObj.text = "Error";
+            currentScoreTextObj.text = "Error";
+            SetMedal((Medal.Type)highScoreData.medal);
+            this.Co_DelayedExecute(() => leaderBoard.LoadHighScores(), 1f);
             return;
         }
 
-        highScoreTextObj.text = PlayerPrefs.GetString(HighScoreTextPrefsKey, "00:00:000");
 
-        var highScore = PlayerPrefs.GetFloat(HighScorePrefsKey, Mathf.Infinity);
+        var highScoreTime = highScoreData.time;
 
-        if (time < highScore)
+        highScoreTextObj.text = highScoreData.timeText;
+
+        if (highScoreTime == default(float))
+            highScoreTime = Mathf.Infinity;
+        
+        if (newTime < highScoreTime)
         {
-            PlayerPrefs.SetFloat(HighScorePrefsKey, time);
-            PlayerPrefs.SetString(HighScoreTextPrefsKey, timeText);
+            //High score!
+            var newMedal = Medal.GetMedal(newTime, medals);
+            var saveData = new HighScoreData(newTime, newTimeText, (int)newMedal);
+
+            var saveStringData = Serializer.SerializeToString(saveData);
+            PlayerPrefs.SetString(Prefs_Key, saveStringData); //Serializer.Save(saveData, HighScoreData_FileName, HighScoreData_Path);
             Ghost g = FindObjectOfType<Ghost>();
             g?.SaveGhost(true);
 
-            highScoreTextObj.text = timeText;
+            highScoreTextObj.text = newTimeText;
+
+            newHighScoreLabel.SetActive(true);
+
+            SetMedal(newMedal, (int)newMedal > highScoreData.medal);
+
+            leaderBoard.SubmitHighScore(saveData);
         }
         else
         {
-            time = highScore;
+            SetMedal((Medal.Type)highScoreData.medal);
+            this.Co_DelayedExecute(() => leaderBoard.LoadHighScores(), 1f);
         }
 
-        SetMedal(time);
-
-        currentScoreTextObj.text = timeText;
+        currentScoreTextObj.text = newTimeText;
 
         var diceObj = FindObjectOfType<Dice>();
         if (diceObj != null)
             diceObj.StopDice();
     }
 
-    void SetMedal(float currentSeconds)
+    void SetMedal(Medal.Type type, bool isNew = false)
     {
-        Medal.Type type;
+        medal.SetMedal(type, isNew);
+        SetNextMedalTime(type);
+        ovbToggleController.gameObject.SetActive(false);
 
-        if (currentSeconds <= medals.AuthorTime)
-            type = Medal.Type.Author;
-        else if (currentSeconds <= medals.GoldTime)
-            type = Medal.Type.Gold;
-        else if (currentSeconds <= medals.SilverTime)
-            type = Medal.Type.Silver;
-        else if (currentSeconds <= medals.BronzeTime)
-            type = Medal.Type.Bronze;
-        else
-            type = Medal.Type.None;
-
-        var nextMedalTime = GetMedalTime(type);
-
-        if (nextMedalTime != null && PlayerPrefs.GetInt(Medal.CurrentMedalPrefs, -1) < (int)Medal.Type.Author)
-            nextMedalTextObj.text = TimerScript.ConvertToTimer((float)nextMedalTime);
-        else
-            nextMedalMainObj.SetActive(false);
-
-        if ((int)type > PlayerPrefs.GetInt(Medal.CurrentMedalPrefs, -1))
+        if ((int)type >= (int)Medal.Type.Silver)
         {
-            medal.SetMedal(type);
+            nextLevelButton.interactable = true;
+            ovbToggleController.EnableOVB();
         }
-
     }
-    
-    float? GetMedalTime(Medal.Type type)
+
+    void SetNextMedalTime(Medal.Type currentMedal)
+    {
+        var nextMedalTime = GetNewMedalTime(currentMedal);
+
+        if (nextMedalTime == null)
+            nextMedalMainObj.SetActive(false);
+        else
+            nextMedalTextObj.text = TimerScript.ConvertToTimer((float)nextMedalTime);
+    }
+
+    float? GetNewMedalTime(Medal.Type type)
     {
         switch (type)
         {

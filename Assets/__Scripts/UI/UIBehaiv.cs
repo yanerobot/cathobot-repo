@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class UIBehaiv : MonoBehaviour
@@ -9,6 +10,11 @@ public class UIBehaiv : MonoBehaviour
     Health playerHealth;
 
     public static bool LevelEnded;
+
+    public static UnityAction OnShowLevelHints; // Should be subscribed from Awake
+    public bool LevelHintsDisabled { get; set; }
+
+
     void Awake()
     {
         LevelEnded = false;
@@ -19,14 +25,37 @@ public class UIBehaiv : MonoBehaviour
         playerHealth._OnDie.AddListener(EnableGameOverUI);
     }
 
+    void Start()
+    {
+        var loadData = PlayerPrefs.GetString(EndGameScreen.Prefs_Key, null);
+
+        //Serializer.TryLoad(out HighScoreData data, EndGameScreen.HighScoreData_FileName, EndGameScreen.HighScoreData_Path)
+        if (Serializer.TryDeserializeString(loadData, out HighScoreData data) && !LevelHintsDisabled)
+        {
+            if (data.medal > (int)Medal.Type.None)
+            {
+                OnShowLevelHints?.Invoke();
+            }
+        }
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("Delete Prefs")]
+    void DeletePrefsAndSaves()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+#endif
+
     void OnDestroy()
     {
         playerHealth?._OnDie.RemoveListener(EnableGameOverUI);
+        OnShowLevelHints = null;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && NameInputController.isEnabled == false)
         {
             RestartLevel();
         }
@@ -53,12 +82,4 @@ public class UIBehaiv : MonoBehaviour
         levelCompletedGO.SetActive(true);
         LevelEnded = true;
     }
-
-#if UNITY_EDITOR
-    [ContextMenu("Delete all Prefs")]
-    public void DeletePlayerPrefs()
-    {
-        PlayerPrefs.DeleteAll();
-    }
-#endif
 }

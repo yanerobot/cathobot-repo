@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 448832092}
   damagedColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
-  timeToBlink: 1
+  timeToBlink: 0.2
   delayBetweenBlinks: 0.2
 --- !u!95 &7572171351683216917
 Animator:
@@ -317,7 +317,7 @@ MonoBehaviour:
   combatSystem: {fileID: 2671831521219342037}
   visibleLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 520
   rb: {fileID: 2108511036}
   destinationSetter: {fileID: 2720864799523658801}
   aiPath: {fileID: 2720864799523658800}
@@ -326,9 +326,15 @@ MonoBehaviour:
   runningDistance: 20
   runningCombatDistance: 1.5
   combatDistance: 1
+  visibilityRange: 8
   speedDecreaseOnHitModifier: 0.6
   stunOnDamageTime: 0.3
   isStatic: 0
+  specialAbilities:
+  - component: {fileID: 5416824146243370842}
+    running: 1
+    combat: 0
+    runningCombat: 1
   movementDisabledExternally: 0
   target: {fileID: 0}
   aiManager: {fileID: 0}
@@ -349,6 +355,8 @@ MonoBehaviour:
   delayBetweenAttacks: 0.3
   attackingAudio: {fileID: 8300000, guid: cf94c1476952b454ea8f76bc6a046785, type: 3}
   isSoundOnAttack: 0
+  preparationStateTime: 0
+  attackingStateTime: 0
   src: {fileID: 0}
   damagableLayers:
     serializedVersion: 2
@@ -420,13 +428,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AI: {fileID: 829458436}
-  dashCooldown: 5
+  dashCooldownMin: 4
+  dashCooldownMax: 12
   dashSpeed: 25
   dashPreparation: 1
   pauseAfterPrep: 0.5
-  dashTime: 1
+  dashTime: 0.5
   damageOnHit: 60
-  lineRendererPrefab: {fileID: 6430309350348500796, guid: 0987efd6cf8b6f840b4a59c152cdd6fa, type: 3}
+  lineRendererPrefab: {fileID: 6430309350348500797, guid: 0987efd6cf8b6f840b4a59c152cdd6fa, type: 3}
 --- !u!50 &2108511036
 Rigidbody2D:
   serializedVersion: 4

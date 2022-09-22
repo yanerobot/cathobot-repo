@@ -19,7 +19,7 @@ public class ExplosiveBullet : Bullet
         {
             if (coll.gameObject != holder &&  coll.TryGetComponent(out Health health))
             {
-                float dist = Mathf.Clamp(Vector2.Distance(transform.position, coll.transform.position), 0.5f, explosionRadius);
+                float dist = Mathf.Clamp(Vector2.Distance(transform.position, coll.ClosestPoint(transform.position)), 0.5f, explosionRadius);
                 int dmg = Mathf.CeilToInt(damage / dist);
 
                 health.TakeDamage(dmg);
@@ -37,7 +37,7 @@ public class ExplosiveBullet : Bullet
             return;
 
         Vector2 dir = (rbToPush.position - rb.position).normalized;
-        float distanceModifier = Mathf.Clamp(1 / Vector2.Distance(rb.position, rbToPush.position), 0.3f, 1);
+        float distanceModifier = Mathf.Clamp(1 / Vector2.Distance(rb.position, rbToPush.ClosestPoint(rb.position)), 0.3f, 1);
 
         if (rbToPush.TryGetComponent(out IStunnable stunnable))
         {

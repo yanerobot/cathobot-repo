@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tutorial5 Medals
   m_EditorClassIdentifier: 
   AuthorTime: 9.789
-  GoldTime: 14
-  SilverTime: 20
-  BronzeTime: 30
+  GoldTime: 11
+  SilverTime: 15
+  BronzeTime: 20

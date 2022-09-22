@@ -129,12 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35cd3ad901d47344bf208a72979eb11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 0.05
+  frequency: 2
   health: {fileID: 9028113152118775330}
   mainTransform: {fileID: 9028113152118775331}
   gfxTransform: {fileID: 9028113152506513074}
   powerUp: {fileID: 1325640497841598431}
-  replaysPath: /SaveFiles/Replays
   sr: {fileID: 2549314690281431335}
 --- !u!212 &2549314690281431335
 SpriteRenderer:
@@ -198,6 +197,10 @@ PrefabInstance:
     - target: {fileID: 669076216188765347, guid: 181571897c20fd7448b7487fab903ed6, type: 3}
       propertyPath: killingEnemiesBuffTime
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6575495034299929248, guid: 181571897c20fd7448b7487fab903ed6, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7378826178220668253, guid: 181571897c20fd7448b7487fab903ed6, type: 3}
       propertyPath: m_Name
