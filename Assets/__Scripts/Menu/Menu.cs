@@ -36,6 +36,20 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+#if UNITY_EDITOR
+
+    [ContextMenu("Delete All Prefs")]
+    public void DeletePrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+#endif
+
+    public void LoadLevel(int level)
+    {
+        SceneManager.LoadScene(level);
+    }
+
 
     public void EnableInputPanel()
     {

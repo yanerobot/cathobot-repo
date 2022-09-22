@@ -91,6 +91,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3038238150052359914, guid: ede74126933203949be4f072765e4370, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4953967475146965036, guid: ede74126933203949be4f072765e4370, type: 3}
       propertyPath: isExplosive
       value: 1

@@ -14,15 +14,13 @@ public class UI_InitialGameLoader : MonoBehaviour
     void Awake()
     {
         LevelSelectorGO.interactable = false;
-        if (PlayerPrefs.GetString(NameInputController.NAME_KEY, "") != "")
-        {
-            isContinue = true;
-            newGameButtonTextObj.text = "CONTINUE";
-        }
-
+        var lastSavedLvl = PlayerPrefs.GetInt(ExitScript.PrefsKey, -1);
+        print(lastSavedLvl);
         if (PlayerPrefs.GetInt(ExitScript.PrefsKey, -1) > 0)
         {
             LevelSelectorGO.interactable = true;
+            isContinue = true;
+            newGameButtonTextObj.text = "CONTINUE";
         }
     }
 }

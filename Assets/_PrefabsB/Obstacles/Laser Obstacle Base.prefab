@@ -257,15 +257,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActiveInitial: 1
-  laserCollider: {fileID: 3040508579277076188}
   laserSr: {fileID: 7158824529487030281}
   laserOrigin: {fileID: 895492597}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1609
-  environmentLayers:
-    serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9929
   gus: {fileID: 3478934915695957107}
 --- !u!212 &5243910002734865842
 SpriteRenderer:

@@ -15,10 +15,14 @@ public class ExitScript : MonoBehaviour
     bool finished;
     bool enemiesDead;
 
-    public static string PrefsKey => "CompletedScene" + SceneManager.GetActiveScene().buildIndex;
+    UIBehaiv uiBehaiv;
+
+    public const string PrefsKey = "Last Completed Level";
 
     void Awake()
     {
+        var egs = GameObject.FindWithTag("UI");
+        uiBehaiv = egs.GetComponent<UIBehaiv>();
         aiManager = FindObjectOfType<AIManager>();
     }
 
@@ -65,13 +69,13 @@ public class ExitScript : MonoBehaviour
         int lastSavedLevel = PlayerPrefs.GetInt(PrefsKey, -1);
         if (currentLevel > lastSavedLevel)
         {
-            PlayerPrefs.SetInt(PrefsKey, SceneManager.GetActiveScene().buildIndex);
+            print("Successfully saved level " + currentLevel);
+            PlayerPrefs.SetInt(PrefsKey, currentLevel);
         }
 
-        var egs = GameObject.FindWithTag("UI");
-        if (egs!= null)
+        if (uiBehaiv != null)
         {
-            egs.GetComponent<UIBehaiv>().EnableLevelCompletedUI();
+            uiBehaiv.EnableLevelCompletedUI();
         }
     }
 }

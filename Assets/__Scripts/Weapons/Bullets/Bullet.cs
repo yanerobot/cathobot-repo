@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
         if (collision.isTrigger || collided)
             return;
 
-        if (collision.gameObject == holder || ignoreLayers.Contains(collision.gameObject.layer) || collision.gameObject == holder)
+        if (collision.gameObject == holder || ignoreLayers.Contains(collision.gameObject.layer) || collision.gameObject.layer == holder.layer)
             return;
 
         OnRegisterCollision(collision);

@@ -17,7 +17,7 @@ public class BulletGFX : MonoBehaviour
     {
         float time = 0.01f;
 
-        if (anim != null)
+        if (anim != null && clip != null)
         {
             anim.SetTrigger("Destroyed");
             time = clip.length;

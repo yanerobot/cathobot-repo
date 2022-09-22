@@ -15,8 +15,6 @@ public class PlayerAuthentication
             {
                 Debug.Log("Successfully initialized player");
 
-                PlayerPrefs.SetString(PLAYER_ID_KEY, response.player_id.ToString());
-
                 LootLockerSDKManager.SetPlayerName(name, response =>
                 {
                     if (response.success)

@@ -163,6 +163,8 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
         }
         canDash = false;
         isDashing = true;
+
+        Physics2D.IgnoreLayerCollision(gameObject.layer, 6, true);
         
         var dashDir = movementInput;
         
@@ -176,6 +178,7 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
 
     void StopDash()
     {
+        Physics2D.IgnoreLayerCollision(gameObject.layer, 6, false);
         isDashing = false;
         src.Play();
         Invoke(nameof(EnableDash), dashCooldown);
