@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 2201667487491312471}
   - component: {fileID: 6248015170395682955}
   - component: {fileID: 1009491094866866312}
+  - component: {fileID: 5446213538785127409}
   m_Layer: 9
   m_Name: Exit
   m_TagString: Untagged
@@ -444,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45d37fe5ae2a08439d2d3ce9a5cbb28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coll: {fileID: 6248015170395682955}
+  trigger: {fileID: 5446213538785127409}
   sr: {fileID: 2201667487491312456}
   arrow: {fileID: 1903594134}
   textObject: {fileID: 1615903958}
@@ -571,3 +572,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!61 &5446213538785127409
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2201667487491312459}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.38, y: 1.37}
+  m_EdgeRadius: 0

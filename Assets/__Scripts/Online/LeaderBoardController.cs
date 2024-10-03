@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using LootLocker;
+using System.Linq;
 
 public class LeaderBoardController : MonoBehaviour
 {
@@ -146,7 +148,7 @@ public class LeaderBoardController : MonoBehaviour
             });
         });
     }
-    
+
     IEnumerator DisplayOnLoad()
     {
         yield return new WaitUntil(() => top5Completed && last5Completed);
@@ -166,6 +168,11 @@ public class LeaderBoardController : MonoBehaviour
 
     void AddItemsToList(LootLockerLeaderboardMember[] items)
     {
+        if (items == null || items.Length == 0)
+        {
+            //Do something
+            return;
+        }
         foreach (var i in items)
         {
             leaderBoardMembersToShow.Add(new PlayerInfo(i.player.name, i.score, i.rank));
@@ -180,6 +187,7 @@ public class LeaderBoardController : MonoBehaviour
 
         public PlayerInfo(string name, int score, int rank)
         {
+            
             this.name = name;
             this.score = score;
             this.rank = rank;

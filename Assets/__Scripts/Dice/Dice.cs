@@ -24,7 +24,7 @@ public class Dice : MonoBehaviour
 *//*
         diceUI = diceUiGo.GetComponent<RollingDiceUI>();
 */
-        LevelStartCountDown.OnCountDownEnd.AddListener(StartRolling);
+        SafeZone.OnSafeZoneExit.AddListener(StartRolling);
     }
 
     void Update()

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField, Tooltip("Buffs:\n 0: Speed\n 2: Hitbox\n 4: Shield \n 5: ShootAround \n 7: Damage \n 9: Kill Enemies \n\n Debuffs: \n 1: Damage \n 3: Enemy Shields \n 6: Speed \n 8: Hitbox")] float buffTime;
+    [SerializeField, Tooltip("Buffs:\n 0: Speed\n 2: Hitbox\n 4: Shield \n 5: ShootAround \n 7: Damage \n 9: Kill Enemies \n\n Debuffs: \n 1: Damage \n 3: Enemy Shields \n 6: Speed \n 8: Hitbox")] 
+    float buffTime;
+    [SerializeField] float debuffTime;
     [SerializeField] int[] increasedChanceBuffType;
     [SerializeField] List<NestedList<int>> valuableBuffs;
     [SerializeField] int[] decreasedChanceBuffType;
@@ -129,37 +131,39 @@ public class PowerUp : MonoBehaviour
 
     float SetBuff(int buffType)
     {
-        float buffTime = 5;
+        float buffTime = this.buffTime;
+        if (buffType == 1 || buffType == 3 || buffType == 6 || buffType == 8) 
+            buffTime = debuffTime;
 
         switch (buffType)
         {
             case 0:
-                movement.Buff(speedBuffValue, this.buffTime);
+                movement.Buff(speedBuffValue, buffTime);
                 break;
             case 1:
-                es.Buff(damageDebuffValue, this.buffTime);
+                es.Buff(damageDebuffValue, buffTime);
                 break;
             case 2:
-                hitbox.Buff(hitboxBuffValue, this.buffTime);
+                hitbox.Buff(hitboxBuffValue, buffTime);
                 break;
             case 3:
-                aiManager.MakeInvulnirable(3, this.buffTime);
+                aiManager.MakeInvulnirable(3, buffTime);
                 break;
             case 4:
-                playerHealth.MakeInvulnirable(this.buffTime);
+                playerHealth.MakeInvulnirable(buffTime);
                 break;
             case 5:
                 StartCoroutine(ShootInEveryDirection());
                 buffTime = bulletBuffTime;
                 break;
             case 6:
-                movement.Buff(speedDebuffValue, this.buffTime);
+                movement.Buff(speedDebuffValue, buffTime);
                 break;
             case 7:
-                es.Buff(damageBuffValue, this.buffTime);
+                es.Buff(damageBuffValue, buffTime);
                 break;
             case 8:
-                hitbox.Buff(hitboxDebuffValue, this.buffTime);
+                hitbox.Buff(hitboxDebuffValue, buffTime);
                 break;
             case 9:
                 StartCoroutine(KillEnemies());

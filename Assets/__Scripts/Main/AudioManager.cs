@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
     {
         src.pitch = pitchInSafeZone;
 
-        LevelStartCountDown.OnCountDownEnd.AddListener(NormalizePitch);
+        SafeZone.OnSafeZoneExit.AddListener(NormalizePitch);
     }
 
     void NormalizePitch()

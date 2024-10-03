@@ -18,7 +18,7 @@ public class DiceScript : MonoBehaviour
 
     bool diceStarted;
 
-    LevelStartCountDown safeZone;
+    SafeZone safeZone;
 
     public UnityAction OnStartRolling;
     public UnityAction OnHitZoneEnter;
@@ -33,7 +33,7 @@ public class DiceScript : MonoBehaviour
     {
         currentCD = diceCD;
 
-        LevelStartCountDown.OnCountDownEnd.AddListener(StartRolling);
+        SafeZone.OnSafeZoneExit.AddListener(StartRolling);
     }
 
     void Update()

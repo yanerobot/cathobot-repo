@@ -22,13 +22,13 @@ public class MouseCameraFollow : MonoBehaviour
 
         cam = Camera.main;
 
-        LevelStartCountDown.OnCountDownEnd.AddListener(StartCameraFollow);
+        SafeZone.OnSafeZoneExit.AddListener(StartCameraFollow);
     }
 
     void StartCameraFollow()
     {
         cmVcam.Follow = transform;
-        LevelStartCountDown.OnCountDownEnd.RemoveListener(StartCameraFollow);
+        SafeZone.OnSafeZoneExit.RemoveListener(StartCameraFollow);
     }
 
     void Update()

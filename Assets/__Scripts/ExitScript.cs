@@ -4,7 +4,7 @@ using TMPro;
 
 public class ExitScript : MonoBehaviour
 {
-    [SerializeField] BoxCollider2D coll;
+    [SerializeField] BoxCollider2D trigger;
     [SerializeField] SpriteRenderer sr;
     [SerializeField] GameObject arrow;
     [SerializeField] TextMeshProUGUI textObject;
@@ -50,7 +50,7 @@ public class ExitScript : MonoBehaviour
     void OpenExit()
     {
         textObject.gameObject.SetActive(false);
-        coll.isTrigger = true;
+        trigger.enabled = true;
         sr.color = Color.green;
         arrow.gameObject.SetActive(true);
     }

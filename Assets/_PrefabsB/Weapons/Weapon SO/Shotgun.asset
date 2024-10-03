@@ -15,7 +15,7 @@ MonoBehaviour:
   bulletPref: {fileID: 6871634380604022872, guid: 2b680265e0cd761449969d70a03da46b, type: 3}
   isAutomatic: 0
   delayBetweenShots: 0.4
-  damage: 40
+  damage: 55
   bulletSpeed: 30
   randomBulletSpread: 3
   magBullets: 12

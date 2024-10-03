@@ -22,7 +22,7 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
     [SerializeField] LayerMask bounceLayers;
     [SerializeField] float slowDownRate;
     
-    bool canDash = true;
+    bool canDash;
     bool gameStarted;
     bool isDashing;
     bool superDash;
@@ -47,8 +47,9 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
 
     void Start()
     {
-        LevelStartCountDown.OnCountDownEnd.AddListener(()=> {
+        SafeZone.OnSafeZoneExit.AddListener(()=> {
             gameStarted = true;
+            canDash = true;
         });
         allBuffs = new List<float>();
         allBuffs.Add(1);
@@ -58,9 +59,6 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
 
     void Update()
     {
-        if (Time.timeScale == 0 || !gameStarted)
-            return;
-
         if (UIBehaiv.LevelEnded)
         {
             movementInput *= 0;
@@ -83,7 +81,7 @@ public class TopDownMovement : MonoBehaviour, IStunnable, IIceBehaivior
             Dash();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (isDashing)
             return;

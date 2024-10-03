@@ -40,7 +40,7 @@ public class Ghost : MonoBehaviour
         var loadedData = PlayerPrefs.GetString(Prefs_Key, null);
         loaded = Serializer.TryDeserializeString(loadedData, out ghostDataHighScore); //Serializer.TryLoad(out ghostDataHighScore, FileName, ReplaysPath);
 
-        LevelStartCountDown.OnCountDownEnd.AddListener(StartGhost);
+        SafeZone.OnSafeZoneExit.AddListener(StartGhost);
     }
 
     void StartGhost()

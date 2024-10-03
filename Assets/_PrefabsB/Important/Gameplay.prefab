@@ -79,9 +79,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11ef8ebefa453244be7ff7a022f6163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshholdOuter: 7
-  threshholdInner: 0
-  actualPositionModifier: 0.4
+  threshHoldX: 0
+  threshHoldY: 0
+  actualPositionModifier: 0.2
   player: {fileID: 9028113152118775331}
   cmVcam: {fileID: 1958105157162933675}
 --- !u!1 &4695541461168032638
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35cd3ad901d47344bf208a72979eb11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 2
+  recordFrequency: 1
   health: {fileID: 9028113152118775330}
   mainTransform: {fileID: 9028113152118775331}
   gfxTransform: {fileID: 9028113152506513074}

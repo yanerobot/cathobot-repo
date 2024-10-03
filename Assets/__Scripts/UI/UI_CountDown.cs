@@ -8,7 +8,7 @@ public class UI_CountDown : MonoBehaviour
     [SerializeField] TextMeshProUGUI textMesh;
     void Start()
     {
-        LevelStartCountDown.OnSecondPassed.AddListener(ShowNumber);
+        //SafeZone.OnSecondPassed.AddListener(ShowNumber);
     }
 
     void ShowNumber(int number)

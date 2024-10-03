@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5090977844732172962}
   - component: {fileID: 5090977844732172963}
   - component: {fileID: 5090977844732172965}
-  - component: {fileID: 5982251454297910744}
+  - component: {fileID: 3630630180844352907}
   m_Layer: 9
   m_Name: SafeZone
   m_TagString: SafeZone
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5090977844732172961}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.6550999, y: -5.76, z: 0}
-  m_LocalScale: {x: 3.4484699, y: 0.41602913, z: 1}
+  m_LocalScale: {x: 3.4484699, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,7 +102,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10000
   m_Sprite: {fileID: 7482667652216324306, guid: 612755bee02f3d248a80c43fbba9c59c, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.9237678, a: 1}
+  m_Color: {r: 0.5518868, g: 1, b: 0.96661115, a: 0.6392157}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -112,7 +112,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5982251454297910744
+--- !u!114 &3630630180844352907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,6 +121,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5090977844732172961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a8233f7d0f1ea4b96fbec0b7e0c965, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bc5b7e7b9bd958488e73d4586f8cb7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

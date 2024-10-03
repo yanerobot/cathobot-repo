@@ -15,7 +15,7 @@ public class AIManager : MonoBehaviour
 
     void Start()
     {
-        LevelStartCountDown.OnCountDownEnd.AddListener(EnablePlayerFollow);
+        SafeZone.OnSafeZoneExit.AddListener(EnablePlayerFollow);
 
         if (debugDisableEnemies)
         {

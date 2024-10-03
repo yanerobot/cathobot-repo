@@ -16,7 +16,7 @@ public class TimerScript : MonoBehaviour
     {
         isStopped = true;
         sb = new StringBuilder();
-        LevelStartCountDown.OnCountDownEnd.AddListener(StartTimer);
+        SafeZone.OnSafeZoneExit.AddListener(StartTimer);
 
         currentSeconds = 0;
         timerText.text = "00:00:000";

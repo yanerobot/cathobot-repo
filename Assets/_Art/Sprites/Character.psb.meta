@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -47,6 +49,7 @@ ScriptedImporter:
     flipbookRows: 0
     flipbookColumns: 0
     ignorePngGamma: 0
+    cookieMode: 0
     filterMode: 0
     aniso: 1
     mipBias: 0
@@ -87,8 +90,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
   - name: Hand Right
@@ -163,8 +166,8 @@ ScriptedImporter:
     - {x: 1, y: 2}
     - {x: 2, y: 3}
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -5, y: 24}
+    uvTransform: {x: 4, y: 30}
+    spritePosition: {x: 9, y: 6}
   - name: Body
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -922,8 +925,8 @@ ScriptedImporter:
     - {x: 34, y: 65}
     - {x: 43, y: 44}
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -6, y: 2}
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 10, y: 2}
   - name: Hand Left
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -1005,8 +1008,8 @@ ScriptedImporter:
     - {x: 1, y: 2}
     - {x: 2, y: 3}
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -14, y: 40}
+    uvTransform: {x: 4, y: 46}
+    spritePosition: {x: 18, y: 6}
   characterData:
     bones:
     - name: bone_1
@@ -1057,6 +1060,7 @@ ScriptedImporter:
       order: 0
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   sharedRigSpriteImportData: []
   sharedRigCharacterData:
@@ -1064,10 +1068,12 @@ ScriptedImporter:
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1079,6 +1085,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: Standalone
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1090,6 +1097,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: Server
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1101,6 +1109,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: WebGL
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1120,6 +1129,10 @@ ScriptedImporter:
   paperDollMode: 0
   keepDupilcateSpriteName: 1
   skeletonAssetReferenceID: 
+  pipeline: {instanceID: 0}
+  pipelineVersion: 
+  padding: 4
+  spriteSizeExpand: 0
   spriteCategoryList:
     categories: []
   spritePackingTag: 
@@ -1158,6 +1171,9 @@ ScriptedImporter:
     isVisible: 1
   sharedRigPSDLayers: []
   pSDLayerImportSetting: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
   generateGOHierarchy: 0
   textureAssetName: 
   prefabAssetName: 

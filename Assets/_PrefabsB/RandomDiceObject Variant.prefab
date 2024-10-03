@@ -149,7 +149,7 @@ MonoBehaviour:
   initialDiceDelay: 0
   diceCD: 3
   diceStartZone: 2
-  diceHitZone: 1.5
+  diceHitZone: 3
 --- !u!114 &1857435761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffTime: 5
   increasedChanceBuffType: 
-  setExactBuffType: 
   valuableBuffs: []
   decreasedChanceBuffType: 09000000
   speedBuffValue: 1.6
